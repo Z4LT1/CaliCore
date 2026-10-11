@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CaliCore: progresiones de calistenia ordenadas por nivel y registro de tus entrenamientos.">
+  <title>CaliCore | Progresiones de calistenia</title>
+
+  <!-- Favicon incrustado como SVG en la propia URL: no necesita un archivo aparte. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%231E2B34'/%3E%3Cpath d='M12 46h14V34h14V22h14' fill='none' stroke='%23F2B81C' stroke-width='7'/%3E%3C/svg%3E">
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- type="module" permite usar import/export entre archivos JS. Los módulos se cargan en diferido
+       (después de leer el HTML), así que no hace falta "defer". Requiere servir la página por HTTP
+       (Live Server), no abrirla con doble clic (file://). -->
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <a class="brand" href="#inicio">CaliCore</a>
+
+    <nav aria-label="Navegación principal">
+      <ul>
+        <li><a href="#ejercicios">Progresiones</a></li>
+        <li><a href="#progreso">Mi progreso</a></li>
+      </ul>
+    </nav>
+
+    <!-- Zona de sesión: main.js muestra u oculta estos elementos con el atributo "hidden". -->
+    <div class="session">
+      <span id="user-label" class="user-label" hidden></span>
+      <button id="btn-open-auth" class="btn" type="button">Ingresar</button>
+      <button id="btn-logout" class="btn btn-ghost" type="button" hidden>Salir</button>
+    </div>
+  </header>
+
+  <main id="contenido">
+
+    <!-- ===================== INICIO ===================== -->
+    <section id="inicio" class="hero">
+      <div class="hero-copy">
+        <h1>Un peldaño a la vez, hasta el planche</h1>
+        <p>CaliCore ordena cada habilidad de calistenia en una progresión por niveles y te deja registrar lo que entrenas.</p>
+        <a class="btn btn-primary" href="#ejercicios">Ver progresiones</a>
+      </div>
+
+      <!-- Escalera decorativa con la progresión del planche. Es contenido fijo: se ve aunque el backend esté apagado. -->
+      <ol class="ladder-demo" aria-label="Ejemplo: progresión hacia el planche">
+        <li>Frog stand</li>
+        <li>Tuck planche</li>
+        <li>Advanced tuck planche</li>
+        <li>Straddle planche</li>
+        <li>Full planche</li>
+      </ol>
+    </section>
+
+    <!-- ===================== CATÁLOGO ===================== -->
+    <section id="ejercicios" class="section">
+      <h2>Progresiones</h2>
+      <p class="section-lead">Cada cadena va del ejercicio más accesible al más exigente. Domina un peldaño antes de pasar al siguiente.</p>
+
+      <!-- Los filtros llaman a la API (?category=...&level=...&search=...) cada vez que cambian. -->
+      <form id="filters" class="filters" role="search" aria-label="Filtrar ejercicios">
+        <label>Tipo
+          <select name="category">
+            <option value="">Todos</option>
+            <option value="push">Empuje (Push)</option>
+            <option value="pull">Tracción (Pull)</option>
+            <option value="legs">Piernas (Legs)</option>
+            <option value="core">Core</option>
+            <option value="skills">Habilidades (Skills)</option>
+          </select>
+        </label>
+        <label>Nivel
+          <select name="level">
+            <option value="">Todos</option>
+            <option value="beginner">Principiante</option>
+            <option value="intermediate">Intermedio</option>
+            <option value="advanced">Avanzado</option>
+          </select>
+        </label>
+        <label>Buscar
+          <input type="search" name="search" placeholder="Ej. dominada" autocomplete="off">
+        </label>
+      </form>
+
+      <!-- role="status": los lectores de pantalla anuncian los cambios de este texto (cargando, errores). -->
+      <p id="catalog-status" class="status" role="status"></p>
+      <div id="catalog"></div>
+    </section>
+
+    <!-- ===================== MI PROGRESO ===================== -->
+    <section id="progreso" class="section">
+      <h2>Mi progreso</h2>
+
+      <!-- Se muestra cuando NO hay sesión -->
+      <div id="progress-locked" class="notice">
+        <p>Ingresa para registrar tus entrenamientos y ver tu avance.</p>
+        <button class="btn btn-primary" type="button" data-open-auth>Ingresar o crear cuenta</button>
+      </div>
+
+      <!-- Se muestra cuando SÍ hay sesión -->
+      <div id="progress-panel" hidden>
+
+        <dl id="summary" class="summary">
+          <div><dt>Registros</dt><dd id="stat-logs">0</dd></div>
+          <div><dt>Series totales</dt><dd id="stat-sets">0</dd></div>
+          <div><dt>Ejercicios distintos</dt><dd id="stat-exercises">0</dd></div>
+          <div><dt>Últimos 7 días</dt><dd id="stat-week">0</dd></div>
+        </dl>
+
+        <div class="progress-grid">
+          <form id="workout-form" class="panel">
+            <h3>Registrar entrenamiento</h3>
+
+            <label>Ejercicio
+              <select name="exercise" id="workout-exercise" required></select>
+            </label>
+            <label>Fecha
+              <input type="date" name="performed_on" id="workout-date" required>
+            </label>
+            <div class="field-row">
+              <label>Series
+                <input type="number" name="sets" min="1" max="50" value="3" required>
+              </label>
+              <label>Repeticiones
+                <input type="number" name="reps" min="1" max="1000" inputmode="numeric">
+              </label>
+              <label>Segundos
+                <input type="number" name="seconds" min="1" max="3600" inputmode="numeric">
+              </label>
+            </div>
+            <p class="hint">Completa repeticiones o segundos, según cómo se mida el ejercicio.</p>
+            <label>Notas (opcional)
+              <input type="text" name="notes" maxlength="300">
+            </label>
+
+            <p class="form-error" id="workout-error" role="alert"></p>
+            <button class="btn btn-primary" type="submit">Guardar registro</button>
+          </form>
+
+          <div class="panel">
+            <h3>Historial</h3>
+            <p id="workout-status" class="status" role="status"></p>
+            <ul id="workout-list" class="log-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== DIÁLOGO DE LOGIN / REGISTRO ===================== -->
+  <!-- <dialog> es el modal nativo de HTML: showModal() lo abre, Esc lo cierra, y bloquea el resto de la página. -->
+  <dialog id="auth-dialog" aria-labelledby="auth-title">
+    <div class="dialog-head">
+      <h2 id="auth-title">Ingresar</h2>
+      <button type="button" id="btn-close-auth" class="btn btn-ghost">Cerrar</button>
+    </div>
+
+    <form id="login-form">
+      <label>Usuario
+        <input type="text" name="username" autocomplete="username" required>
+      </label>
+      <label>Contraseña
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <p class="form-error" role="alert"></p>
+      <button class="btn btn-primary" type="submit">Ingresar</button>
+    </form>
+
+    <form id="register-form" hidden>
+      <label>Usuario
+        <input type="text" name="username" autocomplete="username" maxlength="150" required>
+      </label>
+      <label>Correo (opcional)
+        <input type="email" name="email" autocomplete="email">
+      </label>
+      <label>Contraseña
+        <input type="password" name="password" autocomplete="new-password" minlength="8" required>
+      </label>
+      <p class="hint">Mínimo 8 caracteres. No uses claves comunes ni solo números.</p>
+      <p class="form-error" role="alert"></p>
+      <button class="btn btn-primary" type="submit">Crear cuenta</button>
+    </form>
+
+    <p class="dialog-switch">
+      <button type="button" id="btn-switch-auth" class="link-button">¿No tienes cuenta? Crear una</button>
+    </p>
+  </dialog>
+
+  <footer class="site-footer">
+    <p>CaliCore es un proyecto de portafolio. Código en <a href="https://github.com/Z4LT1">github.com/Z4LT1</a>.</p>
+  </footer>
+
+</body>
+</html>

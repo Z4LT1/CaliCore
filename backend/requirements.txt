@@ -1,0 +1,17 @@
+# Dependencias del backend de CaliCore.
+# Instalar con:  pip install -r requirements.txt
+
+# Framework web. Fijamos la rama 5.2 porque es LTS (soporte de seguridad hasta abril de 2028).
+Django>=5.2,<5.3
+
+# Convierte modelos de Django en una API REST (serializers, viewsets, autenticación por token).
+djangorestframework>=3.15
+
+# Permite que el frontend (otro origen: localhost:5500) llame a la API (localhost:8000). Es el "CORS".
+django-cors-headers>=4.4
+
+# Lee las variables del archivo .env (SECRET_KEY, DEBUG, etc.) para no escribirlas en el código.
+python-dotenv>=1.0
+
+# Descomenta esta línea cuando pases de SQLite a PostgreSQL (fase 2):
+# psycopg[binary]>=3.2
