@@ -1,0 +1,22 @@
+/* Formularios: etiquetas, campos y mensajes. Compartidos por filtros, "Mi progreso" y el diálogo. */
+
+label { display: block; font-size: 0.9rem; font-weight: 600; }
+input, select {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.55rem 0.65rem;
+  font: inherit;
+  color: var(--steel);
+  background: #fff;
+  border: 2px solid var(--steel-soft);
+  border-radius: 2px;
+}
+
+.field-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+.hint { font-size: 0.85rem; color: var(--steel-soft); margin-top: -0.3rem; }
+.form-error { color: var(--rust); font-weight: 600; min-height: 1.4em; margin-bottom: 0.5rem; }
+
+@media (max-width: 760px) {
+  .field-row { grid-template-columns: 1fr; }
+}

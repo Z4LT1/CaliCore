@@ -1,21 +1,10 @@
 /**
- * Catálogo de ejercicios: pide los datos a la API y dibuja las progresiones.
+ * Vista del catálogo: recibe la lista de ejercicios y dibuja las cadenas de progresión.
+ * Es "pura": no hace peticiones ni escucha eventos; solo convierte datos en nodos del DOM.
  */
-import { request } from "./api.js";
-import { el } from "./dom.js";
+import { el } from "../../core/dom.js";
 
 const LEVEL_NUMBER = { beginner: 1, intermediate: 2, advanced: 3 };
-
-/** Pide ejercicios a la API. `filters` puede tener category, level y search. */
-export function fetchExercises(filters = {}) {
-  const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(filters)) {
-    if (value) params.set(key, value); // ignora filtros vacíos
-  }
-  const query = params.toString();
-  // auth: false -> el catálogo es público, no hace falta enviar el token.
-  return request(`/exercises/${query ? `?${query}` : ""}`, { auth: false });
-}
 
 /** Tres barritas, rellenas según el nivel, más el nombre del nivel como texto. */
 function levelIndicator(exercise) {

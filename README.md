@@ -38,7 +38,7 @@ Son **dos aplicaciones separadas** que solo se comunican por HTTP. Eso es lo que
 
 ### Qué pasa cuando usas la página
 
-1. **Cargas la página.** `main.js` pide `GET /api/exercises/` (público). Django consulta la base de datos, convierte cada ejercicio a JSON y responde. El frontend agrupa los ejercicios por progresión y dibuja las escaleras.
+1. **Cargas la página.** `features/catalog` pide `GET /api/exercises/` (público). Django consulta la base de datos, convierte cada ejercicio a JSON y responde. El frontend agrupa los ejercicios por progresión y dibuja las escaleras.
 2. **Te registras o ingresas.** El frontend envía usuario y contraseña a `/api/auth/register/` o `/api/auth/login/`. Django valida, y responde con un **token** (una cadena larga y aleatoria). El frontend lo guarda en `localStorage`.
 3. **Guardas un entrenamiento.** El frontend hace `POST /api/workouts/` enviando el token en la cabecera `Authorization: Token <token>`. Django busca a qué usuario pertenece ese token, valida los datos y guarda el registro a nombre de ese usuario.
 4. **Ves tu historial.** `GET /api/workouts/` devuelve solo los registros del usuario del token. Nunca los de otros.
@@ -103,16 +103,18 @@ CaliCore/
 └── frontend/                    ← lo que ve el usuario (HTML, CSS, JS)
     ├── index.html
     ├── css/
-    │   └── styles.css
+    │   ├── main.css             ← solo importa las demás hojas, en orden
+    │   ├── base/                tokens.css, base.css, layout.css
+    │   ├── components/          buttons.css, forms.css, panel.css, dialog.css
+    │   └── sections/            header.css, hero.css, catalog.css, progress.css, footer.css
     ├── js/
-    │   ├── config.js
-    │   ├── session.js
-    │   ├── api.js
-    │   ├── dom.js
-    │   ├── auth.js
-    │   ├── exercises.js
-    │   ├── workouts.js
-    │   └── main.js
+    │   ├── main.js              ← punto de entrada: solo llama a init de cada feature
+    │   ├── core/                config.js, api.js, session.js, dom.js, events.js
+    │   └── features/
+    │       ├── auth/            auth.api.js, auth.view.js, index.js
+    │       ├── catalog/         catalog.api.js, catalog.view.js, index.js
+    │       └── progress/        workouts.api.js, summary.view.js, workout-form.view.js,
+    │                            history.view.js, index.js
     └── assets/img/.gitkeep
 ```
 
@@ -188,15 +190,22 @@ No define modelos propios: usa el modelo de usuario que trae Django.
 | Archivo | Para qué sirve |
 |---|---|
 | `index.html` | La página completa: cabecera, hero, catálogo con filtros, panel "Mi progreso", diálogo de login y registro (`<dialog>`) y pie. Es HTML semántico: `header`, `nav`, `main`, `section`, `form`, `dialog`, `footer`. |
-| `css/styles.css` | Todos los estilos, divididos en 9 secciones numeradas. Usa variables CSS, Flexbox y Grid, y una media query para móvil. |
-| `js/config.js` | La URL del backend (`API_URL`) y los nombres de las claves de `localStorage`. Es lo único que cambias al desplegar. |
-| `js/session.js` | Guarda, lee y borra el token y el nombre de usuario. Emite el evento `session:changed` cuando la sesión cambia. |
-| `js/api.js` | La función `request()`, por la que pasan todas las llamadas al backend: pone la URL base, el token y el JSON, y convierte los errores de la API en mensajes legibles. Si recibe un 401 con un token guardado, cierra la sesión local. |
-| `js/dom.js` | La función `el()` para crear elementos del DOM usando `textContent`. Es la defensa contra XSS: nunca se usa `innerHTML` con datos del servidor. |
-| `js/auth.js` | `login`, `register` y `logout`. |
-| `js/exercises.js` | Pide el catálogo con filtros y lo dibuja agrupado en cadenas de progresión (escaleras) y ejercicios sueltos. |
-| `js/workouts.js` | Pide, crea y borra registros, rellena el selector de ejercicios y dibuja el historial y las estadísticas. |
-| `js/main.js` | El punto de entrada: conecta los formularios y botones del HTML con los demás módulos, y muestra u oculta partes de la página según haya sesión. |
+| `css/main.css` | Punto de entrada de los estilos. No tiene reglas: importa las demás hojas en orden (lo que viene después puede sobrescribir a lo anterior). |
+| `css/base/tokens.css` | Variables CSS: colores, tipografías y ancho del contenido. Cambiar la paleta es editar solo este archivo. |
+| `css/base/base.css` | Reset, tipografía general, foco visible para teclado y el enlace "Saltar al contenido". |
+| `css/base/layout.css` | Estructura común de las secciones (ancho máximo, márgenes) y los textos de estado. |
+| `css/components/*.css` | Piezas reutilizadas en varias secciones: botones, campos de formulario, paneles y el diálogo. |
+| `css/sections/*.css` | Una hoja por sección de la página (cabecera, héroe, catálogo, progreso, pie), cada una con su propio responsive. |
+| `js/main.js` | El punto de entrada. Solo llama a `initAuth()`, `initProgress()` e `initCatalog()`. |
+| `js/core/config.js` | La URL del backend (`API_URL`) y los nombres de las claves de `localStorage`. Es lo único que cambias al desplegar. |
+| `js/core/session.js` | Guarda, lee y borra el token y el nombre de usuario (`isLoggedIn()`, `setSession()`, `clearSession()`). Emite `EVENTS.SESSION_CHANGED` cuando la sesión cambia. |
+| `js/core/api.js` | La función `request()`, por la que pasan todas las llamadas al backend: pone la URL base, el token y el JSON, y convierte los errores de la API en mensajes legibles (`errorMessage()`). Si recibe un 401 con un token guardado, cierra la sesión local. |
+| `js/core/dom.js` | La función `el()` para crear elementos usando `textContent` (defensa contra XSS: nunca `innerHTML` con datos del servidor) y el atajo `$()`. |
+| `js/core/events.js` | El bus de eventos: los nombres (`EVENTS`) y las funciones `emit()` y `on()`. Es la única forma en que las features se comunican entre sí. |
+| `js/features/*/` | Una carpeta por parte de la página. Cada una tiene la misma forma: `*.api.js` (peticiones, sin DOM), `*.view.js` (datos → nodos del DOM, sin peticiones ni listeners) e `index.js` (une ambas capas, escucha eventos y exporta `init<Feature>()`). |
+| `js/features/auth/` | Cabecera de sesión y diálogo de ingreso y registro. |
+| `js/features/catalog/` | Catálogo, filtros y escaleras de progresión. Al cargar emite `EVENTS.CATALOG_LOADED`. |
+| `js/features/progress/` | "Mi progreso": resumen, formulario de nuevo registro e historial. Escucha `CATALOG_LOADED` para rellenar el selector de ejercicios. |
 | `assets/img/.gitkeep` | Archivo vacío. Git no guarda carpetas vacías; este archivo hace que `assets/img/` exista en el repositorio. |
 
 ---

@@ -1,0 +1,9 @@
+# Finales de línea: el repositorio guarda siempre LF (estilo Linux), aunque se edite en Windows.
+# Evita diffs falsos por CRLF/LF y que los scripts fallen al desplegar en un servidor Linux.
+* text=auto eol=lf
+
+# Archivos binarios: Git no debe intentar convertirlos ni mostrarlos como texto.
+*.woff2 binary
+*.png   binary
+*.jpg   binary
+*.sqlite3 binary

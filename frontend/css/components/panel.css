@@ -1,0 +1,7 @@
+/* Superficies con borde: .panel (tarjetas de contenido) y .notice (avisos). */
+
+.notice { background: var(--chalk); border: 2px solid var(--steel); padding: 1.5rem; margin-top: 1rem; }
+
+.panel { background: var(--chalk); border: 2px solid var(--steel); padding: 1.25rem; }
+.panel h3 { font-size: 1.4rem; }
+.panel label { margin-bottom: 0.9rem; }

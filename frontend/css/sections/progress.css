@@ -1,0 +1,26 @@
+/* Mi progreso: cifras del resumen, cuadrícula de dos columnas e historial. */
+
+.summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0; }
+.summary > div { background: var(--steel); color: var(--chalk); padding: 1rem; }
+.summary dt { font-size: 0.9rem; color: #C8D0D6; }
+.summary dd { margin: 0; font-family: var(--font-display); font-size: 2.4rem; line-height: 1.1; color: var(--safety); }
+
+.progress-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem; align-items: start; }
+
+.log-list { list-style: none; margin: 0; padding: 0; }
+.log-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.log-item:last-child { border-bottom: 0; }
+.log-item strong { font-family: var(--font-display); font-size: 1.15rem; }
+.log-detail { display: block; color: var(--steel-soft); font-size: 0.92rem; }
+.btn-delete { font-size: 0.9rem; padding: 0.25rem 0.6rem; color: var(--rust); align-self: flex-start; }
+
+@media (max-width: 760px) {
+  .summary { grid-template-columns: repeat(2, 1fr); }
+  .progress-grid { grid-template-columns: 1fr; }
+}

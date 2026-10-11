@@ -1,0 +1,14 @@
+/* Diálogo modal (<dialog>) de ingreso y registro. */
+
+dialog {
+  width: min(26rem, calc(100% - 2rem));
+  padding: 1.25rem;
+  background: var(--chalk);
+  color: var(--steel);
+  border: 3px solid var(--steel);
+}
+dialog::backdrop { background: rgba(30, 43, 52, 0.75); }
+.dialog-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.dialog-head h2 { margin: 0; font-size: 1.8rem; }
+dialog form label { margin-bottom: 0.9rem; }
+.dialog-switch { margin: 1rem 0 0; }

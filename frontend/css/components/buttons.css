@@ -1,0 +1,34 @@
+/* Botones: .btn (base), .btn-primary (acción principal), .btn-ghost (secundario) y .link-button. */
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn:hover { background: rgba(127, 127, 127, 0.15); }
+
+.btn-primary {
+  background: var(--rubber);
+  border-color: var(--rubber);
+  color: #fff;
+}
+.btn-primary:hover { background: #0A5755; }
+
+.btn-ghost { border-color: transparent; text-decoration: underline; }
+
+.link-button {
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--rubber);
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,0 +1,12 @@
+/* Estructura compartida por las secciones: ancho máximo, márgenes y textos de estado. */
+
+.section {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 3rem clamp(1rem, 4vw, 2.5rem);
+  border-top: 3px solid var(--steel);
+}
+.section h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.section-lead { color: var(--steel-soft); font-size: 1.05rem; }
+
+.status { min-height: 1.5em; color: var(--steel-soft); }

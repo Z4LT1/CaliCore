@@ -1,9 +1,9 @@
 /**
  * Funciones de autenticación: registrarse, iniciar sesión y cerrar sesión.
- * Hablan con la API (api.js) y guardan/limpian la sesión (session.js).
+ * Hablan con la API (core/api.js) y guardan/limpian la sesión (core/session.js). No tocan el DOM.
  */
-import { request } from "./api.js";
-import { clearSession, setSession } from "./session.js";
+import { request } from "../../core/api.js";
+import { clearSession, setSession } from "../../core/session.js";
 
 export async function login(username, password) {
   const data = await request("/auth/login/", { method: "POST", body: { username, password }, auth: false });

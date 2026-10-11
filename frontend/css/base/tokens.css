@@ -1,0 +1,18 @@
+/* Tokens de diseño: colores, tipografías y medidas. Cambiar la paleta = editar solo este archivo.
+   Se usan en todo el CSS con var(--nombre). */
+
+:root {
+  --concrete: #E5E8EA;     /* fondo de la página */
+  --chalk: #F7F8F8;        /* superficies elevadas (paneles, diálogo) */
+  --steel: #1E2B34;        /* texto principal, cabecera, bordes fuertes */
+  --steel-soft: #4A5A66;   /* texto secundario */
+  --line: #B7C0C6;         /* líneas y bordes suaves */
+  --rubber: #0E6B68;       /* acción principal, enlaces */
+  --safety: #F2B81C;       /* amarillo de seguridad: acentos y foco */
+  --rust: #B3412B;         /* errores */
+
+  /* Display: tipografía condensada tipo señalética (Bahnschrift viene con Windows 10+). */
+  --font-display: "Bahnschrift", "DIN Alternate", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --content-width: 72rem;
+}

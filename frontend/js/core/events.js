@@ -1,0 +1,25 @@
+/**
+ * Bus de eventos de la aplicación.
+ *
+ * Las features (auth, catalog, progress) NO se importan entre sí: se comunican emitiendo y escuchando
+ * eventos. Así cada una se puede cambiar, o incluso borrar, sin romper a las demás (bajo acoplamiento).
+ *
+ * Los nombres viven aquí, en un solo lugar: el editor los autocompleta, buscarlos muestra quién emite
+ * y quién escucha cada evento, y renombrar uno es cambiar una sola línea.
+ */
+export const EVENTS = Object.freeze({
+  // La sesión empezó o terminó (login, registro, logout o token vencido). Sin datos.
+  SESSION_CHANGED: "session:changed",
+  // El catálogo completo llegó del servidor. detail = lista de ejercicios.
+  CATALOG_LOADED: "catalog:loaded",
+});
+
+/** Emite un evento global. `detail` es el dato que acompaña al evento (opcional). */
+export function emit(name, detail) {
+  window.dispatchEvent(new CustomEvent(name, { detail }));
+}
+
+/** Escucha un evento global. El callback recibe directamente el `detail`. */
+export function on(name, callback) {
+  window.addEventListener(name, (event) => callback(event.detail));
+}

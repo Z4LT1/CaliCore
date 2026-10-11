@@ -68,3 +68,8 @@ export async function request(path, { method = "GET", body, auth = true } = {}) 
   }
   return data;
 }
+
+/** Texto amigable para mostrar cualquier error: el mensaje de la API o uno genérico si fue otra cosa. */
+export function errorMessage(error) {
+  return error instanceof ApiError ? error.message : "Ocurrió un error inesperado.";
+}

@@ -1,0 +1,50 @@
+/* Reset y estilos base: tipografía general, foco visible, enlace "saltar al contenido". */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: 5rem; } /* al saltar a un #ancla, deja espacio para la cabecera fija */
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  line-height: 1.55;
+  color: var(--steel);
+  background: var(--concrete);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+}
+
+p { margin: 0 0 1em; max-width: 62ch; }
+
+a { color: var(--rubber); }
+
+/* El atributo hidden debe ganar siempre, incluso si una clase define display. */
+[hidden] { display: none !important; }
+
+/* Foco visible para quien navega con teclado: doble anillo (acero + amarillo) visible sobre fondos claros y oscuros. */
+:focus-visible {
+  outline: 3px solid var(--steel);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--safety);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--safety);
+  color: var(--steel);
+  padding: 0.5rem 1rem;
+  z-index: 20;
+}
+.skip-link:focus { top: 0.5rem; }

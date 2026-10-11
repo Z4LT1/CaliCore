@@ -1,0 +1,35 @@
+/* Cabecera fija: marca, navegación y zona de sesión. */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 2rem;
+  padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+  background: var(--steel);
+  color: var(--chalk);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--safety);
+  text-decoration: none;
+}
+
+.site-header nav { flex: 1; }
+.site-header nav ul { display: flex; gap: 1.5rem; list-style: none; margin: 0; padding: 0; }
+.site-header nav a { color: var(--chalk); text-decoration: none; padding: 0.25rem 0; }
+.site-header nav a:hover { text-decoration: underline; text-decoration-color: var(--safety); text-underline-offset: 6px; }
+
+.session { display: flex; align-items: center; gap: 0.75rem; }
+.user-label { font-weight: 600; }
+
+@media (max-width: 760px) {
+  .session { margin-left: auto; }
+  .site-header nav { order: 3; flex-basis: 100%; }
+}

@@ -1,0 +1,30 @@
+/* ==========================================================================
+   CaliCore: hoja de estilos principal
+   Este archivo no tiene reglas propias: solo importa las piezas en orden.
+   El orden importa: lo que viene después puede sobrescribir a lo anterior.
+
+     base/        tokens (variables), reset y estructura general
+     components/  piezas reutilizables en varias secciones
+     sections/    una hoja por sección de la página (cada una con su responsive)
+
+   Para cambiar algo, busca primero la sección; si el estilo se repite en
+   varias, está en components/. Los colores solo se definen en tokens.css.
+
+   Nota: @import descarga los archivos uno tras otro. En desarrollo no se nota;
+   al desplegar, un empaquetador (Vite, fase 3) los une en un solo archivo.
+   ========================================================================== */
+
+@import url("base/tokens.css");
+@import url("base/base.css");
+@import url("base/layout.css");
+
+@import url("components/buttons.css");
+@import url("components/forms.css");
+@import url("components/panel.css");
+@import url("components/dialog.css");
+
+@import url("sections/header.css");
+@import url("sections/hero.css");
+@import url("sections/catalog.css");
+@import url("sections/progress.css");
+@import url("sections/footer.css");
