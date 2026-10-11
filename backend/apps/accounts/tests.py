@@ -53,6 +53,17 @@ class AuthTests(APITestCase):
     def test_me_requires_authentication(self):
         self.assertEqual(self.client.get("/api/auth/me/").status_code, 401)
 
+    def test_me_returns_profile_data_without_sensitive_fields(self):
+        token = self.client.post(
+            "/api/auth/register/", {"username": "ana", "email": "ana@example.com", "password": "Clave-segura-123"}, format="json"
+        ).data["token"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {token}")
+        data = self.client.get("/api/auth/me/").data
+        self.assertEqual(data["username"], "ana")
+        self.assertEqual(data["email"], "ana@example.com")
+        self.assertIn("date_joined", data)
+        self.assertNotIn("password", data)  # nunca se expone, ni siquiera el hash
+
     def test_logout_invalidates_token(self):
         token = self.client.post(
             "/api/auth/register/", {"username": "ana", "password": "Clave-segura-123"}, format="json"

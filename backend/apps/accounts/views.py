@@ -61,4 +61,9 @@ class MeView(APIView):
     """GET /api/auth/me/  ->  datos básicos del usuario autenticado."""
 
     def get(self, request):
-        return Response({"username": request.user.username, "email": request.user.email})
+        user = request.user
+        return Response({
+            "username": user.username,
+            "email": user.email,
+            "date_joined": user.date_joined.date(),  # solo la fecha: la hora exacta no aporta en el perfil
+        })
