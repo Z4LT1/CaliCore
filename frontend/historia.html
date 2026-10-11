@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Historia de la calistenia: de los gimnasios de la antigua Grecia a los parques de street workout.">
   <title>Historia | CaliCore</title>
   <meta name="color-scheme" content="light dark">
   <!-- Aplica el tema elegido ANTES de dibujar, para evitar un destello claro en modo oscuro (ver js/ui/theme.js) -->
@@ -10,15 +11,140 @@
     try { const t = localStorage.getItem("calicore_theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
   </script>
   <link rel="stylesheet" href="css/main.css">
-  <!-- main.js dibuja la cabecera, el diálogo de acceso y el pie (ver js/ui/layout.js) -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/historia.js"></script>
 </head>
 <!-- data-page indica qué página es: el menú lo usa para marcar el enlace activo -->
 <body data-page="historia">
-  <main id="contenido">
-    <section class="section">
-      <h1>Historia</h1>
-      <p class="section-lead">Contenido pendiente.</p>
+  <main id="contenido" class="history">
+
+    <!-- ===================== PORTADA ===================== -->
+    <section class="section history-hero">
+      <p class="kicker">Historia</p>
+      <h1>Veinticinco siglos entrenando con el propio cuerpo</h1>
+      <p class="section-lead">La calistenia no nació en un gimnasio moderno ni en un parque. Es una de las formas más antiguas de entrenar, y su historia cruza la Grecia clásica, las plazas de Berlín, las escuelas de Estados Unidos y las barras de cualquier ciudad de hoy.</p>
+
+      <!-- La palabra: un pequeño juego que une las dos raíces griegas (js/features/history/index.js) -->
+      <div class="word-game" aria-labelledby="word-title">
+        <h2 id="word-title" class="sr-only">El origen de la palabra</h2>
+        <div class="word-parts">
+          <span class="word-root"><b lang="grc">κάλλος</b><i>kállos</i><small>belleza</small></span>
+          <span class="word-plus" aria-hidden="true">+</span>
+          <span class="word-root"><b lang="grc">σθένος</b><i>sthénos</i><small>fuerza</small></span>
+        </div>
+        <button id="word-join" class="btn btn-primary" type="button" aria-controls="word-result" aria-expanded="false">Unir las palabras</button>
+        <p id="word-result" class="word-result" hidden>
+          <span class="word-final">calistenia</span>
+          <span>Entrenar para un cuerpo <b>bello y fuerte</b>, usando solo su propio peso.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== LÍNEA DE TIEMPO ===================== -->
+    <div class="history-layout section">
+      <!-- Riel lateral: se llena al leer y marca la era actual. Sus enlaces saltan a cada capítulo. -->
+      <nav class="era-rail" aria-label="Eras de la historia">
+        <div class="rail-progress" aria-hidden="true"><span id="rail-fill"></span></div>
+        <ol>
+          <li><a href="#grecia" data-era="grecia">Antigua Grecia</a></li>
+          <li><a href="#jahn" data-era="jahn">1811 · Berlín</a></li>
+          <li><a href="#ling" data-era="ling">1813 · Estocolmo</a></li>
+          <li><a href="#escuelas" data-era="escuelas">Siglo XIX · Escuelas</a></li>
+          <li><a href="#olimpicos" data-era="olimpicos">1896 · Atenas</a></li>
+          <li><a href="#siglo-xx" data-era="siglo-xx">Siglo XX</a></li>
+          <li><a href="#calle" data-era="calle">Hoy · La calle</a></li>
+        </ol>
+      </nav>
+
+      <div class="chapters">
+        <article id="grecia" class="chapter reveal" data-era="grecia">
+          <p class="chapter-year">s. V a. C.</p>
+          <h2>El gimnasio griego</h2>
+          <p>En la Grecia clásica, entrenar el cuerpo era parte de la educación de un ciudadano, igual que la música o la filosofía. Los jóvenes corrían, saltaban, luchaban y hacían ejercicios con su propio peso en el <em>gymnásion</em>, un espacio abierto que también era lugar de conversación y estudio.</p>
+          <p>Allí nace la idea que todavía sostiene a la calistenia: un cuerpo trabajado con armonía es a la vez bello y fuerte.</p>
+          <details class="fact">
+            <summary>¿Sabías que?</summary>
+            <p><em>Gymnós</em> significa "desnudo" en griego: en el gimnasio se entrenaba sin ropa. De esa palabra vienen "gimnasio" y "gimnasia".</p>
+          </details>
+        </article>
+
+        <article id="jahn" class="chapter reveal" data-era="jahn">
+          <p class="chapter-year">1811</p>
+          <h2>Berlín y los primeros aparatos</h2>
+          <p>Friedrich Ludwig Jahn abrió en las afueras de Berlín, en el parque Hasenheide, un espacio de gimnasia al aire libre. Su movimiento, el <em>Turnen</em>, buscaba formar jóvenes fuertes y disciplinados.</p>
+          <p>A Jahn se le atribuye haber popularizado la <b>barra fija</b> y las <b>paralelas</b>: los mismos aparatos que hoy encuentras en cualquier parque de calistenia.</p>
+          <details class="fact">
+            <summary>¿Sabías que?</summary>
+            <p>En Alemania se le recuerda como el "padre de la gimnasia" (<em>Turnvater Jahn</em>).</p>
+          </details>
+        </article>
+
+        <article id="ling" class="chapter reveal" data-era="ling">
+          <p class="chapter-year">1813</p>
+          <h2>La gimnasia sueca</h2>
+          <p>Casi al mismo tiempo, en Estocolmo, Per Henrik Ling fundó un instituto de gimnasia con una mirada distinta: menos aparatos y más movimientos libres, precisos y pensados para la salud.</p>
+          <p>Su "gimnasia sueca" se extendió por escuelas y hospitales de Europa, y dejó una idea muy actual: entrenar con control y con un propósito para cada movimiento.</p>
+          <details class="fact">
+            <summary>¿Sabías que?</summary>
+            <p>La escuela que fundó Ling en 1813 sigue funcionando en Estocolmo como universidad de ciencias del deporte.</p>
+          </details>
+        </article>
+
+        <article id="escuelas" class="chapter reveal" data-era="escuelas">
+          <p class="chapter-year">Siglo XIX</p>
+          <h2>La calistenia llega a las escuelas</h2>
+          <p>En Estados Unidos, la educadora Catharine Beecher defendió que niñas y niños hicieran ejercicio todos los días, y publicó manuales de calistenia para escuelas y familias. Eran rutinas sencillas, sin aparatos, que cualquiera podía hacer en un salón.</p>
+          <p>Desde entonces, "calistenia" pasó a significar algo muy concreto: ejercicios con el propio peso, ordenados y fáciles de enseñar.</p>
+          <details class="fact">
+            <summary>¿Sabías que?</summary>
+            <p>Beecher veía el ejercicio como parte de la educación, no como algo exclusivo de deportistas: una idea adelantada para su época.</p>
+          </details>
+        </article>
+
+        <article id="olimpicos" class="chapter reveal" data-era="olimpicos">
+          <p class="chapter-year">1896</p>
+          <h2>Del parque al podio</h2>
+          <p>En los primeros Juegos Olímpicos modernos, en Atenas, la gimnasia ya estaba presente, con pruebas en barra fija, paralelas y anillas.</p>
+          <p>Muchas de las habilidades que hoy persigue la calistenia, como el planche, el front lever o el pino, tienen su origen en esa tradición de la gimnasia.</p>
+          <details class="fact">
+            <summary>¿Sabías que?</summary>
+            <p>Esos primeros Juegos se hicieron en Atenas, en homenaje a los Juegos de la antigua Grecia: la historia volvía a su punto de partida.</p>
+          </details>
+        </article>
+
+        <article id="siglo-xx" class="chapter reveal" data-era="siglo-xx">
+          <p class="chapter-year">Siglo XX</p>
+          <h2>Flexiones, dominadas y sentadillas para todos</h2>
+          <p>Durante el siglo XX, escuelas, ejércitos y clubes de todo el mundo adoptaron los ejercicios con el propio peso como base del entrenamiento: no necesitaban equipo, se podían hacer en cualquier lugar y se medían con facilidad.</p>
+          <p>La flexión, la dominada y la sentadilla se volvieron las pruebas de fuerza más conocidas del mundo.</p>
+          <details class="fact">
+            <summary>¿Sabías que?</summary>
+            <p>Por eso las tres ramas principales del árbol de CaliCore (empuje, tracción y pierna) parten justamente de esos tres ejercicios.</p>
+          </details>
+        </article>
+
+        <article id="calle" class="chapter reveal" data-era="calle">
+          <p class="chapter-year">Hoy</p>
+          <h2>La calle como gimnasio</h2>
+          <p>Desde fines de los años 2000, videos grabados en parques comenzaron a recorrer internet mostrando dominadas, muscle-ups y equilibrios imposibles. Así nació el <em>street workout</em>: calistenia al aire libre, gratuita y compartida.</p>
+          <p>Hoy hay barras en plazas de todo el mundo, comunidades que entrenan juntas y campeonatos de fuerza y de estilo libre. Veinticinco siglos después, la idea sigue siendo la misma: un cuerpo fuerte, construido con su propio peso.</p>
+          <details class="fact">
+            <summary>¿Sabías que?</summary>
+            <p>Existen competencias de calistenia de fuerza, donde gana quien más repeticiones logra, y de estilo libre, donde se juzgan la creatividad y la dificultad de los movimientos.</p>
+          </details>
+        </article>
+      </div>
+    </div>
+
+    <!-- ===================== QUIZ ===================== -->
+    <section class="band">
+      <div class="section quiz-history reveal">
+        <p class="kicker">Pon a prueba lo que leíste</p>
+        <h2>Cuatro preguntas de historia</h2>
+        <!-- Las preguntas y respuestas las dibuja js/features/history/quiz.js -->
+        <form id="history-quiz" class="hq-form"></form>
+        <p id="hq-score" class="hq-score" aria-live="polite"></p>
+        <a class="btn" href="arbol.html">Ahora, explora el árbol →</a>
+      </div>
     </section>
   </main>
 </body>

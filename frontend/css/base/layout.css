@@ -21,3 +21,19 @@
 .status { min-height: 1.5em; color: var(--text-soft); }
 
 .muted { color: var(--text-soft); }
+
+/* Bloques con fondo alterno a todo el ancho; el contenido sigue centrado por .section */
+.band { background: var(--surface-alt); border-block: 1px solid var(--line); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.block-head { margin-bottom: 2rem; }
+.block-head.row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1rem; }
+
+/* ---------- Aparición al hacer scroll (js/ui/reveal.js) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1); }
+  .reveal.is-visible { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+  .split { grid-template-columns: 1fr; }
+}
