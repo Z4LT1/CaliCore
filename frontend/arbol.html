@@ -3,42 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CaliCore | Árbol</title>
-
-  <!-- Misma hoja de estilos que index.html: así la cabecera y el pie se ven iguales en ambas páginas. -->
+  <title>Árbol | CaliCore</title>
   <link rel="stylesheet" href="css/main.css">
-
-  <!-- Esta página aún no tiene JavaScript. Cuando lo necesite, tendrá su propio punto de entrada
-       (por ejemplo js/arbol.js), porque js/main.js busca elementos que solo existen en index.html. -->
+  <!-- main.js dibuja la cabecera, el diálogo de acceso y el pie (ver js/ui/layout.js) -->
+  <script type="module" src="js/main.js"></script>
 </head>
-<body>
-
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
-
-  <header class="site-header">
-    <a class="brand" href="index.html">CaliCore</a>
-
-    <!-- Los enlaces a secciones del index llevan el nombre del archivo antes del #:
-         "index.html#ejercicios" abre index.html y salta a la sección con id="ejercicios". -->
-    <nav aria-label="Navegación principal">
-      <ul>
-        <li><a href="index.html#ejercicios">Progresiones</a></li>
-        <li><a href="index.html#progreso">Mi progreso</a></li>
-        <li><a href="arbol.html" aria-current="page">Árbol</a></li>
-      </ul>
-    </nav>
-  </header>
-
+<!-- data-page indica qué página es: el menú lo usa para marcar el enlace activo -->
+<body data-page="arbol">
   <main id="contenido">
     <section class="section">
       <h1>Árbol</h1>
       <p class="section-lead">Contenido pendiente.</p>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <p>CaliCore es un proyecto de portafolio. Código en <a href="https://github.com/Z4LT1">github.com/Z4LT1</a>.</p>
-  </footer>
-
 </body>
 </html>

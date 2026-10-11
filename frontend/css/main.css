@@ -20,11 +20,7 @@
 
 @import url("components/buttons.css");
 @import url("components/forms.css");
-@import url("components/panel.css");
 @import url("components/dialog.css");
 
 @import url("sections/header.css");
-@import url("sections/hero.css");
-@import url("sections/catalog.css");
-@import url("sections/progress.css");
 @import url("sections/footer.css");

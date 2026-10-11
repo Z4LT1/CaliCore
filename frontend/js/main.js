@@ -1,22 +1,17 @@
 /**
- * Punto de entrada del frontend. Solo arranca cada feature; la lógica vive dentro de cada una.
+ * Punto de entrada común de todas las páginas.
  *
- * Estructura:
- *   core/       piezas genéricas sin lógica de calistenia (config, API, sesión, DOM, eventos)
- *   features/   una carpeta por parte de la página, cada una con:
- *                 *.api.js   peticiones al servidor (sin DOM)
- *                 *.view.js  datos -> nodos del DOM (sin peticiones ni listeners)
- *                 index.js   une las dos capas y escucha eventos; exporta init<Feature>()
+ * Por ahora todas hacen lo mismo: dibujar la cabecera y el pie, y activar el ingreso.
+ * Cuando una página tenga contenido propio (el árbol, la biblioteca...), tendrá su propio
+ * punto de entrada que importará lo de aquí y sumará su feature.
  *
- * Las features no se importan entre sí: se comunican con eventos (ver core/events.js).
- * Para agregar una sección nueva: crea features/<nombre>/, exporta su init y llámalo aquí.
+ * Estructura del frontend:
+ *   core/       piezas genéricas (config, API, sesión, DOM, eventos)
+ *   ui/         estructura visual común (cabecera, diálogo, pie)
+ *   features/   una carpeta por funcionalidad, con capas api / view / index
  */
 import { initAuth } from "./features/auth/index.js";
-import { initCatalog } from "./features/catalog/index.js";
-import { initProgress } from "./features/progress/index.js";
+import { renderLayout } from "./ui/layout.js";
 
-// El orden no afecta: cada init registra sus listeners de inmediato y las peticiones al servidor
-// responden después, así que ninguna feature se pierde un evento (por ejemplo, CATALOG_LOADED).
+renderLayout(); // primero la estructura: initAuth necesita que los botones ya existan
 initAuth();
-initProgress();
-initCatalog();

@@ -18,5 +18,5 @@ export function el(tag, { className, text, attrs } = {}, ...children) {
   return node;
 }
 
-/** Atajo de document.querySelector. Uso: $("#catalog") */
+/** Atajo de document.querySelector. Uso: $("#contenido") */
 export const $ = (selector) => document.querySelector(selector);

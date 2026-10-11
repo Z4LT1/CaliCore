@@ -4,15 +4,17 @@
  */
 import { $ } from "../../core/dom.js";
 
+// Los elementos se buscan al USARLOS (getters), no al cargar este archivo: la cabecera y el
+// diálogo los crea ui/layout.js, y los módulos se cargan antes de que ese código se ejecute.
 const ui = {
-  userLabel: $("#user-label"),
-  btnOpenAuth: $("#btn-open-auth"),
-  btnLogout: $("#btn-logout"),
-  dialog: $("#auth-dialog"),
-  title: $("#auth-title"),
-  loginForm: $("#login-form"),
-  registerForm: $("#register-form"),
-  btnSwitch: $("#btn-switch-auth"),
+  get userLabel() { return $("#user-label"); },
+  get btnOpenAuth() { return $("#btn-open-auth"); },
+  get btnLogout() { return $("#btn-logout"); },
+  get dialog() { return $("#auth-dialog"); },
+  get title() { return $("#auth-title"); },
+  get loginForm() { return $("#login-form"); },
+  get registerForm() { return $("#register-form"); },
+  get btnSwitch() { return $("#btn-switch-auth"); },
 };
 
 export { ui as authUI };

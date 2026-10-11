@@ -21,7 +21,10 @@ export default defineConfig({
     rolldownOptions: {
       input: {
         inicio: resolve(import.meta.dirname, "index.html"),
+        perfil: resolve(import.meta.dirname, "perfil.html"),
+        historia: resolve(import.meta.dirname, "historia.html"),
         arbol: resolve(import.meta.dirname, "arbol.html"),
+        biblioteca: resolve(import.meta.dirname, "biblioteca.html"),
       },
     },
   },
