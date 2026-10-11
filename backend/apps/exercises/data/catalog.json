@@ -1,0 +1,211 @@
+{
+  "muscles": [
+    { "slug": "pectoral", "name": "Pectoral" },
+    { "slug": "triceps", "name": "Tríceps" },
+    { "slug": "deltoides-anterior", "name": "Deltoides anterior" },
+    { "slug": "serrato-anterior", "name": "Serrato anterior" },
+    { "slug": "abdomen", "name": "Abdomen" },
+    { "slug": "antebrazo", "name": "Antebrazo" }
+  ],
+  "equipment": [
+    { "slug": "sin-equipamiento", "name": "Sin equipamiento" },
+    { "slug": "superficie-elevada", "name": "Banco o superficie elevada" }
+  ],
+  "branches": [
+    {
+      "slug": "tronco", "name": "Tronco", "order": 0, "is_trunk": true,
+      "paths": [
+        { "slug": "fundamentos", "name": "Fundamentos", "order": 1, "description": "La base que sostiene todas las ramas." }
+      ]
+    },
+    {
+      "slug": "empuje", "name": "Empuje", "order": 1,
+      "paths": [
+        { "slug": "flexiones", "name": "Flexiones", "order": 1, "description": "De la flexión de rodillas a sostener todo tu peso en un brazo." },
+        { "slug": "fondos", "name": "Fondos", "order": 2, "description": "Empuje hacia abajo, de las paralelas a la barra recta." },
+        { "slug": "empuje-vertical", "name": "Empuje vertical", "order": 3, "description": "Empujar con el cuerpo invertido, hasta la flexión de pino libre." }
+      ]
+    },
+    {
+      "slug": "traccion", "name": "Tracción", "order": 2,
+      "paths": [
+        { "slug": "dominadas", "name": "Dominadas", "order": 1, "description": "Del colgado activo a la dominada a un brazo." },
+        { "slug": "transicion", "name": "Transición", "order": 2, "description": "Pasar el cuerpo por encima de la barra: el muscle-up." },
+        { "slug": "traccion-horizontal", "name": "Tracción horizontal", "order": 3, "description": "Remos con el cuerpo inclinado, hasta el remo a un brazo." }
+      ]
+    },
+    {
+      "slug": "pierna", "name": "Pierna", "order": 3,
+      "paths": [
+        { "slug": "sentadilla-unilateral", "name": "Sentadilla unilateral", "order": 1, "description": "Fuerza y equilibrio en una pierna, hasta el pistol squat." },
+        { "slug": "sentadilla-camaron", "name": "Sentadilla camarón", "order": 2, "description": "Una pierna con la otra flexionada atrás." },
+        { "slug": "cadena-posterior", "name": "Cadena posterior", "order": 3, "description": "Glúteos e isquiotibiales, hasta el curl nórdico." }
+      ]
+    },
+    {
+      "slug": "core", "name": "Core", "order": 4,
+      "paths": [
+        { "slug": "elevaciones-colgado", "name": "Elevaciones colgado", "order": 1, "description": "Llevar las piernas a la barra con control." },
+        { "slug": "compresion", "name": "Compresión", "order": 2, "description": "Cerrar el cuerpo como una bisagra: del L-sit al V-sit." },
+        { "slug": "anti-extension", "name": "Anti-extensión", "order": 3, "description": "Resistir que la cadera caiga, hasta el dragon flag." }
+      ]
+    },
+    {
+      "slug": "habilidades", "name": "Habilidades", "order": 5,
+      "paths": [
+        { "slug": "planche", "name": "Planche", "order": 1, "description": "El cuerpo suspendido en horizontal sobre las manos." },
+        { "slug": "pino", "name": "Pino", "order": 2, "description": "Equilibrio invertido, hasta el pino a una mano." },
+        { "slug": "front-lever", "name": "Front lever", "order": 3, "description": "Colgado de la barra con el cuerpo horizontal, mirando hacia arriba." },
+        { "slug": "back-lever", "name": "Back lever", "order": 4, "description": "Colgado de la barra con el cuerpo horizontal, mirando hacia abajo." },
+        { "slug": "bandera", "name": "Bandera", "order": 5, "description": "El cuerpo horizontal sostenido de una barra vertical." }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "slug": "flexion-de-rodillas",
+      "name": "Flexión de rodillas",
+      "path": "flexiones",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "La flexión con las rodillas apoyadas: menos peso que mover y el mismo patrón de movimiento.",
+      "measure": "reps",
+      "muscles": ["pectoral", "triceps", "deltoides-anterior"],
+      "equipment": ["sin-equipamiento"],
+      "steps": [
+        "Apoya las manos un poco más abiertas que los hombros y las rodillas en el suelo.",
+        "Alinea rodillas, cadera y cabeza en una sola línea, con el abdomen firme.",
+        "Baja el pecho hacia el suelo llevando los codos hacia atrás, en diagonal.",
+        "Empuja el suelo hasta estirar los brazos sin perder la línea."
+      ],
+      "mistakes": [
+        { "mistake": "La cadera queda atrás, doblada.", "fix": "Adelanta la cadera hasta formar una línea recta desde las rodillas." },
+        { "mistake": "Los codos se abren hacia los lados.", "fix": "Llévalos en diagonal, a unos 45° del cuerpo." }
+      ],
+      "requires": [],
+      "easier": null,
+      "harder": "flexion-estandar"
+    },
+    {
+      "slug": "flexion-estandar",
+      "name": "Flexión estándar",
+      "path": "flexiones",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "El cuerpo entero como una tabla sobre manos y pies: la base de todo el empuje.",
+      "measure": "reps",
+      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen"],
+      "equipment": ["sin-equipamiento"],
+      "steps": [
+        "Manos bajo los hombros, un poco más abiertas, y piernas estiradas con los pies juntos.",
+        "Aprieta glúteos y abdomen para que el cuerpo quede recto de la cabeza a los talones.",
+        "Baja en dos segundos hasta que el pecho quede a pocos centímetros del suelo.",
+        "Empuja hasta estirar los brazos, separando un poco las escápulas al final."
+      ],
+      "mistakes": [
+        { "mistake": "La cadera se hunde al bajar.", "fix": "Aprieta glúteos y abdomen durante toda la repetición." },
+        { "mistake": "Bajar solo hasta la mitad.", "fix": "Baja hasta que el pecho casi toque el suelo, aunque hagas menos repeticiones." },
+        { "mistake": "La cabeza cae hacia adelante.", "fix": "Mira un punto en el suelo un poco por delante de tus manos." }
+      ],
+      "requires": ["flexion-de-rodillas"],
+      "easier": "flexion-de-rodillas",
+      "harder": "flexion-diamante"
+    },
+    {
+      "slug": "flexion-diamante",
+      "name": "Flexión diamante",
+      "path": "flexiones",
+      "step": 3,
+      "difficulty": 2,
+      "summary": "Manos juntas bajo el pecho formando un rombo: más trabajo para el tríceps.",
+      "measure": "reps",
+      "muscles": ["triceps", "pectoral", "deltoides-anterior"],
+      "equipment": ["sin-equipamiento"],
+      "steps": [
+        "Junta las manos bajo el pecho tocándote con pulgares e índices, formando un rombo.",
+        "Estira las piernas y alinea el cuerpo como en la flexión estándar.",
+        "Baja llevando los codos hacia atrás, pegados al cuerpo, hasta rozar las manos con el pecho.",
+        "Empuja hasta estirar los brazos por completo."
+      ],
+      "mistakes": [
+        { "mistake": "Los codos se abren hacia afuera.", "fix": "Mantenlos rozando las costillas durante todo el recorrido." },
+        { "mistake": "Las muñecas molestan por la posición.", "fix": "Separa un poco las manos o calienta bien las muñecas antes." }
+      ],
+      "requires": ["flexion-estandar"],
+      "easier": "flexion-estandar",
+      "harder": "flexion-arquera"
+    },
+    {
+      "slug": "flexion-arquera",
+      "name": "Flexión arquera",
+      "path": "flexiones",
+      "step": 4,
+      "difficulty": 3,
+      "summary": "Manos muy abiertas: bajas hacia un lado mientras el otro brazo se estira como el de un arquero.",
+      "measure": "reps",
+      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen"],
+      "equipment": ["sin-equipamiento"],
+      "steps": [
+        "Abre las manos al doble del ancho de los hombros, con los dedos apuntando hacia afuera.",
+        "Baja el cuerpo hacia una mano doblando ese codo; el otro brazo se mantiene estirado.",
+        "Llega con el pecho cerca de la mano que trabaja, sin girar la cadera.",
+        "Empuja con el brazo doblado hasta volver al centro y repite hacia el otro lado."
+      ],
+      "mistakes": [
+        { "mistake": "El brazo estirado se dobla.", "fix": "Bloquéalo: es apoyo, no ayuda. Si no puedes, abre menos las manos." },
+        { "mistake": "La cadera gira hacia el lado que baja.", "fix": "Mantén las caderas paralelas al suelo." }
+      ],
+      "requires": ["flexion-diamante"],
+      "easier": "flexion-diamante",
+      "harder": "flexion-una-mano-elevada"
+    },
+    {
+      "slug": "flexion-una-mano-elevada",
+      "name": "Flexión a una mano elevada",
+      "path": "flexiones",
+      "step": 5,
+      "difficulty": 4,
+      "summary": "La flexión a una mano con la mano apoyada en un banco: menos peso para aprender el equilibrio.",
+      "measure": "reps",
+      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen", "serrato-anterior"],
+      "equipment": ["superficie-elevada"],
+      "steps": [
+        "Apoya una mano en el borde de un banco y abre bien las piernas para tener equilibrio.",
+        "Lleva el otro brazo a la espalda y alinea el cuerpo de la cabeza a los talones.",
+        "Baja con el codo cerca del cuerpo, girando apenas el torso hacia la mano.",
+        "Empuja hasta estirar el brazo. Cuanto más bajo el banco, más difícil."
+      ],
+      "mistakes": [
+        { "mistake": "El cuerpo se tuerce hacia el lado libre.", "fix": "Abre más las piernas y aprieta el abdomen y los glúteos." },
+        { "mistake": "El codo se abre hacia afuera.", "fix": "Llévalo hacia atrás, cerca de las costillas." }
+      ],
+      "requires": ["flexion-arquera"],
+      "easier": "flexion-arquera",
+      "harder": "flexion-una-mano"
+    },
+    {
+      "slug": "flexion-una-mano",
+      "name": "Flexión a una mano",
+      "path": "flexiones",
+      "step": 6,
+      "difficulty": 4,
+      "summary": "Todo tu peso sobre un brazo: la cima del camino de las flexiones.",
+      "measure": "reps",
+      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen", "serrato-anterior", "antebrazo"],
+      "equipment": ["sin-equipamiento"],
+      "steps": [
+        "Apoya una mano bajo el hombro y abre las piernas más que el ancho de los hombros.",
+        "Lleva el otro brazo a la espalda y tensa todo el cuerpo.",
+        "Baja con control hasta que el pecho quede cerca del suelo, con el codo pegado al cuerpo.",
+        "Empuja hasta estirar el brazo sin que la cadera se hunda ni gire."
+      ],
+      "mistakes": [
+        { "mistake": "La cadera se levanta para compensar.", "fix": "Practica más la versión elevada hasta mantener la línea." },
+        { "mistake": "Bajar sin control y rebotar.", "fix": "Cuenta dos segundos al bajar y no te apoyes en el suelo." }
+      ],
+      "requires": ["flexion-una-mano-elevada"],
+      "easier": "flexion-una-mano-elevada",
+      "harder": null
+    }
+  ]
+}

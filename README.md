@@ -171,7 +171,7 @@ No define modelos propios: usa el modelo de usuario que trae Django.
 | `urls.py` | Crea las rutas `exercises/` y `exercises/<slug>/` con un router. |
 | `tests.py` | 6 pruebas: lista pública, filtros, búsqueda, intento de inyección SQL inofensivo, detalle por slug, un token inválido no rompe el catálogo público. |
 | `migrations/0001_initial.py` | Instrucciones generadas por Django para crear la tabla `Exercise` en la base de datos. Se aplican con `migrate`. |
-| `management/commands/seed_exercises.py` | Comando propio: `python manage.py seed_exercises` carga los 24 ejercicios iniciales. Se puede ejecutar varias veces sin duplicar nada. Aquí editas el catálogo inicial. |
+| `management/commands/seed_exercises.py` | Comando propio: `python manage.py seed_catalog` carga los 24 ejercicios iniciales. Se puede ejecutar varias veces sin duplicar nada. Aquí editas el catálogo inicial. |
 
 ### `backend/apps/workouts/` (entrenamientos)
 
@@ -221,7 +221,7 @@ py -m venv .venv
 pip install -r requirements.txt
 copy .env.example .env
 python manage.py migrate
-python manage.py seed_exercises
+python manage.py seed_catalog
 python manage.py createsuperuser
 python manage.py runserver
 ```
