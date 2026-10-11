@@ -7,6 +7,7 @@ Mapa de la API:
     /api/auth/...                registro, login, logout, perfil     (apps/accounts)
     /api/exercises/...           catálogo de ejercicios (público)    (apps/exercises)
     /api/tree/                   el árbol completo (público)         (apps/exercises)
+    /api/favorites/...           ejercicios guardados (con sesión)   (apps/favorites)
 """
 from django.contrib import admin
 from django.http import JsonResponse
@@ -23,4 +24,5 @@ urlpatterns = [
     path("api/health/", health),
     path("api/auth/", include("apps.accounts.urls")),
     path("api/", include("apps.exercises.urls")),
+    path("api/", include("apps.favorites.urls")),
 ]

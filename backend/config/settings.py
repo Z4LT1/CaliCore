@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     # Apps propias de CaliCore (viven en la carpeta apps/)
     "apps.accounts",
     "apps.exercises",
+    "apps.favorites",
 ]
 
 # El middleware son "capas" por las que pasa cada petición, en este orden, antes de llegar a tu vista.
