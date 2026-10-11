@@ -1,0 +1,65 @@
+/* Piezas reutilizables del catálogo: etiquetas, chips, medidor de dificultad, enlaces de texto
+   y la tarjeta de ejercicio que se gira. Las usan el inicio y, más adelante, la biblioteca. */
+
+.tag {
+  display: inline-block;
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .2rem .7rem;
+  border-radius: 999px;
+  background: var(--sprout);
+  color: var(--sprout-text);
+}
+
+.text-link { display: inline-block; margin-top: 1rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+.text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Chips: botones de filtro con estado presionado (aria-pressed) */
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0; }
+.chip {
+  font: inherit; font-size: .9rem; font-weight: 500;
+  padding: .4rem 1rem; border-radius: 999px;
+  border: 1.5px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer;
+}
+.chip:hover { border-color: var(--text-soft); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+/* Dificultad 1-5: cinco "nudillos" redondeados; se rellenan hasta el nivel */
+.difficulty { display: inline-flex; gap: 3px; vertical-align: middle; }
+.difficulty i { width: .55rem; height: .7rem; border-radius: 4px 4px 3px 3px; background: var(--line); }
+.difficulty i.on { background: var(--accent); }
+.difficulty[data-level="5"] i.on { background: var(--clay); } /* élite: el tono de las cimas */
+
+/* ---------- Tarjeta que se gira ----------
+   Dos caras superpuestas (frente y reverso). La cara de atrás nace girada 180°;
+   al girar la tarjeta completa, cada cara oculta su espalda (backface-visibility). */
+.ex-card { perspective: 900px; min-height: 13rem; cursor: pointer; border-radius: var(--radius-lg); }
+.card-inner { position: relative; height: 100%; min-height: 13rem; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.card-face {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  padding: 1.2rem 1.3rem; border-radius: var(--radius-lg);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.card-front { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.card-back { background: var(--accent); color: var(--on-accent); transform: rotateY(180deg); }
+.card-top { display: flex; justify-content: space-between; align-items: center; }
+.card-front h3 { font-size: 1.5rem; margin: auto 0 .3rem; }
+.card-path { color: var(--text-soft); font-size: .9rem; margin: 0; }
+.card-summary { font-size: 1rem; margin: 0 0 .6rem; }
+.card-meta { font-size: .8rem; opacity: .85; margin: 0; }
+.card-link { margin-top: auto; color: inherit; font-weight: 600; text-decoration: none; }
+.card-link:hover { text-decoration: underline; }
+
+/* Se gira con el mouse (solo en dispositivos con hover), con el teclado (foco) o con un toque */
+@media (hover: hover) { .ex-card:hover .card-inner { transform: rotateY(180deg); } }
+.ex-card:focus-within .card-inner, .ex-card.is-flipped .card-inner { transform: rotateY(180deg); }
+.ex-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+/* Sin animaciones: en vez de girar en 3D, la cara de atrás simplemente aparece */
+@media (prefers-reduced-motion: reduce) {
+  .card-inner { transition: none; transform: none !important; }
+  .card-back { transform: none; opacity: 0; }
+  .ex-card:hover .card-back, .ex-card:focus-within .card-back, .ex-card.is-flipped .card-back { opacity: 1; }
+}
+
+.load-error { color: var(--danger); }

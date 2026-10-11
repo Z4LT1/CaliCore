@@ -3,17 +3,225 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CaliCore: todo lo que quieras saber de calistenia en una sola página. Árbol de progresiones, biblioteca de ejercicios e historia.">
+  <meta name="color-scheme" content="light dark">
   <title>CaliCore | Tu núcleo de la calistenia</title>
+  <!-- Aplica el tema elegido ANTES de dibujar, para evitar un destello claro en modo oscuro (ver js/ui/theme.js) -->
+  <script>
+    try { const t = localStorage.getItem("calicore_theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
+  </script>
   <link rel="stylesheet" href="css/main.css">
-  <!-- main.js dibuja la cabecera, el diálogo de acceso y el pie (ver js/ui/layout.js) -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/inicio.js"></script>
 </head>
 <!-- data-page indica qué página es: el menú lo usa para marcar el enlace activo -->
 <body data-page="inicio">
-  <main id="contenido">
-    <section class="section">
-      <h1>CaliCore</h1>
-      <p class="section-lead">Contenido pendiente.</p>
+  <main id="contenido" class="home">
+
+    <!-- ===================== HÉROE ===================== -->
+    <section class="hero section">
+      <div class="hero-copy">
+        <p class="kicker">El núcleo de la calistenia</p>
+        <h1>Todo lo que quieras saber de calistenia, en una sola página.</h1>
+        <p class="hero-lead">CaliCore está hecha para expandir tu conocimiento del mundo de la calistenia y acompañarte en tu viaje hacia el dominio total de tu cuerpo.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#empezar">¿Por dónde empiezo?</a>
+          <a class="btn" href="arbol.html">Explorar el árbol</a>
+        </div>
+      </div>
+
+      <!-- Árbol del héroe: ilustración fija que "crece" al cargar (animación en css/sections/home.css).
+           pathLength="1" permite animar el trazo de 0 a 1 sin conocer el largo real de cada rama. -->
+      <figure class="hero-tree" aria-hidden="true">
+        <svg viewBox="0 0 420 440">
+          <ellipse class="t-ground" cx="210" cy="412" rx="160" ry="14"/>
+          <g class="t-wood">
+            <path class="draw" pathLength="1" style="--d:0s" stroke-width="16" d="M210 410 C206 365 214 320 210 268"/>
+            <path class="draw" pathLength="1" style="--d:.1s" stroke-width="6" d="M210 405 C190 412 170 418 140 420"/>
+            <path class="draw" pathLength="1" style="--d:.1s" stroke-width="6" d="M210 405 C232 412 252 418 282 421"/>
+            <path class="draw" pathLength="1" style="--d:.5s" stroke-width="9" d="M210 300 C180 288 150 272 108 250"/>
+            <path class="draw" pathLength="1" style="--d:.6s" stroke-width="9" d="M210 300 C240 288 270 272 312 250"/>
+            <path class="draw" pathLength="1" style="--d:.7s" stroke-width="9" d="M210 282 C190 242 170 208 150 160"/>
+            <path class="draw" pathLength="1" style="--d:.8s" stroke-width="9" d="M210 282 C230 242 250 208 270 160"/>
+            <path class="draw" pathLength="1" style="--d:.9s" stroke-width="9" d="M210 270 C213 220 207 160 210 104"/>
+            <path class="draw" pathLength="1" style="--d:1.1s" stroke-width="4" d="M160 268 C150 248 146 232 140 214"/>
+            <path class="draw" pathLength="1" style="--d:1.1s" stroke-width="4" d="M262 268 C272 248 276 232 282 214"/>
+            <path class="draw" pathLength="1" style="--d:1.2s" stroke-width="4" d="M176 222 C160 214 146 206 128 200"/>
+            <path class="draw" pathLength="1" style="--d:1.2s" stroke-width="4" d="M244 222 C260 214 274 206 292 200"/>
+          </g>
+          <g class="t-leaves">
+            <circle cx="108" cy="240" r="30" style="--d:1.3s"/><circle cx="135" cy="205" r="26" style="--d:1.35s"/>
+            <circle cx="150" cy="150" r="32" style="--d:1.4s"/><circle cx="180" cy="110" r="28" style="--d:1.45s"/>
+            <circle cx="210" cy="90" r="34" style="--d:1.5s"/><circle cx="240" cy="110" r="28" style="--d:1.55s"/>
+            <circle cx="270" cy="150" r="32" style="--d:1.6s"/><circle cx="285" cy="205" r="26" style="--d:1.65s"/>
+            <circle cx="312" cy="240" r="30" style="--d:1.7s"/><circle cx="210" cy="160" r="30" style="--d:1.5s"/>
+            <circle cx="175" cy="185" r="22" style="--d:1.55s"/><circle cx="245" cy="185" r="22" style="--d:1.6s"/>
+          </g>
+          <g class="t-nodes">
+            <circle cx="108" cy="250" r="6"/><circle cx="312" cy="250" r="6"/>
+            <circle cx="150" cy="160" r="6"/><circle cx="270" cy="160" r="6"/>
+            <circle cx="210" cy="205" r="5"/><circle cx="210" cy="300" r="5"/>
+            <circle class="t-summit" cx="210" cy="96" r="11"/>
+          </g>
+          <g class="t-labels">
+            <text x="90" y="282">Pierna</text><text x="330" y="282" text-anchor="end">Core</text>
+            <text x="118" y="128">Empuje</text><text x="302" y="128" text-anchor="end">Tracción</text>
+            <text x="210" y="62" text-anchor="middle">Habilidades</text>
+          </g>
+        </svg>
+      </figure>
+    </section>
+
+    <!-- Cifras: se cuentan desde el catálogo real (js/features/home/stats.js) -->
+    <ul class="stats" aria-label="CaliCore en cifras">
+      <li><b data-stat="exercises">—</b><span>ejercicios explicados</span></li>
+      <li><b data-stat="paths">—</b><span>caminos de progresión</span></li>
+      <li><b data-stat="branches">—</b><span>ramas del árbol</span></li>
+      <li><b data-stat="summits">—</b><span>cimas por conquistar</span></li>
+    </ul>
+
+    <!-- ===================== ¿POR DÓNDE EMPIEZO? ===================== -->
+    <section id="empezar" class="section quiz reveal">
+      <header class="block-head">
+        <p class="kicker">¿Por dónde empiezo?</p>
+        <h2>Tres preguntas y te ubicamos en el árbol</h2>
+        <p class="section-lead">Responde con lo que puedes hacer hoy, con buena técnica y sin parar. Te mostramos el ejercicio ideal para empezar en cada rama.</p>
+      </header>
+      <!-- El valor de cada opción es el slug del ejercicio recomendado para ese nivel -->
+      <form id="quiz-form" class="quiz-form">
+        <fieldset>
+          <legend>¿Cuántas flexiones seguidas logras?</legend>
+          <label class="choice"><input type="radio" name="push" value="flexion-inclinada" required> Ninguna</label>
+          <label class="choice"><input type="radio" name="push" value="flexion-estandar"> 1 a 10</label>
+          <label class="choice"><input type="radio" name="push" value="flexion-diamante"> 11 a 25</label>
+          <label class="choice"><input type="radio" name="push" value="flexion-arquera"> Más de 25</label>
+        </fieldset>
+        <fieldset>
+          <legend>¿Cuántas dominadas seguidas logras?</legend>
+          <label class="choice"><input type="radio" name="pull" value="dominada-negativa" required> Ninguna</label>
+          <label class="choice"><input type="radio" name="pull" value="dominada-pronada"> 1 a 5</label>
+          <label class="choice"><input type="radio" name="pull" value="dominada-explosiva"> 6 a 12</label>
+          <label class="choice"><input type="radio" name="pull" value="dominada-arquera"> Más de 12</label>
+        </fieldset>
+        <fieldset>
+          <legend>¿Cuántas sentadillas seguidas logras?</legend>
+          <label class="choice"><input type="radio" name="legs" value="sentadilla-al-aire" required> Menos de 10</label>
+          <label class="choice"><input type="radio" name="legs" value="zancada"> 10 a 30</label>
+          <label class="choice"><input type="radio" name="legs" value="sentadilla-bulgara"> 31 a 50</label>
+          <label class="choice"><input type="radio" name="legs" value="pistol-asistida"> Más de 50</label>
+        </fieldset>
+        <button class="btn btn-primary" type="submit">Ver mi punto de partida</button>
+      </form>
+      <div id="quiz-result" class="quiz-result" aria-live="polite"></div>
+    </section>
+
+    <!-- ===================== EL ÁRBOL ===================== -->
+    <section class="band reveal">
+      <div class="section split">
+        <div>
+          <p class="kicker">El árbol</p>
+          <h2>Cada habilidad tiene un camino</h2>
+          <p class="section-lead">Desde las raíces hasta la cima: cada camino ordena los ejercicios del más accesible al más exigente. Elige uno y míralo crecer.</p>
+          <label class="path-picker">Camino
+            <select id="path-select" autocomplete="off"></select>
+          </label>
+          <a class="text-link" href="arbol.html">Explorar el árbol completo →</a>
+        </div>
+        <ol id="path-ladder" class="ladder" aria-live="polite"></ol>
+      </div>
+    </section>
+
+    <!-- ===================== LA BIBLIOTECA ===================== -->
+    <section class="section reveal">
+      <header class="block-head row">
+        <div>
+          <p class="kicker">La biblioteca</p>
+          <h2>Pasa el cursor sobre una tarjeta</h2>
+          <p class="section-lead">Cada ejercicio con su ejecución paso a paso, los errores más comunes y su dificultad del 1 al 5.</p>
+        </div>
+        <a class="btn" href="biblioteca.html">Ver la biblioteca</a>
+      </header>
+      <div id="card-grid" class="card-grid"></div>
+    </section>
+
+    <!-- ===================== MAPA DEL CUERPO ===================== -->
+    <section class="band reveal">
+      <div class="section split body-map">
+        <div>
+          <p class="kicker">Mapa del cuerpo</p>
+          <h2>¿Qué quieres fortalecer?</h2>
+          <p class="section-lead">Elige una zona y descubre los ejercicios que la trabajan.</p>
+          <div id="zone-chips" class="chips" role="group" aria-label="Zonas del cuerpo"></div>
+          <div id="zone-result" class="zone-result" aria-live="polite"></div>
+        </div>
+        <!-- Silueta: cada zona tiene data-zone; al tocarla se seleccionan los ejercicios de esa zona.
+             Es un complemento visual: los botones de zona de al lado hacen lo mismo con teclado. -->
+        <svg class="body-figure" viewBox="0 0 200 400" aria-hidden="true">
+          <circle class="b-head" cx="100" cy="34" r="22"/>
+          <rect class="b-zone" data-zone="hombros" x="48" y="64" width="104" height="22" rx="11"/>
+          <rect class="b-zone" data-zone="espalda" x="52" y="92" width="14" height="78" rx="7"/>
+          <rect class="b-zone" data-zone="espalda" x="134" y="92" width="14" height="78" rx="7"/>
+          <rect class="b-zone" data-zone="pecho" x="68" y="88" width="64" height="40" rx="14"/>
+          <rect class="b-zone" data-zone="brazos" x="24" y="88" width="26" height="110" rx="13"/>
+          <rect class="b-zone" data-zone="brazos" x="150" y="88" width="26" height="110" rx="13"/>
+          <rect class="b-zone" data-zone="core" x="66" y="130" width="68" height="64" rx="14"/>
+          <rect class="b-zone" data-zone="cadera" x="64" y="196" width="72" height="34" rx="14"/>
+          <rect class="b-zone" data-zone="piernas" x="64" y="232" width="32" height="150" rx="15"/>
+          <rect class="b-zone" data-zone="piernas" x="104" y="232" width="32" height="150" rx="15"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ===================== HISTORIA ===================== -->
+    <section class="section reveal">
+      <header class="block-head">
+        <p class="kicker">Historia</p>
+        <h2>Del gimnasio griego a la barra del parque</h2>
+      </header>
+      <ol class="timeline">
+        <li>
+          <span class="t-when">Antigua Grecia</span>
+          <h3>Belleza y fuerza</h3>
+          <p>En los gimnasios griegos se entrenaba con el propio cuerpo. De ahí viene la palabra: <em>kalós</em> (belleza) y <em>sthénos</em> (fuerza).</p>
+        </li>
+        <li>
+          <span class="t-when">1811 · Berlín</span>
+          <h3>Nacen los aparatos</h3>
+          <p>Friedrich Ludwig Jahn abre un espacio de gimnasia al aire libre y populariza la barra fija y las paralelas.</p>
+        </li>
+        <li>
+          <span class="t-when">Siglo XX</span>
+          <h3>El propio peso como base</h3>
+          <p>Escuelas, ejércitos y gimnastas convierten las flexiones, las dominadas y las sentadillas en ejercicios básicos en todo el mundo.</p>
+        </li>
+        <li>
+          <span class="t-when">Hoy</span>
+          <h3>La calle como gimnasio</h3>
+          <p>Desde fines de los 2000, los videos de entrenamiento en parques hicieron del <em>street workout</em> un movimiento global.</p>
+        </li>
+      </ol>
+      <a class="text-link" href="historia.html">Recorrer la historia completa →</a>
+    </section>
+
+    <!-- ===================== PERFIL ===================== -->
+    <section class="band reveal">
+      <div class="section split">
+        <div>
+          <p class="kicker">Tu perfil</p>
+          <h2>Guarda lo que quieres dominar</h2>
+          <p class="section-lead">Marca ejercicios con la estrella en la biblioteca y encuéntralos siempre en tu perfil, listos para entrenar.</p>
+          <!-- data-guest-only: se ve sin sesión. data-user-only: se ve con sesión (js/features/home/index.js) -->
+          <button class="btn btn-primary" type="button" data-open-auth data-guest-only>Crear cuenta gratis</button>
+          <a class="btn btn-primary" href="perfil.html" data-user-only hidden>Ir a tu perfil</a>
+        </div>
+        <div class="profile-preview" aria-hidden="true">
+          <div class="pp-head"><span class="pp-avatar">T</span><div><b>Tu nombre</b><small>3 ejercicios guardados</small></div></div>
+          <ul>
+            <li><span class="pp-star">★</span> Muscle-up <small>Tracción</small></li>
+            <li><span class="pp-star">★</span> Pino libre <small>Habilidades</small></li>
+            <li><span class="pp-star">★</span> Pistol squat <small>Pierna</small></li>
+          </ul>
+        </div>
+      </div>
     </section>
   </main>
 </body>
