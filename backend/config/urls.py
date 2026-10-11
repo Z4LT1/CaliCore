@@ -5,6 +5,8 @@ Mapa de la API:
     /admin/                      panel de administración de Django
     /api/health/                 comprobación de que el servidor está vivo
     /api/auth/...                registro, login, logout, perfil     (apps/accounts)
+    /api/exercises/...           catálogo de ejercicios (público)    (apps/exercises)
+    /api/tree/                   el árbol completo (público)         (apps/exercises)
 """
 from django.contrib import admin
 from django.http import JsonResponse
@@ -20,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/health/", health),
     path("api/auth/", include("apps.accounts.urls")),
+    path("api/", include("apps.exercises.urls")),
 ]
