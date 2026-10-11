@@ -90,16 +90,18 @@ class CatalogApiTests(APITestCase):
         response = self.client.get("/api/exercises/")
         self.assertEqual(response.status_code, 200)
         first = response.data[0]
-        self.assertEqual(first["branch"], "Empuje")
+        self.assertEqual(first["branch"], "Tronco")  # el tronco va primero (orden 0)
         self.assertIn("summary", first)
         self.assertNotIn("steps", first)  # la lista no trae la ficha completa
 
     def test_filters(self):
-        self.assertEqual(len(self.client.get("/api/exercises/?path=flexiones").data), 6)
-        self.assertEqual(len(self.client.get("/api/exercises/?branch=traccion").data), 0)
-        self.assertEqual(len(self.client.get("/api/exercises/?difficulty=4").data), 2)
-        self.assertEqual(len(self.client.get("/api/exercises/?equipment=superficie-elevada").data), 1)
-        self.assertEqual(len(self.client.get("/api/exercises/?muscle=antebrazo").data), 1)
+        get = lambda query: self.client.get(f"/api/exercises/?{query}").data
+        self.assertEqual([e["step"] for e in get("path=flexiones")], [1, 2, 3, 4, 5, 6])
+        self.assertTrue(all(e["branch"] == "Tracción" for e in get("branch=traccion")))
+        self.assertTrue(all(e["difficulty"] == 5 for e in get("difficulty=5")))
+        self.assertTrue(all("Barra vertical o poste" in e["equipment"] for e in get("equipment=barra-vertical")))
+        self.assertTrue(all("Isquiotibiales" in e["muscles"] for e in get("muscle=isquiotibiales")))
+        self.assertEqual(get("branch=traccion&difficulty=9"), [])
 
     def test_invalid_difficulty_returns_empty_instead_of_error(self):
         response = self.client.get("/api/exercises/?difficulty=abc")
@@ -142,3 +144,44 @@ class CatalogApiTests(APITestCase):
 
     def test_catalog_is_read_only(self):
         self.assertEqual(self.client.post("/api/exercises/", {"name": "X"}).status_code, 405)
+
+
+class CatalogIntegrityTests(TestCase):
+    """Revisa el contenido del archivo real: que el árbol sea coherente y las fichas estén completas."""
+
+    @classmethod
+    def setUpTestData(cls):
+        call_command("seed_catalog", stdout=StringIO())
+
+    def test_every_path_has_contiguous_steps(self):
+        for path in Path.objects.prefetch_related("exercises"):
+            steps = [e.step for e in path.exercises.all()]
+            self.assertEqual(steps, list(range(1, len(steps) + 1)), path.slug)
+            self.assertGreaterEqual(len(steps), 3, path.slug)
+
+    def test_every_sheet_is_complete(self):
+        for exercise in Exercise.objects.prefetch_related("steps", "mistakes", "muscles", "equipment"):
+            self.assertTrue(3 <= exercise.steps.count() <= 5, exercise.slug)
+            self.assertGreaterEqual(exercise.mistakes.count(), 2, exercise.slug)
+            self.assertTrue(exercise.muscles.exists(), exercise.slug)
+            self.assertTrue(exercise.equipment.exists(), exercise.slug)
+
+    def test_requirements_have_no_cycles(self):
+        # Búsqueda en profundidad: si al recorrer los requisitos volvemos a un ejercicio
+        # que está en el camino actual, hay un ciclo (A pide B y B, directa o indirectamente, pide A).
+        graph = {e.slug: [r.slug for r in e.requirements.all()]
+                 for e in Exercise.objects.prefetch_related("requirements")}
+        visiting, done = set(), set()
+
+        def visit(slug, trail):
+            if slug in done:
+                return
+            self.assertNotIn(slug, visiting, f"Requisito circular: {' > '.join(trail + [slug])}")
+            visiting.add(slug)
+            for required in graph[slug]:
+                visit(required, trail + [slug])
+            visiting.discard(slug)
+            done.add(slug)
+
+        for slug in graph:
+            visit(slug, [])

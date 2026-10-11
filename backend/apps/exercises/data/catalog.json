@@ -1,67 +1,446 @@
 {
   "muscles": [
-    { "slug": "pectoral", "name": "Pectoral" },
-    { "slug": "triceps", "name": "Tríceps" },
-    { "slug": "deltoides-anterior", "name": "Deltoides anterior" },
-    { "slug": "serrato-anterior", "name": "Serrato anterior" },
-    { "slug": "abdomen", "name": "Abdomen" },
-    { "slug": "antebrazo", "name": "Antebrazo" }
+    {
+      "slug": "pectoral",
+      "name": "Pectoral"
+    },
+    {
+      "slug": "triceps",
+      "name": "Tríceps"
+    },
+    {
+      "slug": "biceps",
+      "name": "Bíceps"
+    },
+    {
+      "slug": "deltoides-anterior",
+      "name": "Deltoides anterior"
+    },
+    {
+      "slug": "deltoides-posterior",
+      "name": "Deltoides posterior"
+    },
+    {
+      "slug": "serrato-anterior",
+      "name": "Serrato anterior"
+    },
+    {
+      "slug": "dorsal",
+      "name": "Dorsal ancho"
+    },
+    {
+      "slug": "trapecio",
+      "name": "Trapecio"
+    },
+    {
+      "slug": "romboides",
+      "name": "Romboides"
+    },
+    {
+      "slug": "antebrazo",
+      "name": "Antebrazo"
+    },
+    {
+      "slug": "abdomen",
+      "name": "Abdomen"
+    },
+    {
+      "slug": "oblicuos",
+      "name": "Oblicuos"
+    },
+    {
+      "slug": "lumbar",
+      "name": "Lumbar"
+    },
+    {
+      "slug": "flexores-cadera",
+      "name": "Flexores de cadera"
+    },
+    {
+      "slug": "cuadriceps",
+      "name": "Cuádriceps"
+    },
+    {
+      "slug": "gluteos",
+      "name": "Glúteos"
+    },
+    {
+      "slug": "isquiotibiales",
+      "name": "Isquiotibiales"
+    },
+    {
+      "slug": "pantorrillas",
+      "name": "Pantorrillas"
+    },
+    {
+      "slug": "aductores",
+      "name": "Aductores"
+    }
   ],
   "equipment": [
-    { "slug": "sin-equipamiento", "name": "Sin equipamiento" },
-    { "slug": "superficie-elevada", "name": "Banco o superficie elevada" }
+    {
+      "slug": "sin-equipamiento",
+      "name": "Sin equipamiento"
+    },
+    {
+      "slug": "superficie-elevada",
+      "name": "Banco o superficie elevada"
+    },
+    {
+      "slug": "barra-fija",
+      "name": "Barra fija"
+    },
+    {
+      "slug": "barra-baja",
+      "name": "Barra baja o mesa firme"
+    },
+    {
+      "slug": "paralelas",
+      "name": "Paralelas"
+    },
+    {
+      "slug": "pared",
+      "name": "Pared"
+    },
+    {
+      "slug": "barra-vertical",
+      "name": "Barra vertical o poste"
+    }
   ],
   "branches": [
     {
-      "slug": "tronco", "name": "Tronco", "order": 0, "is_trunk": true,
+      "slug": "tronco",
+      "name": "Tronco",
+      "order": 0,
+      "is_trunk": true,
       "paths": [
-        { "slug": "fundamentos", "name": "Fundamentos", "order": 1, "description": "La base que sostiene todas las ramas." }
+        {
+          "slug": "fundamentos",
+          "name": "Fundamentos",
+          "order": 1,
+          "description": "La base que sostiene todas las ramas."
+        }
       ]
     },
     {
-      "slug": "empuje", "name": "Empuje", "order": 1,
+      "slug": "empuje",
+      "name": "Empuje",
+      "order": 1,
       "paths": [
-        { "slug": "flexiones", "name": "Flexiones", "order": 1, "description": "De la flexión de rodillas a sostener todo tu peso en un brazo." },
-        { "slug": "fondos", "name": "Fondos", "order": 2, "description": "Empuje hacia abajo, de las paralelas a la barra recta." },
-        { "slug": "empuje-vertical", "name": "Empuje vertical", "order": 3, "description": "Empujar con el cuerpo invertido, hasta la flexión de pino libre." }
+        {
+          "slug": "flexiones",
+          "name": "Flexiones",
+          "order": 1,
+          "description": "De la flexión de rodillas a sostener todo tu peso en un brazo."
+        },
+        {
+          "slug": "fondos",
+          "name": "Fondos",
+          "order": 2,
+          "description": "Empuje hacia abajo, de las paralelas a la barra recta."
+        },
+        {
+          "slug": "empuje-vertical",
+          "name": "Empuje vertical",
+          "order": 3,
+          "description": "Empujar con el cuerpo invertido, hasta la flexión de pino libre."
+        }
       ]
     },
     {
-      "slug": "traccion", "name": "Tracción", "order": 2,
+      "slug": "traccion",
+      "name": "Tracción",
+      "order": 2,
       "paths": [
-        { "slug": "dominadas", "name": "Dominadas", "order": 1, "description": "Del colgado activo a la dominada a un brazo." },
-        { "slug": "transicion", "name": "Transición", "order": 2, "description": "Pasar el cuerpo por encima de la barra: el muscle-up." },
-        { "slug": "traccion-horizontal", "name": "Tracción horizontal", "order": 3, "description": "Remos con el cuerpo inclinado, hasta el remo a un brazo." }
+        {
+          "slug": "dominadas",
+          "name": "Dominadas",
+          "order": 1,
+          "description": "Del colgado activo a la dominada a un brazo."
+        },
+        {
+          "slug": "transicion",
+          "name": "Transición",
+          "order": 2,
+          "description": "Pasar el cuerpo por encima de la barra: el muscle-up."
+        },
+        {
+          "slug": "traccion-horizontal",
+          "name": "Tracción horizontal",
+          "order": 3,
+          "description": "Remos con el cuerpo inclinado, hasta el remo a un brazo."
+        }
       ]
     },
     {
-      "slug": "pierna", "name": "Pierna", "order": 3,
+      "slug": "pierna",
+      "name": "Pierna",
+      "order": 3,
       "paths": [
-        { "slug": "sentadilla-unilateral", "name": "Sentadilla unilateral", "order": 1, "description": "Fuerza y equilibrio en una pierna, hasta el pistol squat." },
-        { "slug": "sentadilla-camaron", "name": "Sentadilla camarón", "order": 2, "description": "Una pierna con la otra flexionada atrás." },
-        { "slug": "cadena-posterior", "name": "Cadena posterior", "order": 3, "description": "Glúteos e isquiotibiales, hasta el curl nórdico." }
+        {
+          "slug": "sentadilla-unilateral",
+          "name": "Sentadilla unilateral",
+          "order": 1,
+          "description": "Fuerza y equilibrio en una pierna, hasta el pistol squat."
+        },
+        {
+          "slug": "sentadilla-camaron",
+          "name": "Sentadilla camarón",
+          "order": 2,
+          "description": "Una pierna con la otra flexionada atrás."
+        },
+        {
+          "slug": "cadena-posterior",
+          "name": "Cadena posterior",
+          "order": 3,
+          "description": "Glúteos e isquiotibiales, hasta el curl nórdico."
+        }
       ]
     },
     {
-      "slug": "core", "name": "Core", "order": 4,
+      "slug": "core",
+      "name": "Core",
+      "order": 4,
       "paths": [
-        { "slug": "elevaciones-colgado", "name": "Elevaciones colgado", "order": 1, "description": "Llevar las piernas a la barra con control." },
-        { "slug": "compresion", "name": "Compresión", "order": 2, "description": "Cerrar el cuerpo como una bisagra: del L-sit al V-sit." },
-        { "slug": "anti-extension", "name": "Anti-extensión", "order": 3, "description": "Resistir que la cadera caiga, hasta el dragon flag." }
+        {
+          "slug": "elevaciones-colgado",
+          "name": "Elevaciones colgado",
+          "order": 1,
+          "description": "Llevar las piernas a la barra con control."
+        },
+        {
+          "slug": "compresion",
+          "name": "Compresión",
+          "order": 2,
+          "description": "Cerrar el cuerpo como una bisagra: del L-sit al V-sit."
+        },
+        {
+          "slug": "anti-extension",
+          "name": "Anti-extensión",
+          "order": 3,
+          "description": "Resistir que la cadera caiga, hasta el dragon flag."
+        }
       ]
     },
     {
-      "slug": "habilidades", "name": "Habilidades", "order": 5,
+      "slug": "habilidades",
+      "name": "Habilidades",
+      "order": 5,
       "paths": [
-        { "slug": "planche", "name": "Planche", "order": 1, "description": "El cuerpo suspendido en horizontal sobre las manos." },
-        { "slug": "pino", "name": "Pino", "order": 2, "description": "Equilibrio invertido, hasta el pino a una mano." },
-        { "slug": "front-lever", "name": "Front lever", "order": 3, "description": "Colgado de la barra con el cuerpo horizontal, mirando hacia arriba." },
-        { "slug": "back-lever", "name": "Back lever", "order": 4, "description": "Colgado de la barra con el cuerpo horizontal, mirando hacia abajo." },
-        { "slug": "bandera", "name": "Bandera", "order": 5, "description": "El cuerpo horizontal sostenido de una barra vertical." }
+        {
+          "slug": "planche",
+          "name": "Planche",
+          "order": 1,
+          "description": "El cuerpo suspendido en horizontal sobre las manos."
+        },
+        {
+          "slug": "pino",
+          "name": "Pino",
+          "order": 2,
+          "description": "Equilibrio invertido, hasta el pino a una mano."
+        },
+        {
+          "slug": "front-lever",
+          "name": "Front lever",
+          "order": 3,
+          "description": "Colgado de la barra con el cuerpo horizontal, mirando hacia arriba."
+        },
+        {
+          "slug": "back-lever",
+          "name": "Back lever",
+          "order": 4,
+          "description": "Colgado de la barra con el cuerpo horizontal, mirando hacia abajo."
+        },
+        {
+          "slug": "bandera",
+          "name": "Bandera",
+          "order": 5,
+          "description": "El cuerpo horizontal sostenido de una barra vertical."
+        }
       ]
     }
   ],
   "exercises": [
+    {
+      "slug": "flexion-inclinada",
+      "name": "Flexión inclinada",
+      "path": "fundamentos",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "Flexión con las manos sobre un banco o mesa: la forma más amable de aprender a empujar.",
+      "measure": "reps",
+      "muscles": [
+        "pectoral",
+        "triceps",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Apoya las manos en el borde de un banco, un poco más abiertas que los hombros.",
+        "Camina con los pies hacia atrás hasta que el cuerpo quede recto y en diagonal.",
+        "Baja el pecho hacia el borde con los codos en diagonal, no abiertos.",
+        "Empuja hasta estirar los brazos. Cuanto más bajo el apoyo, más difícil."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera se hunde o se levanta.",
+          "fix": "Aprieta glúteos y abdomen: el cuerpo es una tabla."
+        },
+        {
+          "mistake": "Bajar solo un poco.",
+          "fix": "Acerca el pecho al borde en cada repetición."
+        }
+      ],
+      "requires": [],
+      "easier": null,
+      "harder": null
+    },
+    {
+      "slug": "sentadilla-al-aire",
+      "name": "Sentadilla al aire",
+      "path": "fundamentos",
+      "step": 2,
+      "difficulty": 1,
+      "summary": "Sentarse y pararse sin apoyo: el movimiento base de toda la rama de pierna.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "isquiotibiales"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Párate con los pies al ancho de los hombros y las puntas un poco hacia afuera.",
+        "Lleva la cadera hacia atrás y abajo, como si fueras a sentarte en una silla.",
+        "Baja hasta que los muslos queden paralelos al suelo, con los talones apoyados.",
+        "Empuja el suelo con todo el pie para volver arriba."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Los talones se despegan del suelo.",
+          "fix": "Reparte el peso en todo el pie y lleva la cadera más atrás."
+        },
+        {
+          "mistake": "Las rodillas se juntan al subir.",
+          "fix": "Empújalas hacia afuera, en la dirección de las puntas de los pies."
+        }
+      ],
+      "requires": [],
+      "easier": null,
+      "harder": null
+    },
+    {
+      "slug": "plancha-abdominal",
+      "name": "Plancha abdominal",
+      "path": "fundamentos",
+      "step": 3,
+      "difficulty": 1,
+      "summary": "Sostener el cuerpo recto sobre antebrazos y pies: el primer contacto con la tensión del core.",
+      "measure": "seconds",
+      "muscles": [
+        "abdomen",
+        "lumbar",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Apoya los antebrazos en el suelo con los codos bajo los hombros.",
+        "Estira las piernas y apóyate en las puntas de los pies.",
+        "Aprieta glúteos y abdomen hasta formar una línea de la cabeza a los talones.",
+        "Respira con calma y sostén la posición el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae hacia el suelo.",
+          "fix": "Aprieta los glúteos y lleva el ombligo hacia la columna."
+        },
+        {
+          "mistake": "Contener la respiración.",
+          "fix": "Respira corto y constante sin soltar la tensión."
+        }
+      ],
+      "requires": [],
+      "easier": null,
+      "harder": null
+    },
+    {
+      "slug": "puente-de-gluteos",
+      "name": "Puente de glúteos",
+      "path": "fundamentos",
+      "step": 4,
+      "difficulty": 1,
+      "summary": "Elevar la cadera desde el suelo: despierta los glúteos, el motor de la cadena posterior.",
+      "measure": "reps",
+      "muscles": [
+        "gluteos",
+        "isquiotibiales",
+        "lumbar"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Acuéstate boca arriba con las rodillas dobladas y los pies apoyados cerca de la cadera.",
+        "Empuja el suelo con los talones y eleva la cadera.",
+        "Arriba, hombros, cadera y rodillas forman una línea; aprieta los glúteos un segundo.",
+        "Baja con control sin apoyar del todo la cadera entre repeticiones."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Arquear la zona lumbar para subir más.",
+          "fix": "Sube solo hasta la línea recta y deja el trabajo a los glúteos."
+        },
+        {
+          "mistake": "Empujar con la punta de los pies.",
+          "fix": "Apoya bien los talones."
+        }
+      ],
+      "requires": [],
+      "easier": null,
+      "harder": null
+    },
+    {
+      "slug": "colgado-activo",
+      "name": "Colgado activo",
+      "path": "fundamentos",
+      "step": 5,
+      "difficulty": 1,
+      "summary": "Colgarse de la barra con los hombros firmes: agarre y control para toda la rama de tracción.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "antebrazo",
+        "trapecio"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Toma la barra con las palmas hacia adelante, al ancho de los hombros.",
+        "Cuelga con los brazos estirados y los pies despegados del suelo.",
+        "Lleva los hombros lejos de las orejas, como si quisieras meterlos en los bolsillos.",
+        "Sostén sin balancearte el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Los hombros suben hacia las orejas.",
+          "fix": "Baja y aprieta las escápulas sin doblar los codos."
+        },
+        {
+          "mistake": "Balancearse.",
+          "fix": "Aprieta abdomen y glúteos y junta las piernas."
+        }
+      ],
+      "requires": [],
+      "easier": null,
+      "harder": null
+    },
     {
       "slug": "flexion-de-rodillas",
       "name": "Flexión de rodillas",
@@ -70,8 +449,14 @@
       "difficulty": 1,
       "summary": "La flexión con las rodillas apoyadas: menos peso que mover y el mismo patrón de movimiento.",
       "measure": "reps",
-      "muscles": ["pectoral", "triceps", "deltoides-anterior"],
-      "equipment": ["sin-equipamiento"],
+      "muscles": [
+        "pectoral",
+        "triceps",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
       "steps": [
         "Apoya las manos un poco más abiertas que los hombros y las rodillas en el suelo.",
         "Alinea rodillas, cadera y cabeza en una sola línea, con el abdomen firme.",
@@ -79,11 +464,19 @@
         "Empuja el suelo hasta estirar los brazos sin perder la línea."
       ],
       "mistakes": [
-        { "mistake": "La cadera queda atrás, doblada.", "fix": "Adelanta la cadera hasta formar una línea recta desde las rodillas." },
-        { "mistake": "Los codos se abren hacia los lados.", "fix": "Llévalos en diagonal, a unos 45° del cuerpo." }
+        {
+          "mistake": "La cadera queda atrás, doblada.",
+          "fix": "Adelanta la cadera hasta formar una línea recta desde las rodillas."
+        },
+        {
+          "mistake": "Los codos se abren hacia los lados.",
+          "fix": "Llévalos en diagonal, a unos 45° del cuerpo."
+        }
       ],
-      "requires": [],
-      "easier": null,
+      "requires": [
+        "flexion-inclinada"
+      ],
+      "easier": "flexion-inclinada",
       "harder": "flexion-estandar"
     },
     {
@@ -94,8 +487,15 @@
       "difficulty": 2,
       "summary": "El cuerpo entero como una tabla sobre manos y pies: la base de todo el empuje.",
       "measure": "reps",
-      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen"],
-      "equipment": ["sin-equipamiento"],
+      "muscles": [
+        "pectoral",
+        "triceps",
+        "deltoides-anterior",
+        "abdomen"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
       "steps": [
         "Manos bajo los hombros, un poco más abiertas, y piernas estiradas con los pies juntos.",
         "Aprieta glúteos y abdomen para que el cuerpo quede recto de la cabeza a los talones.",
@@ -103,11 +503,22 @@
         "Empuja hasta estirar los brazos, separando un poco las escápulas al final."
       ],
       "mistakes": [
-        { "mistake": "La cadera se hunde al bajar.", "fix": "Aprieta glúteos y abdomen durante toda la repetición." },
-        { "mistake": "Bajar solo hasta la mitad.", "fix": "Baja hasta que el pecho casi toque el suelo, aunque hagas menos repeticiones." },
-        { "mistake": "La cabeza cae hacia adelante.", "fix": "Mira un punto en el suelo un poco por delante de tus manos." }
+        {
+          "mistake": "La cadera se hunde al bajar.",
+          "fix": "Aprieta glúteos y abdomen durante toda la repetición."
+        },
+        {
+          "mistake": "Bajar solo hasta la mitad.",
+          "fix": "Baja hasta que el pecho casi toque el suelo, aunque hagas menos repeticiones."
+        },
+        {
+          "mistake": "La cabeza cae hacia adelante.",
+          "fix": "Mira un punto en el suelo un poco por delante de tus manos."
+        }
       ],
-      "requires": ["flexion-de-rodillas"],
+      "requires": [
+        "flexion-de-rodillas"
+      ],
       "easier": "flexion-de-rodillas",
       "harder": "flexion-diamante"
     },
@@ -119,8 +530,14 @@
       "difficulty": 2,
       "summary": "Manos juntas bajo el pecho formando un rombo: más trabajo para el tríceps.",
       "measure": "reps",
-      "muscles": ["triceps", "pectoral", "deltoides-anterior"],
-      "equipment": ["sin-equipamiento"],
+      "muscles": [
+        "triceps",
+        "pectoral",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
       "steps": [
         "Junta las manos bajo el pecho tocándote con pulgares e índices, formando un rombo.",
         "Estira las piernas y alinea el cuerpo como en la flexión estándar.",
@@ -128,10 +545,18 @@
         "Empuja hasta estirar los brazos por completo."
       ],
       "mistakes": [
-        { "mistake": "Los codos se abren hacia afuera.", "fix": "Mantenlos rozando las costillas durante todo el recorrido." },
-        { "mistake": "Las muñecas molestan por la posición.", "fix": "Separa un poco las manos o calienta bien las muñecas antes." }
+        {
+          "mistake": "Los codos se abren hacia afuera.",
+          "fix": "Mantenlos rozando las costillas durante todo el recorrido."
+        },
+        {
+          "mistake": "Las muñecas molestan por la posición.",
+          "fix": "Separa un poco las manos o calienta bien las muñecas antes."
+        }
       ],
-      "requires": ["flexion-estandar"],
+      "requires": [
+        "flexion-estandar"
+      ],
       "easier": "flexion-estandar",
       "harder": "flexion-arquera"
     },
@@ -143,8 +568,15 @@
       "difficulty": 3,
       "summary": "Manos muy abiertas: bajas hacia un lado mientras el otro brazo se estira como el de un arquero.",
       "measure": "reps",
-      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen"],
-      "equipment": ["sin-equipamiento"],
+      "muscles": [
+        "pectoral",
+        "triceps",
+        "deltoides-anterior",
+        "abdomen"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
       "steps": [
         "Abre las manos al doble del ancho de los hombros, con los dedos apuntando hacia afuera.",
         "Baja el cuerpo hacia una mano doblando ese codo; el otro brazo se mantiene estirado.",
@@ -152,10 +584,18 @@
         "Empuja con el brazo doblado hasta volver al centro y repite hacia el otro lado."
       ],
       "mistakes": [
-        { "mistake": "El brazo estirado se dobla.", "fix": "Bloquéalo: es apoyo, no ayuda. Si no puedes, abre menos las manos." },
-        { "mistake": "La cadera gira hacia el lado que baja.", "fix": "Mantén las caderas paralelas al suelo." }
+        {
+          "mistake": "El brazo estirado se dobla.",
+          "fix": "Bloquéalo: es apoyo, no ayuda. Si no puedes, abre menos las manos."
+        },
+        {
+          "mistake": "La cadera gira hacia el lado que baja.",
+          "fix": "Mantén las caderas paralelas al suelo."
+        }
       ],
-      "requires": ["flexion-diamante"],
+      "requires": [
+        "flexion-diamante"
+      ],
       "easier": "flexion-diamante",
       "harder": "flexion-una-mano-elevada"
     },
@@ -167,8 +607,16 @@
       "difficulty": 4,
       "summary": "La flexión a una mano con la mano apoyada en un banco: menos peso para aprender el equilibrio.",
       "measure": "reps",
-      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen", "serrato-anterior"],
-      "equipment": ["superficie-elevada"],
+      "muscles": [
+        "pectoral",
+        "triceps",
+        "deltoides-anterior",
+        "abdomen",
+        "serrato-anterior"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
       "steps": [
         "Apoya una mano en el borde de un banco y abre bien las piernas para tener equilibrio.",
         "Lleva el otro brazo a la espalda y alinea el cuerpo de la cabeza a los talones.",
@@ -176,10 +624,18 @@
         "Empuja hasta estirar el brazo. Cuanto más bajo el banco, más difícil."
       ],
       "mistakes": [
-        { "mistake": "El cuerpo se tuerce hacia el lado libre.", "fix": "Abre más las piernas y aprieta el abdomen y los glúteos." },
-        { "mistake": "El codo se abre hacia afuera.", "fix": "Llévalo hacia atrás, cerca de las costillas." }
+        {
+          "mistake": "El cuerpo se tuerce hacia el lado libre.",
+          "fix": "Abre más las piernas y aprieta el abdomen y los glúteos."
+        },
+        {
+          "mistake": "El codo se abre hacia afuera.",
+          "fix": "Llévalo hacia atrás, cerca de las costillas."
+        }
       ],
-      "requires": ["flexion-arquera"],
+      "requires": [
+        "flexion-arquera"
+      ],
       "easier": "flexion-arquera",
       "harder": "flexion-una-mano"
     },
@@ -191,8 +647,17 @@
       "difficulty": 4,
       "summary": "Todo tu peso sobre un brazo: la cima del camino de las flexiones.",
       "measure": "reps",
-      "muscles": ["pectoral", "triceps", "deltoides-anterior", "abdomen", "serrato-anterior", "antebrazo"],
-      "equipment": ["sin-equipamiento"],
+      "muscles": [
+        "pectoral",
+        "triceps",
+        "deltoides-anterior",
+        "abdomen",
+        "serrato-anterior",
+        "antebrazo"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
       "steps": [
         "Apoya una mano bajo el hombro y abre las piernas más que el ancho de los hombros.",
         "Lleva el otro brazo a la espalda y tensa todo el cuerpo.",
@@ -200,11 +665,2664 @@
         "Empuja hasta estirar el brazo sin que la cadera se hunda ni gire."
       ],
       "mistakes": [
-        { "mistake": "La cadera se levanta para compensar.", "fix": "Practica más la versión elevada hasta mantener la línea." },
-        { "mistake": "Bajar sin control y rebotar.", "fix": "Cuenta dos segundos al bajar y no te apoyes en el suelo." }
+        {
+          "mistake": "La cadera se levanta para compensar.",
+          "fix": "Practica más la versión elevada hasta mantener la línea."
+        },
+        {
+          "mistake": "Bajar sin control y rebotar.",
+          "fix": "Cuenta dos segundos al bajar y no te apoyes en el suelo."
+        }
       ],
-      "requires": ["flexion-una-mano-elevada"],
+      "requires": [
+        "flexion-una-mano-elevada"
+      ],
       "easier": "flexion-una-mano-elevada",
+      "harder": null
+    },
+    {
+      "slug": "fondos-en-banco",
+      "name": "Fondos en banco",
+      "path": "fondos",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "Bajar y subir con las manos apoyadas atrás en un banco: el primer contacto con el empuje hacia abajo.",
+      "measure": "reps",
+      "muscles": [
+        "triceps",
+        "pectoral",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Siéntate en el borde de un banco y apoya las manos a los lados de la cadera.",
+        "Adelanta la cadera fuera del banco con las piernas dobladas.",
+        "Baja doblando los codos hacia atrás hasta formar un ángulo recto.",
+        "Empuja hasta estirar los brazos."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Los hombros se van hacia adelante.",
+          "fix": "Mantén el pecho abierto y la cadera cerca del banco."
+        },
+        {
+          "mistake": "Bajar demasiado.",
+          "fix": "Detente cuando los codos formen un ángulo recto."
+        }
+      ],
+      "requires": [
+        "flexion-inclinada"
+      ],
+      "easier": null,
+      "harder": "fondos-negativos"
+    },
+    {
+      "slug": "fondos-negativos",
+      "name": "Fondos negativos",
+      "path": "fondos",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "Solo la bajada del fondo en paralelas, lenta y controlada: construye la fuerza que falta para subir.",
+      "measure": "reps",
+      "muscles": [
+        "triceps",
+        "pectoral",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "paralelas"
+      ],
+      "steps": [
+        "Súbete a las paralelas con los brazos estirados, con un salto o un apoyo.",
+        "Inclina un poco el torso hacia adelante.",
+        "Baja en tres a cinco segundos hasta que los hombros queden a la altura de los codos.",
+        "Apoya los pies, vuelve arriba y repite."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Dejarse caer al final.",
+          "fix": "Controla la bajada completa, aunque sea más corta."
+        },
+        {
+          "mistake": "Los codos se abren hacia afuera.",
+          "fix": "Llévalos hacia atrás, cerca del cuerpo."
+        }
+      ],
+      "requires": [
+        "fondos-en-banco"
+      ],
+      "easier": "fondos-en-banco",
+      "harder": "fondos-en-paralelas"
+    },
+    {
+      "slug": "fondos-en-paralelas",
+      "name": "Fondos en paralelas",
+      "path": "fondos",
+      "step": 3,
+      "difficulty": 2,
+      "summary": "Bajar y subir entre dos barras con todo tu peso: el ejercicio clásico de empuje hacia abajo.",
+      "measure": "reps",
+      "muscles": [
+        "triceps",
+        "pectoral",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "paralelas"
+      ],
+      "steps": [
+        "Sostente en las paralelas con los brazos estirados y los hombros bajos.",
+        "Baja doblando los codos hacia atrás e inclinando un poco el torso.",
+        "Detente cuando los hombros queden a la altura de los codos.",
+        "Empuja hasta estirar los brazos por completo."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Los hombros suben hacia las orejas.",
+          "fix": "Empuja las paralelas hacia abajo para mantenerlos lejos."
+        },
+        {
+          "mistake": "Balancear las piernas para subir.",
+          "fix": "Cruza los pies y aprieta el abdomen."
+        }
+      ],
+      "requires": [
+        "fondos-negativos"
+      ],
+      "easier": "fondos-negativos",
+      "harder": "fondos-en-barra-recta"
+    },
+    {
+      "slug": "fondos-en-barra-recta",
+      "name": "Fondos en barra recta",
+      "path": "fondos",
+      "step": 4,
+      "difficulty": 3,
+      "summary": "El fondo sobre una sola barra, con las piernas por delante: la mitad final del muscle-up.",
+      "measure": "reps",
+      "muscles": [
+        "triceps",
+        "pectoral",
+        "deltoides-anterior",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Súbete a la barra y sostente con los brazos estirados, la barra a la altura de la cadera.",
+        "Inclina el torso hacia adelante y lleva un poco las piernas al frente para equilibrarte.",
+        "Baja hasta que la barra quede cerca del pecho, con los codos hacia atrás.",
+        "Empuja hasta volver a estirar los brazos."
+      ],
+      "mistakes": [
+        {
+          "mistake": "El cuerpo se cae hacia atrás.",
+          "fix": "Inclina más el torso y adelanta las piernas como contrapeso."
+        },
+        {
+          "mistake": "Bajar muy poco.",
+          "fix": "Lleva el pecho cerca de la barra en cada repetición."
+        }
+      ],
+      "requires": [
+        "fondos-en-paralelas"
+      ],
+      "easier": "fondos-en-paralelas",
+      "harder": null
+    },
+    {
+      "slug": "flexion-pica",
+      "name": "Flexión pica",
+      "path": "empuje-vertical",
+      "step": 1,
+      "difficulty": 2,
+      "summary": "Con la cadera en alto y el cuerpo en forma de V, empujas hacia arriba como en un press de hombros.",
+      "measure": "reps",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "trapecio"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Desde la posición de flexión, camina con los pies hacia las manos y sube la cadera.",
+        "Deja la cabeza entre los brazos, mirando hacia los pies.",
+        "Baja la cabeza hacia el suelo, por delante de las manos, doblando los codos.",
+        "Empuja hasta estirar los brazos manteniendo la cadera alta."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera baja y se vuelve una flexión normal.",
+          "fix": "Mantén la V todo el tiempo; acerca más los pies."
+        },
+        {
+          "mistake": "Los codos se abren hacia los lados.",
+          "fix": "Llévalos hacia atrás, en diagonal."
+        }
+      ],
+      "requires": [
+        "flexion-estandar"
+      ],
+      "easier": null,
+      "harder": "flexion-pica-elevada"
+    },
+    {
+      "slug": "flexion-pica-elevada",
+      "name": "Flexión pica elevada",
+      "path": "empuje-vertical",
+      "step": 2,
+      "difficulty": 3,
+      "summary": "La flexión pica con los pies sobre un banco: más peso sobre los hombros y más cerca del pino.",
+      "measure": "reps",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "trapecio"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Apoya los pies en un banco y las manos en el suelo, al ancho de los hombros.",
+        "Camina con las manos hacia el banco hasta que la cadera quede sobre los hombros.",
+        "Baja la cabeza al suelo, formando un triángulo con las manos.",
+        "Empuja hasta estirar los brazos."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Las manos quedan lejos del banco.",
+          "fix": "Acércalas hasta que el torso esté casi vertical."
+        },
+        {
+          "mistake": "Doblar la espalda.",
+          "fix": "Mantén el abdomen firme y la cadera alineada sobre los hombros."
+        }
+      ],
+      "requires": [
+        "flexion-pica"
+      ],
+      "easier": "flexion-pica",
+      "harder": "flexion-de-pino-en-pared"
+    },
+    {
+      "slug": "flexion-de-pino-en-pared",
+      "name": "Flexión de pino en pared",
+      "path": "empuje-vertical",
+      "step": 3,
+      "difficulty": 4,
+      "summary": "Invertido contra la pared, bajas la cabeza al suelo y empujas: el press de hombros con todo tu peso.",
+      "measure": "reps",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "trapecio",
+        "abdomen"
+      ],
+      "equipment": [
+        "pared"
+      ],
+      "steps": [
+        "Sube al pino con la espalda hacia la pared y las manos a un palmo de ella.",
+        "Aprieta el abdomen y los glúteos para no arquear la espalda.",
+        "Baja con control hasta que la cabeza toque suave el suelo.",
+        "Empuja hasta estirar los brazos."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Arquear mucho la espalda.",
+          "fix": "Aprieta el abdomen y acerca las costillas a la cadera."
+        },
+        {
+          "mistake": "Golpear el suelo con la cabeza.",
+          "fix": "Baja lento; si no controlas, usa un cojín y menos recorrido."
+        }
+      ],
+      "requires": [
+        "flexion-pica-elevada",
+        "pino-contra-la-pared"
+      ],
+      "easier": "flexion-pica-elevada",
+      "harder": "flexion-de-pino-libre"
+    },
+    {
+      "slug": "flexion-de-pino-libre",
+      "name": "Flexión de pino libre",
+      "path": "empuje-vertical",
+      "step": 4,
+      "difficulty": 5,
+      "summary": "Bajar y subir en el pino sin ninguna pared: fuerza y equilibrio al máximo.",
+      "measure": "reps",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "trapecio",
+        "abdomen",
+        "antebrazo"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Sube al pino libre y estabilízate con los dedos.",
+        "Baja doblando los codos mientras inclinas un poco el cuerpo para no perder el equilibrio.",
+        "Llega con la cabeza cerca del suelo, por delante de las manos.",
+        "Empuja hasta estirar los brazos y recupera la línea recta."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Perder el equilibrio al bajar.",
+          "fix": "Domina primero el pino libre por 30 segundos o más."
+        },
+        {
+          "mistake": "Subir con impulso de piernas.",
+          "fix": "Mantén las piernas juntas y quietas."
+        }
+      ],
+      "requires": [
+        "flexion-de-pino-en-pared",
+        "pino-libre"
+      ],
+      "easier": "flexion-de-pino-en-pared",
+      "harder": null
+    },
+    {
+      "slug": "dominada-escapular",
+      "name": "Dominada escapular",
+      "path": "dominadas",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "Colgado de la barra, subes y bajas solo con los hombros: el primer movimiento de toda dominada.",
+      "measure": "reps",
+      "muscles": [
+        "trapecio",
+        "dorsal",
+        "romboides"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Cuelga de la barra con los brazos completamente estirados.",
+        "Sin doblar los codos, baja los hombros y eleva un poco el pecho.",
+        "Sostén un segundo arriba.",
+        "Vuelve a soltar los hombros con control."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Los brazos quedan rectos: solo se mueven los hombros."
+        },
+        {
+          "mistake": "Moverse muy rápido.",
+          "fix": "Haz cada repetición lenta y controlada."
+        }
+      ],
+      "requires": [
+        "colgado-activo"
+      ],
+      "easier": null,
+      "harder": "dominada-negativa"
+    },
+    {
+      "slug": "dominada-negativa",
+      "name": "Dominada negativa",
+      "path": "dominadas",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "Solo la bajada de la dominada, lenta y controlada: así se construye la fuerza para subir.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "biceps",
+        "romboides",
+        "antebrazo"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Sube hasta tener la barbilla sobre la barra, con un salto o un apoyo.",
+        "Aprieta los hombros hacia abajo y el abdomen.",
+        "Baja en tres a cinco segundos hasta estirar los brazos.",
+        "Apoya los pies, vuelve arriba y repite."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Dejarse caer en la mitad final.",
+          "fix": "Controla todo el recorrido; acorta la bajada si hace falta."
+        },
+        {
+          "mistake": "Saltar con mucha fuerza y no sentir la bajada.",
+          "fix": "Usa el salto solo para llegar arriba."
+        }
+      ],
+      "requires": [
+        "dominada-escapular",
+        "remo-invertido"
+      ],
+      "easier": "dominada-escapular",
+      "harder": "dominada-supina"
+    },
+    {
+      "slug": "dominada-supina",
+      "name": "Dominada supina",
+      "path": "dominadas",
+      "step": 3,
+      "difficulty": 2,
+      "summary": "Dominada con las palmas hacia ti: los bíceps ayudan más, ideal como primera dominada completa.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "biceps",
+        "romboides",
+        "antebrazo"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Toma la barra con las palmas hacia ti, al ancho de los hombros.",
+        "Baja los hombros y aprieta el abdomen antes de subir.",
+        "Sube llevando los codos hacia las costillas hasta pasar la barbilla sobre la barra.",
+        "Baja con control hasta estirar los brazos."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Balancearse para subir.",
+          "fix": "Junta las piernas y aprieta glúteos y abdomen."
+        },
+        {
+          "mistake": "Quedarse a medio camino abajo.",
+          "fix": "Estira los brazos por completo en cada repetición."
+        }
+      ],
+      "requires": [
+        "dominada-negativa"
+      ],
+      "easier": "dominada-negativa",
+      "harder": "dominada-pronada"
+    },
+    {
+      "slug": "dominada-pronada",
+      "name": "Dominada pronada",
+      "path": "dominadas",
+      "step": 4,
+      "difficulty": 3,
+      "summary": "La dominada clásica con las palmas hacia adelante: la referencia de fuerza de la tracción.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "biceps",
+        "romboides",
+        "antebrazo",
+        "trapecio"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Toma la barra con las palmas hacia adelante, un poco más abiertas que los hombros.",
+        "Desde el colgado activo, lleva los codos hacia abajo y atrás.",
+        "Sube hasta que la barbilla pase la barra, sin estirar el cuello.",
+        "Baja con control hasta estirar los brazos."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Estirar el cuello para pasar la barbilla.",
+          "fix": "Sube el pecho hacia la barra, no la cabeza."
+        },
+        {
+          "mistake": "Usar impulso de piernas.",
+          "fix": "Mantén el cuerpo quieto y recto."
+        }
+      ],
+      "requires": [
+        "dominada-supina"
+      ],
+      "easier": "dominada-supina",
+      "harder": "dominada-arquera"
+    },
+    {
+      "slug": "dominada-arquera",
+      "name": "Dominada arquera",
+      "path": "dominadas",
+      "step": 5,
+      "difficulty": 4,
+      "summary": "Subes hacia una mano mientras el otro brazo se estira por la barra: el puente a la dominada a un brazo.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "biceps",
+        "romboides",
+        "antebrazo"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Toma la barra con las manos muy abiertas.",
+        "Sube hacia una mano doblando ese codo; el otro brazo se mantiene estirado.",
+        "Llega con la barbilla cerca de la mano que trabaja.",
+        "Baja con control y alterna los lados."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar el brazo de apoyo.",
+          "fix": "Mantenlo estirado; si no puedes, junta un poco las manos."
+        },
+        {
+          "mistake": "Girar el cuerpo.",
+          "fix": "Mantén el pecho mirando a la barra."
+        }
+      ],
+      "requires": [
+        "dominada-pronada"
+      ],
+      "easier": "dominada-pronada",
+      "harder": "dominada-a-un-brazo"
+    },
+    {
+      "slug": "dominada-a-un-brazo",
+      "name": "Dominada a un brazo",
+      "path": "dominadas",
+      "step": 6,
+      "difficulty": 5,
+      "summary": "Todo tu peso colgado de un brazo y llevado sobre la barra: una de las cimas de la calistenia.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "biceps",
+        "romboides",
+        "antebrazo",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Toma la barra con una mano y lleva la otra al pecho o a la espalda.",
+        "Activa el hombro y tensa todo el cuerpo para no girar.",
+        "Sube llevando el codo hacia la cadera hasta pasar la barbilla.",
+        "Baja con control hasta estirar el brazo."
+      ],
+      "mistakes": [
+        {
+          "mistake": "El cuerpo gira sin control.",
+          "fix": "Aprieta abdomen y glúteos y junta las piernas."
+        },
+        {
+          "mistake": "Subir con impulso.",
+          "fix": "Domina primero las negativas a un brazo de cinco segundos."
+        }
+      ],
+      "requires": [
+        "dominada-arquera"
+      ],
+      "easier": "dominada-arquera",
+      "harder": null
+    },
+    {
+      "slug": "dominada-explosiva",
+      "name": "Dominada explosiva",
+      "path": "transicion",
+      "step": 1,
+      "difficulty": 3,
+      "summary": "Una dominada tan rápida que el pecho llega a la barra: la potencia que necesita el muscle-up.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "biceps",
+        "romboides",
+        "antebrazo"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Cuelga en colgado activo con el cuerpo recto.",
+        "Tira con toda la fuerza posible, llevando la barra hacia el pecho.",
+        "Busca que el pecho toque la barra o la pase.",
+        "Baja con control y descansa un momento antes de la siguiente."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Subir rápido pero solo hasta la barbilla.",
+          "fix": "La meta es el pecho: piensa en tirar la barra hacia la cadera."
+        },
+        {
+          "mistake": "Patear para ganar altura.",
+          "fix": "Mantén las piernas juntas; la fuerza sale de la espalda."
+        }
+      ],
+      "requires": [
+        "dominada-pronada"
+      ],
+      "easier": null,
+      "harder": "muscle-up-negativo"
+    },
+    {
+      "slug": "muscle-up-negativo",
+      "name": "Muscle-up negativo",
+      "path": "transicion",
+      "step": 2,
+      "difficulty": 4,
+      "summary": "Desde arriba de la barra, bajas lento pasando por la transición: aprendes el camino del muscle-up.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "pectoral",
+        "triceps",
+        "biceps"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Sube sobre la barra con los brazos estirados, con un salto o un apoyo.",
+        "Baja al fondo sobre la barra con el pecho inclinado hacia adelante.",
+        "Pasa con control por la transición hasta quedar bajo la barra.",
+        "Termina la bajada hasta el colgado y repite."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Caer de golpe en la transición.",
+          "fix": "Baja más lento ahí: es la parte que más necesitas aprender."
+        },
+        {
+          "mistake": "Soltar el agarre.",
+          "fix": "Usa un agarre falso: la muñeca un poco por encima de la barra."
+        }
+      ],
+      "requires": [
+        "dominada-explosiva",
+        "fondos-en-barra-recta"
+      ],
+      "easier": "dominada-explosiva",
+      "harder": "muscle-up"
+    },
+    {
+      "slug": "muscle-up",
+      "name": "Muscle-up",
+      "path": "transicion",
+      "step": 3,
+      "difficulty": 4,
+      "summary": "Subir desde el colgado hasta quedar sobre la barra en un solo movimiento: dominada, transición y fondo.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "pectoral",
+        "triceps",
+        "biceps",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Desde el colgado, tira explosivo llevando la barra hacia la cadera.",
+        "Al llegar el pecho a la barra, inclina el torso hacia adelante y lleva los codos arriba.",
+        "Pasa las muñecas sobre la barra y termina con un fondo hasta estirar los brazos.",
+        "Baja con control por el mismo camino."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Un brazo pasa antes que el otro.",
+          "fix": "Sube simétrico; practica las negativas lentas."
+        },
+        {
+          "mistake": "Tirar hacia arriba en vez de hacia atrás.",
+          "fix": "Separa un poco el cuerpo de la barra y tira hacia la cadera."
+        }
+      ],
+      "requires": [
+        "muscle-up-negativo"
+      ],
+      "easier": "muscle-up-negativo",
+      "harder": null
+    },
+    {
+      "slug": "remo-inclinado",
+      "name": "Remo inclinado",
+      "path": "traccion-horizontal",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "Tirar del cuerpo hacia una barra alta, casi de pie: la tracción más accesible.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "romboides",
+        "biceps"
+      ],
+      "equipment": [
+        "barra-baja"
+      ],
+      "steps": [
+        "Toma una barra a la altura del pecho y camina con los pies hacia adelante.",
+        "Inclina el cuerpo hacia atrás con los brazos estirados y el cuerpo recto.",
+        "Lleva el pecho hacia la barra juntando las escápulas.",
+        "Baja con control. Cuanto más horizontal el cuerpo, más difícil."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera se dobla.",
+          "fix": "Aprieta glúteos y abdomen para mantener la línea."
+        },
+        {
+          "mistake": "Tirar solo con los brazos.",
+          "fix": "Empieza el movimiento juntando las escápulas."
+        }
+      ],
+      "requires": [
+        "colgado-activo"
+      ],
+      "easier": null,
+      "harder": "remo-invertido"
+    },
+    {
+      "slug": "remo-invertido",
+      "name": "Remo invertido",
+      "path": "traccion-horizontal",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "Bajo una barra a la altura de la cadera, con el cuerpo casi horizontal, llevas el pecho a la barra.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "romboides",
+        "biceps",
+        "deltoides-posterior"
+      ],
+      "equipment": [
+        "barra-baja"
+      ],
+      "steps": [
+        "Acuéstate bajo una barra baja y tómala un poco más abierta que los hombros.",
+        "Apoya los talones y eleva la cadera hasta formar una línea recta.",
+        "Tira hasta que el pecho toque la barra, con los codos hacia atrás.",
+        "Baja con control hasta estirar los brazos."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae hacia el suelo.",
+          "fix": "Aprieta los glúteos durante toda la serie."
+        },
+        {
+          "mistake": "Llevar el cuello hacia la barra.",
+          "fix": "Mantén la cabeza neutra: sube el pecho."
+        }
+      ],
+      "requires": [
+        "remo-inclinado"
+      ],
+      "easier": "remo-inclinado",
+      "harder": "remo-pies-elevados"
+    },
+    {
+      "slug": "remo-pies-elevados",
+      "name": "Remo con pies elevados",
+      "path": "traccion-horizontal",
+      "step": 3,
+      "difficulty": 3,
+      "summary": "El remo invertido con los pies sobre un banco: el cuerpo queda horizontal y sube la exigencia.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "romboides",
+        "biceps",
+        "deltoides-posterior"
+      ],
+      "equipment": [
+        "barra-baja",
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Apoya los pies en un banco a la altura de la barra.",
+        "Toma la barra y alinea el cuerpo, completamente horizontal.",
+        "Tira hasta que el pecho toque la barra.",
+        "Baja con control sin que la cadera se hunda."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera se hunde al bajar.",
+          "fix": "Aprieta abdomen y glúteos como en una plancha."
+        },
+        {
+          "mistake": "Recorrido corto.",
+          "fix": "Estira los brazos por completo en cada repetición."
+        }
+      ],
+      "requires": [
+        "remo-invertido"
+      ],
+      "easier": "remo-invertido",
+      "harder": "remo-arquero"
+    },
+    {
+      "slug": "remo-arquero",
+      "name": "Remo arquero",
+      "path": "traccion-horizontal",
+      "step": 4,
+      "difficulty": 4,
+      "summary": "Tiras hacia una mano mientras el otro brazo se estira por la barra: preparación para el remo a un brazo.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "romboides",
+        "biceps",
+        "deltoides-posterior"
+      ],
+      "equipment": [
+        "barra-baja"
+      ],
+      "steps": [
+        "Bajo la barra, tómala con las manos muy abiertas.",
+        "Tira hacia una mano doblando ese codo; el otro brazo se mantiene estirado.",
+        "Llega con el pecho cerca de la mano que trabaja.",
+        "Baja con control y alterna los lados."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Girar el torso hacia la mano.",
+          "fix": "Mantén el pecho mirando hacia la barra."
+        },
+        {
+          "mistake": "Doblar el brazo de apoyo.",
+          "fix": "Mantenlo estirado: solo guía el movimiento."
+        }
+      ],
+      "requires": [
+        "remo-pies-elevados"
+      ],
+      "easier": "remo-pies-elevados",
+      "harder": "remo-a-un-brazo"
+    },
+    {
+      "slug": "remo-a-un-brazo",
+      "name": "Remo a un brazo",
+      "path": "traccion-horizontal",
+      "step": 5,
+      "difficulty": 4,
+      "summary": "Todo el remo con una sola mano: fuerza de espalda y un core que no deja girar el cuerpo.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "romboides",
+        "biceps",
+        "oblicuos"
+      ],
+      "equipment": [
+        "barra-baja"
+      ],
+      "steps": [
+        "Toma la barra con una mano, a la altura del centro del pecho.",
+        "Abre las piernas para tener más estabilidad.",
+        "Tira hasta que el pecho llegue a la barra sin girar el cuerpo.",
+        "Baja con control y cambia de lado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "El cuerpo gira hacia el lado libre.",
+          "fix": "Abre más las piernas y aprieta abdomen y oblicuos."
+        },
+        {
+          "mistake": "Subir con impulso de cadera.",
+          "fix": "Mantén el cuerpo rígido como una tabla."
+        }
+      ],
+      "requires": [
+        "remo-arquero"
+      ],
+      "easier": "remo-arquero",
+      "harder": null
+    },
+    {
+      "slug": "zancada",
+      "name": "Zancada",
+      "path": "sentadilla-unilateral",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "Un paso largo y bajar la rodilla de atrás: el primer trabajo de pierna a una sola pierna.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "isquiotibiales"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Párate derecho y da un paso largo hacia adelante.",
+        "Baja hasta que la rodilla de atrás casi toque el suelo.",
+        "Mantén el torso derecho y la rodilla de adelante sobre el pie.",
+        "Empuja con la pierna de adelante para volver y alterna."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La rodilla de adelante se va hacia adentro.",
+          "fix": "Empújala hacia afuera, alineada con el pie."
+        },
+        {
+          "mistake": "Paso muy corto.",
+          "fix": "Alarga el paso hasta formar dos ángulos rectos abajo."
+        }
+      ],
+      "requires": [
+        "sentadilla-al-aire"
+      ],
+      "easier": null,
+      "harder": "sentadilla-bulgara"
+    },
+    {
+      "slug": "sentadilla-bulgara",
+      "name": "Sentadilla búlgara",
+      "path": "sentadilla-unilateral",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "Con el pie de atrás sobre un banco, toda la carga queda en la pierna de adelante.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "aductores"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Apoya el empeine del pie de atrás en un banco.",
+        "Deja el pie de adelante lo bastante lejos para bajar en vertical.",
+        "Baja hasta que el muslo de adelante quede paralelo al suelo.",
+        "Empuja con el talón de adelante para subir."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Empujarse con la pierna de atrás.",
+          "fix": "Úsala solo de apoyo; el trabajo es de la de adelante."
+        },
+        {
+          "mistake": "Perder el equilibrio.",
+          "fix": "Separa un poco los pies hacia los lados, como sobre rieles."
+        }
+      ],
+      "requires": [
+        "zancada"
+      ],
+      "easier": "zancada",
+      "harder": "sentadilla-a-banco-una-pierna"
+    },
+    {
+      "slug": "sentadilla-a-banco-una-pierna",
+      "name": "Sentadilla a banco a una pierna",
+      "path": "sentadilla-unilateral",
+      "step": 3,
+      "difficulty": 3,
+      "summary": "Sentarse en un banco y pararse con una sola pierna: el pistol squat con un tope de seguridad.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "abdomen"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Párate frente a un banco, de espaldas a él, sobre una pierna.",
+        "Estira la otra pierna al frente y los brazos para equilibrarte.",
+        "Baja con control hasta sentarte apenas en el borde.",
+        "Sin balancearte, empuja con la pierna de apoyo para volver arriba."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Dejarse caer sobre el banco.",
+          "fix": "Baja lento y solo roza el banco."
+        },
+        {
+          "mistake": "El talón se despega.",
+          "fix": "Reparte el peso en todo el pie."
+        }
+      ],
+      "requires": [
+        "sentadilla-bulgara"
+      ],
+      "easier": "sentadilla-bulgara",
+      "harder": "pistol-asistida"
+    },
+    {
+      "slug": "pistol-asistida",
+      "name": "Pistol asistida",
+      "path": "sentadilla-unilateral",
+      "step": 4,
+      "difficulty": 3,
+      "summary": "El pistol squat completo tomándote de un poste o una barra para ayudarte con el equilibrio.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-baja"
+      ],
+      "steps": [
+        "Párate sobre una pierna tomándote de un poste o una barra baja.",
+        "Estira la otra pierna al frente.",
+        "Baja hasta el fondo de la sentadilla usando la mano solo para equilibrarte.",
+        "Sube empujando con la pierna, ayudándote lo menos posible con la mano."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Tirar con los brazos para subir.",
+          "fix": "La mano solo guía; si tiras mucho, usa un banco."
+        },
+        {
+          "mistake": "La rodilla se va hacia adentro.",
+          "fix": "Alinéala con la punta del pie."
+        }
+      ],
+      "requires": [
+        "sentadilla-a-banco-una-pierna"
+      ],
+      "easier": "sentadilla-a-banco-una-pierna",
+      "harder": "pistol-squat"
+    },
+    {
+      "slug": "pistol-squat",
+      "name": "Pistol squat",
+      "path": "sentadilla-unilateral",
+      "step": 5,
+      "difficulty": 4,
+      "summary": "Sentadilla completa sobre una pierna con la otra estirada al frente: fuerza, movilidad y equilibrio.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "abdomen",
+        "flexores-cadera"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Párate sobre una pierna con la otra estirada al frente y los brazos adelante.",
+        "Baja con control hasta el fondo, con el talón apoyado.",
+        "Mantén la pierna libre en el aire, sin tocar el suelo.",
+        "Empuja con todo el pie para subir sin rebotar."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Rebotar abajo para subir.",
+          "fix": "Haz una pausa de un segundo en el fondo."
+        },
+        {
+          "mistake": "La pierna libre toca el suelo.",
+          "fix": "Fortalece los flexores de cadera con elevaciones de pierna."
+        }
+      ],
+      "requires": [
+        "pistol-asistida"
+      ],
+      "easier": "pistol-asistida",
+      "harder": null
+    },
+    {
+      "slug": "camaron-asistida",
+      "name": "Sentadilla camarón asistida",
+      "path": "sentadilla-camaron",
+      "step": 1,
+      "difficulty": 2,
+      "summary": "Una pierna en el aire doblada hacia atrás y una mano de apoyo: aprendes la posición del camarón.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos"
+      ],
+      "equipment": [
+        "barra-baja"
+      ],
+      "steps": [
+        "Párate sobre una pierna tomándote de un apoyo.",
+        "Dobla la otra pierna hacia atrás y tómala del tobillo con la mano libre.",
+        "Baja hasta que la rodilla de atrás toque suave el suelo.",
+        "Sube empujando con la pierna de apoyo."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Inclinarse mucho hacia adelante.",
+          "fix": "Mantén el pecho alto; baja en vertical."
+        },
+        {
+          "mistake": "Golpear la rodilla contra el suelo.",
+          "fix": "Pon un cojín y baja con control."
+        }
+      ],
+      "requires": [
+        "sentadilla-bulgara"
+      ],
+      "easier": null,
+      "harder": "sentadilla-camaron"
+    },
+    {
+      "slug": "sentadilla-camaron",
+      "name": "Sentadilla camarón",
+      "path": "sentadilla-camaron",
+      "step": 2,
+      "difficulty": 3,
+      "summary": "La sentadilla camarón sin apoyo: toda la fuerza y el equilibrio en una pierna.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "abdomen"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Párate sobre una pierna y toma el tobillo de la otra, doblada hacia atrás.",
+        "Lleva el brazo libre adelante para equilibrarte.",
+        "Baja hasta que la rodilla de atrás toque el suelo.",
+        "Sube sin apoyar la pierna de atrás."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Soltar el tobillo para equilibrarse.",
+          "fix": "Practica más la versión asistida."
+        },
+        {
+          "mistake": "El talón de apoyo se levanta.",
+          "fix": "Lleva la cadera más atrás y reparte el peso."
+        }
+      ],
+      "requires": [
+        "camaron-asistida"
+      ],
+      "easier": "camaron-asistida",
+      "harder": "camaron-avanzada"
+    },
+    {
+      "slug": "camaron-avanzada",
+      "name": "Sentadilla camarón avanzada",
+      "path": "sentadilla-camaron",
+      "step": 3,
+      "difficulty": 4,
+      "summary": "Camarón sin tomarte el pie y con la rodilla tocando el suelo: la cima de esta rama de pierna.",
+      "measure": "reps",
+      "muscles": [
+        "cuadriceps",
+        "gluteos",
+        "abdomen"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Párate sobre una pierna y dobla la otra hacia atrás, sin tomarla.",
+        "Lleva ambos brazos al frente.",
+        "Baja hasta que solo la rodilla de atrás roce el suelo, sin apoyar el pie.",
+        "Sube con control manteniendo la pierna de atrás en el aire."
+      ],
+      "mistakes": [
+        {
+          "mistake": "El pie de atrás toca el suelo.",
+          "fix": "Mantén la rodilla doblada y el pie en el aire."
+        },
+        {
+          "mistake": "Bajar sin control.",
+          "fix": "Cuenta tres segundos en la bajada."
+        }
+      ],
+      "requires": [
+        "sentadilla-camaron"
+      ],
+      "easier": "sentadilla-camaron",
+      "harder": null
+    },
+    {
+      "slug": "puente-una-pierna",
+      "name": "Puente a una pierna",
+      "path": "cadena-posterior",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "El puente de glúteos con una pierna estirada en el aire: el doble de trabajo por lado.",
+      "measure": "reps",
+      "muscles": [
+        "gluteos",
+        "isquiotibiales"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Acuéstate boca arriba con una rodilla doblada y la otra pierna estirada.",
+        "Empuja el suelo con el talón apoyado y eleva la cadera.",
+        "Mantén la cadera nivelada, sin que se incline hacia un lado.",
+        "Baja con control y cambia de pierna al terminar la serie."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera se inclina hacia el lado libre.",
+          "fix": "Aprieta el glúteo de apoyo y el abdomen."
+        },
+        {
+          "mistake": "Arquear la zona lumbar.",
+          "fix": "Sube solo hasta la línea recta."
+        }
+      ],
+      "requires": [
+        "puente-de-gluteos"
+      ],
+      "easier": null,
+      "harder": "puente-de-isquios"
+    },
+    {
+      "slug": "puente-de-isquios",
+      "name": "Puente de isquiotibiales",
+      "path": "cadena-posterior",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "El puente con los talones sobre un banco y las piernas casi estiradas: trabajan los isquiotibiales.",
+      "measure": "reps",
+      "muscles": [
+        "isquiotibiales",
+        "gluteos"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Acuéstate boca arriba con los talones sobre un banco y las rodillas apenas dobladas.",
+        "Empuja el banco con los talones y eleva la cadera.",
+        "Sostén un segundo arriba con el cuerpo recto.",
+        "Baja con control."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar mucho las rodillas.",
+          "fix": "Mientras más estiradas, más trabajan los isquiotibiales."
+        },
+        {
+          "mistake": "Calambres en la parte de atrás del muslo.",
+          "fix": "Baja el volumen y ve progresando de a poco."
+        }
+      ],
+      "requires": [
+        "puente-una-pierna"
+      ],
+      "easier": "puente-una-pierna",
+      "harder": "curl-nordico-negativo"
+    },
+    {
+      "slug": "curl-nordico-negativo",
+      "name": "Curl nórdico negativo",
+      "path": "cadena-posterior",
+      "step": 3,
+      "difficulty": 3,
+      "summary": "De rodillas con los talones sujetos, te inclinas hacia adelante lo más lento posible.",
+      "measure": "reps",
+      "muscles": [
+        "isquiotibiales",
+        "gluteos"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Arrodíllate con los talones sujetos bajo un mueble firme o por un compañero.",
+        "Aprieta los glúteos para que rodillas, cadera y hombros queden en línea.",
+        "Inclínate hacia adelante lo más lento que puedas, frenando con los isquiotibiales.",
+        "Recibe el peso con las manos y empuja para volver arriba."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar la cadera.",
+          "fix": "Mantén la línea recta: el movimiento ocurre solo en las rodillas."
+        },
+        {
+          "mistake": "Caer rápido.",
+          "fix": "Frena lo más que puedas; con el tiempo aguantarás más abajo."
+        }
+      ],
+      "requires": [
+        "puente-de-isquios"
+      ],
+      "easier": "puente-de-isquios",
+      "harder": "curl-nordico"
+    },
+    {
+      "slug": "curl-nordico",
+      "name": "Curl nórdico",
+      "path": "cadena-posterior",
+      "step": 4,
+      "difficulty": 4,
+      "summary": "Bajar y volver a subir solo con la fuerza de los isquiotibiales: la cima de la cadena posterior.",
+      "measure": "reps",
+      "muscles": [
+        "isquiotibiales",
+        "gluteos",
+        "pantorrillas"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Arrodíllate con los talones bien sujetos y el cuerpo recto.",
+        "Inclínate hacia adelante con control hasta quedar casi horizontal.",
+        "Sin usar las manos, contrae los isquiotibiales para volver arriba.",
+        "Mantén la cadera estirada durante todo el recorrido."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar la cadera al subir.",
+          "fix": "Aprieta los glúteos: la cadera no se mueve."
+        },
+        {
+          "mistake": "Empujar con las manos.",
+          "fix": "Solo úsalas para frenar una caída."
+        }
+      ],
+      "requires": [
+        "curl-nordico-negativo"
+      ],
+      "easier": "curl-nordico-negativo",
+      "harder": null
+    },
+    {
+      "slug": "encogimiento-invertido",
+      "name": "Encogimiento invertido",
+      "path": "elevaciones-colgado",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "Acostado, llevas las rodillas al pecho y despegas un poco la cadera: el patrón de las elevaciones.",
+      "measure": "reps",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Acuéstate boca arriba con las rodillas dobladas en el aire.",
+        "Apoya los brazos a los lados del cuerpo.",
+        "Lleva las rodillas hacia el pecho despegando la cadera del suelo.",
+        "Baja con control sin apoyar los pies."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Balancear las piernas.",
+          "fix": "Haz el movimiento lento, sin impulso."
+        },
+        {
+          "mistake": "Empujar con las manos.",
+          "fix": "Los brazos solo apoyan; el trabajo es del abdomen."
+        }
+      ],
+      "requires": [
+        "plancha-abdominal"
+      ],
+      "easier": null,
+      "harder": "elevacion-rodillas-colgado"
+    },
+    {
+      "slug": "elevacion-rodillas-colgado",
+      "name": "Elevación de rodillas colgado",
+      "path": "elevaciones-colgado",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "Colgado de la barra, subes las rodillas al pecho sin balancearte.",
+      "measure": "reps",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "antebrazo"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Cuelga en colgado activo con el cuerpo quieto.",
+        "Sube las rodillas hacia el pecho redondeando un poco la espalda baja.",
+        "Sostén un instante arriba.",
+        "Baja con control hasta estirar las piernas, sin balancearte."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Balancearse para subir.",
+          "fix": "Haz una pausa abajo antes de cada repetición."
+        },
+        {
+          "mistake": "Subir solo hasta la cadera.",
+          "fix": "Lleva las rodillas al pecho, no solo a la altura de la cadera."
+        }
+      ],
+      "requires": [
+        "encogimiento-invertido",
+        "colgado-activo"
+      ],
+      "easier": "encogimiento-invertido",
+      "harder": "elevacion-piernas-colgado"
+    },
+    {
+      "slug": "elevacion-piernas-colgado",
+      "name": "Elevación de piernas colgado",
+      "path": "elevaciones-colgado",
+      "step": 3,
+      "difficulty": 3,
+      "summary": "Colgado de la barra, subes las piernas estiradas hasta la horizontal o más arriba.",
+      "measure": "reps",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "antebrazo"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Cuelga en colgado activo con las piernas juntas.",
+        "Sube las piernas estiradas hasta que queden paralelas al suelo o más arriba.",
+        "Sostén un instante arriba.",
+        "Baja lento, sin balancearte."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar las rodillas para subir.",
+          "fix": "Mantenlas estiradas; si no puedes, sube menos."
+        },
+        {
+          "mistake": "Balancear el cuerpo.",
+          "fix": "Aprieta los glúteos y baja más lento."
+        }
+      ],
+      "requires": [
+        "elevacion-rodillas-colgado"
+      ],
+      "easier": "elevacion-rodillas-colgado",
+      "harder": "toes-to-bar"
+    },
+    {
+      "slug": "toes-to-bar",
+      "name": "Toes to bar",
+      "path": "elevaciones-colgado",
+      "step": 4,
+      "difficulty": 3,
+      "summary": "Colgado de la barra, llevas las puntas de los pies hasta tocarla: la cima de las elevaciones.",
+      "measure": "reps",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "dorsal",
+        "antebrazo"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Cuelga en colgado activo con los brazos estirados.",
+        "Sube las piernas estiradas y redondea la espalda para seguir subiendo.",
+        "Empuja la barra hacia abajo con los brazos y toca la barra con los pies.",
+        "Baja con control, sin balancearte."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar las rodillas para llegar.",
+          "fix": "Trabaja más la elevación de piernas para ganar flexibilidad."
+        },
+        {
+          "mistake": "Usar impulso.",
+          "fix": "Empieza cada repetición desde el cuerpo quieto."
+        }
+      ],
+      "requires": [
+        "elevacion-piernas-colgado"
+      ],
+      "easier": "elevacion-piernas-colgado",
+      "harder": null
+    },
+    {
+      "slug": "l-sit-recogido",
+      "name": "L-sit recogido",
+      "path": "compresion",
+      "step": 1,
+      "difficulty": 2,
+      "summary": "Sostenerse con los brazos estirados y las rodillas al pecho: el primer paso del L-sit.",
+      "measure": "seconds",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "triceps"
+      ],
+      "equipment": [
+        "paralelas"
+      ],
+      "steps": [
+        "Apóyate en paralelas o en el suelo con los brazos estirados.",
+        "Empuja hacia abajo para elevar los hombros y despegar la cadera.",
+        "Sube las rodillas al pecho y sostén.",
+        "Respira y mantén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Los hombros suben hacia las orejas.",
+          "fix": "Empuja el suelo o las barras hacia abajo."
+        },
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquea los brazos estirados."
+        }
+      ],
+      "requires": [
+        "plancha-abdominal"
+      ],
+      "easier": null,
+      "harder": "l-sit-una-pierna"
+    },
+    {
+      "slug": "l-sit-una-pierna",
+      "name": "L-sit a una pierna",
+      "path": "compresion",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "El L-sit con una pierna estirada y la otra recogida: el puente al L-sit completo.",
+      "measure": "seconds",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "triceps"
+      ],
+      "equipment": [
+        "paralelas"
+      ],
+      "steps": [
+        "Sube a la posición de L-sit recogido.",
+        "Estira una pierna al frente, a la altura de la cadera.",
+        "Mantén la otra rodilla recogida y sostén.",
+        "Cambia de pierna en cada serie."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La pierna estirada cae.",
+          "fix": "Aprieta el muslo y lleva la punta del pie hacia ti."
+        },
+        {
+          "mistake": "Inclinarse hacia atrás.",
+          "fix": "Mantén los hombros sobre las manos."
+        }
+      ],
+      "requires": [
+        "l-sit-recogido"
+      ],
+      "easier": "l-sit-recogido",
+      "harder": "l-sit"
+    },
+    {
+      "slug": "l-sit",
+      "name": "L-sit",
+      "path": "compresion",
+      "step": 3,
+      "difficulty": 3,
+      "summary": "Sostener el cuerpo con las piernas estiradas al frente formando una L.",
+      "measure": "seconds",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "triceps",
+        "cuadriceps"
+      ],
+      "equipment": [
+        "paralelas"
+      ],
+      "steps": [
+        "Apóyate con los brazos estirados y eleva los hombros.",
+        "Sube las dos piernas estiradas y juntas hasta la altura de la cadera.",
+        "Lleva las puntas de los pies hacia adelante y aprieta los muslos.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Las piernas bajan del nivel de la cadera.",
+          "fix": "Vuelve a la versión a una pierna para ganar fuerza."
+        },
+        {
+          "mistake": "Doblar las rodillas.",
+          "fix": "Aprieta los cuádriceps para mantenerlas estiradas."
+        }
+      ],
+      "requires": [
+        "l-sit-una-pierna"
+      ],
+      "easier": "l-sit-una-pierna",
+      "harder": "v-sit"
+    },
+    {
+      "slug": "v-sit",
+      "name": "V-sit",
+      "path": "compresion",
+      "step": 4,
+      "difficulty": 4,
+      "summary": "Las piernas estiradas suben por encima de la cadera y el cuerpo forma una V.",
+      "measure": "seconds",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "triceps",
+        "deltoides-anterior"
+      ],
+      "equipment": [
+        "paralelas"
+      ],
+      "steps": [
+        "Desde el L-sit, empuja el suelo hacia abajo y hacia adelante.",
+        "Lleva la cadera un poco atrás y sube las piernas por encima de la horizontal.",
+        "Mantén las piernas juntas y estiradas.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar las piernas para subirlas.",
+          "fix": "Trabaja la flexibilidad de los isquiotibiales."
+        },
+        {
+          "mistake": "Inclinarse mucho hacia atrás.",
+          "fix": "Empuja con los hombros hacia adelante."
+        }
+      ],
+      "requires": [
+        "l-sit"
+      ],
+      "easier": "l-sit",
+      "harder": null
+    },
+    {
+      "slug": "dead-bug",
+      "name": "Dead bug",
+      "path": "anti-extension",
+      "step": 1,
+      "difficulty": 1,
+      "summary": "Acostado boca arriba, estiras brazo y pierna contrarios sin despegar la espalda del suelo.",
+      "measure": "reps",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Acuéstate boca arriba con brazos hacia el techo y rodillas dobladas en el aire.",
+        "Pega la zona lumbar al suelo.",
+        "Estira un brazo hacia atrás y la pierna contraria hacia adelante, sin tocar el suelo.",
+        "Vuelve al centro y alterna los lados."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La zona lumbar se despega del suelo.",
+          "fix": "Estira menos las extremidades."
+        },
+        {
+          "mistake": "Moverse rápido.",
+          "fix": "Hazlo lento, respirando en cada repetición."
+        }
+      ],
+      "requires": [
+        "plancha-abdominal"
+      ],
+      "easier": null,
+      "harder": "hollow-body"
+    },
+    {
+      "slug": "hollow-body",
+      "name": "Hollow body",
+      "path": "anti-extension",
+      "step": 2,
+      "difficulty": 2,
+      "summary": "Acostado, despegas hombros y piernas del suelo formando una media luna firme.",
+      "measure": "seconds",
+      "muscles": [
+        "abdomen",
+        "flexores-cadera",
+        "cuadriceps"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Acuéstate boca arriba y pega la zona lumbar al suelo.",
+        "Despega los hombros y las piernas estiradas del suelo.",
+        "Lleva los brazos estirados hacia atrás, junto a las orejas.",
+        "Sostén el tiempo indicado sin que la espalda baja se despegue."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La zona lumbar se arquea.",
+          "fix": "Sube más las piernas o dobla las rodillas."
+        },
+        {
+          "mistake": "Tensión en el cuello.",
+          "fix": "Mira hacia los pies y relaja la mandíbula."
+        }
+      ],
+      "requires": [
+        "dead-bug"
+      ],
+      "easier": "dead-bug",
+      "harder": "dragon-flag-negativo"
+    },
+    {
+      "slug": "dragon-flag-negativo",
+      "name": "Dragon flag negativo",
+      "path": "anti-extension",
+      "step": 3,
+      "difficulty": 3,
+      "summary": "Con el cuerpo recto apoyado en los hombros, bajas lo más lento posible hacia el banco.",
+      "measure": "reps",
+      "muscles": [
+        "abdomen",
+        "lumbar",
+        "dorsal"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Acuéstate en un banco y toma su borde por detrás de la cabeza.",
+        "Sube el cuerpo recto hasta quedar apoyado solo en la parte alta de la espalda.",
+        "Baja lento manteniendo el cuerpo como una tabla.",
+        "Antes de tocar el banco, dobla las rodillas y vuelve arriba."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar la cadera al bajar.",
+          "fix": "Aprieta los glúteos; si se dobla, baja menos."
+        },
+        {
+          "mistake": "Apoyar el cuello.",
+          "fix": "El peso va sobre la parte alta de la espalda, no sobre la cabeza."
+        }
+      ],
+      "requires": [
+        "hollow-body"
+      ],
+      "easier": "hollow-body",
+      "harder": "dragon-flag"
+    },
+    {
+      "slug": "dragon-flag",
+      "name": "Dragon flag",
+      "path": "anti-extension",
+      "step": 4,
+      "difficulty": 4,
+      "summary": "Bajar y subir el cuerpo completamente recto apoyado solo en los hombros.",
+      "measure": "reps",
+      "muscles": [
+        "abdomen",
+        "lumbar",
+        "dorsal",
+        "oblicuos"
+      ],
+      "equipment": [
+        "superficie-elevada"
+      ],
+      "steps": [
+        "Acuéstate en un banco y tómalo con firmeza por detrás de la cabeza.",
+        "Sube el cuerpo recto hasta la vertical, apoyado en la parte alta de la espalda.",
+        "Baja con control como una tabla hasta quedar cerca del banco.",
+        "Vuelve arriba sin doblar la cadera."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar la cadera al subir.",
+          "fix": "Domina más las negativas lentas."
+        },
+        {
+          "mistake": "Arquear la espalda baja.",
+          "fix": "Aprieta los glúteos y el abdomen todo el tiempo."
+        }
+      ],
+      "requires": [
+        "dragon-flag-negativo"
+      ],
+      "easier": "dragon-flag-negativo",
+      "harder": null
+    },
+    {
+      "slug": "frog-stand",
+      "name": "Frog stand",
+      "path": "planche",
+      "step": 1,
+      "difficulty": 2,
+      "summary": "Equilibrio sobre las manos con las rodillas apoyadas en los codos: el primer paso hacia el planche.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "antebrazo",
+        "abdomen"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "En cuclillas, apoya las manos en el suelo al ancho de los hombros.",
+        "Apoya las rodillas en la parte de atrás de los brazos, cerca de los codos.",
+        "Inclínate hacia adelante hasta que los pies se despeguen del suelo.",
+        "Sostén el equilibrio con los dedos y la mirada adelante."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Caer hacia adelante.",
+          "fix": "Pon un cojín frente a ti y presiona con los dedos."
+        },
+        {
+          "mistake": "Mirar hacia los pies.",
+          "fix": "Mira al suelo un poco por delante de las manos."
+        }
+      ],
+      "requires": [
+        "plancha-abdominal",
+        "flexion-de-rodillas"
+      ],
+      "easier": null,
+      "harder": "planche-lean"
+    },
+    {
+      "slug": "planche-lean",
+      "name": "Inclinación de planche",
+      "path": "planche",
+      "step": 2,
+      "difficulty": 3,
+      "summary": "En posición de flexión, inclinas el cuerpo hacia adelante sobre las manos: carga los hombros como el planche.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "pectoral",
+        "serrato-anterior",
+        "antebrazo"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Ponte en posición de flexión con los dedos apuntando hacia afuera o atrás.",
+        "Separa las escápulas y redondea un poco la parte alta de la espalda.",
+        "Inclínate hacia adelante hasta que los hombros pasen por delante de las manos.",
+        "Sostén con los brazos estirados."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquea los brazos estirados todo el tiempo."
+        },
+        {
+          "mistake": "Juntar las escápulas.",
+          "fix": "Empuja el suelo para separarlas."
+        }
+      ],
+      "requires": [
+        "frog-stand",
+        "flexion-estandar"
+      ],
+      "easier": "frog-stand",
+      "harder": "tuck-planche"
+    },
+    {
+      "slug": "tuck-planche",
+      "name": "Tuck planche",
+      "path": "planche",
+      "step": 3,
+      "difficulty": 3,
+      "summary": "Cuerpo suspendido sobre las manos con las rodillas recogidas al pecho, sin apoyar los pies.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "pectoral",
+        "serrato-anterior",
+        "abdomen"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Apoya las manos en el suelo y recoge las rodillas hacia el pecho.",
+        "Inclínate hacia adelante con los brazos estirados.",
+        "Despega los pies y sostén el cuerpo en el aire, con la espalda redondeada.",
+        "Mantén las escápulas separadas el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Apoyar las rodillas en los brazos.",
+          "fix": "Eso es el frog stand: aquí las rodillas van libres."
+        },
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquéalos; si no puedes, practica más la inclinación."
+        }
+      ],
+      "requires": [
+        "planche-lean"
+      ],
+      "easier": "planche-lean",
+      "harder": "advanced-tuck-planche"
+    },
+    {
+      "slug": "advanced-tuck-planche",
+      "name": "Advanced tuck planche",
+      "path": "planche",
+      "step": 4,
+      "difficulty": 4,
+      "summary": "Como el tuck planche, pero con la espalda plana y la cadera a la altura de los hombros.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "pectoral",
+        "serrato-anterior",
+        "abdomen",
+        "lumbar"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Sube al tuck planche.",
+        "Estira la espalda hasta dejarla plana.",
+        "Separa un poco las rodillas del pecho, sin estirar las piernas.",
+        "Sostén con la cadera a la altura de los hombros."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera queda más baja que los hombros.",
+          "fix": "Inclínate más hacia adelante."
+        },
+        {
+          "mistake": "Redondear la espalda otra vez.",
+          "fix": "Aprieta los glúteos para aplanarla."
+        }
+      ],
+      "requires": [
+        "tuck-planche"
+      ],
+      "easier": "tuck-planche",
+      "harder": "straddle-planche"
+    },
+    {
+      "slug": "straddle-planche",
+      "name": "Straddle planche",
+      "path": "planche",
+      "step": 5,
+      "difficulty": 5,
+      "summary": "El planche con las piernas estiradas y abiertas: el cuerpo casi completo en horizontal.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "pectoral",
+        "serrato-anterior",
+        "abdomen",
+        "gluteos"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Sube al advanced tuck planche.",
+        "Estira las piernas abriéndolas hacia los lados.",
+        "Mantén el cuerpo paralelo al suelo con los brazos bloqueados.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae.",
+          "fix": "Aprieta glúteos y abdomen e inclínate más."
+        },
+        {
+          "mistake": "Las piernas se doblan.",
+          "fix": "Aprieta los muslos y apunta con los pies."
+        }
+      ],
+      "requires": [
+        "advanced-tuck-planche"
+      ],
+      "easier": "advanced-tuck-planche",
+      "harder": "full-planche"
+    },
+    {
+      "slug": "full-planche",
+      "name": "Full planche",
+      "path": "planche",
+      "step": 6,
+      "difficulty": 5,
+      "summary": "El cuerpo completamente extendido y paralelo al suelo, sostenido solo con las manos.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "pectoral",
+        "serrato-anterior",
+        "abdomen",
+        "gluteos"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Desde el straddle planche, junta poco a poco las piernas.",
+        "Mantén el cuerpo recto de los hombros a los pies.",
+        "Los brazos bloqueados y los hombros por delante de las manos.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae al juntar las piernas.",
+          "fix": "Vuelve al straddle hasta sostenerlo 15 segundos o más."
+        },
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquéalos: el planche se sostiene con los brazos rectos."
+        }
+      ],
+      "requires": [
+        "straddle-planche"
+      ],
+      "easier": "straddle-planche",
+      "harder": null
+    },
+    {
+      "slug": "pino-contra-la-pared",
+      "name": "Pino contra la pared",
+      "path": "pino",
+      "step": 1,
+      "difficulty": 2,
+      "summary": "Invertido sobre las manos con el pecho hacia la pared: la base de todo trabajo invertido.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "abdomen",
+        "trapecio"
+      ],
+      "equipment": [
+        "pared"
+      ],
+      "steps": [
+        "Apoya las manos en el suelo a un palmo de la pared.",
+        "Camina con los pies por la pared hasta quedar con el pecho mirándola.",
+        "Acerca las manos hasta que el cuerpo quede casi vertical.",
+        "Empuja el suelo, aprieta el abdomen y sostén."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La espalda se arquea.",
+          "fix": "Aprieta los glúteos y lleva las costillas hacia adentro."
+        },
+        {
+          "mistake": "Los hombros no se estiran.",
+          "fix": "Empuja el suelo como si quisieras crecer."
+        }
+      ],
+      "requires": [
+        "frog-stand",
+        "flexion-pica"
+      ],
+      "easier": null,
+      "harder": "despegue-de-pared"
+    },
+    {
+      "slug": "despegue-de-pared",
+      "name": "Despegue de la pared",
+      "path": "pino",
+      "step": 2,
+      "difficulty": 3,
+      "summary": "En el pino contra la pared, separas los pies de a uno para encontrar el equilibrio.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "abdomen",
+        "antebrazo"
+      ],
+      "equipment": [
+        "pared"
+      ],
+      "steps": [
+        "Sube al pino contra la pared, con el pecho hacia ella.",
+        "Separa un pie de la pared y luego el otro.",
+        "Busca el equilibrio presionando con los dedos.",
+        "Sostén lo más que puedas y vuelve a apoyarte."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Alejarse de golpe.",
+          "fix": "Despega los pies poco a poco."
+        },
+        {
+          "mistake": "Doblar los codos para corregir.",
+          "fix": "Corrige con los dedos y las palmas."
+        }
+      ],
+      "requires": [
+        "pino-contra-la-pared"
+      ],
+      "easier": "pino-contra-la-pared",
+      "harder": "pino-libre"
+    },
+    {
+      "slug": "pino-libre",
+      "name": "Pino libre",
+      "path": "pino",
+      "step": 3,
+      "difficulty": 4,
+      "summary": "Equilibrio invertido sobre las manos sin ningún apoyo, con el cuerpo en línea.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "abdomen",
+        "antebrazo",
+        "trapecio"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Apoya las manos al ancho de los hombros y sube con una patada controlada.",
+        "Alinea manos, hombros, cadera y pies.",
+        "Corrige el equilibrio presionando con los dedos o las palmas.",
+        "Sostén el tiempo indicado y baja de forma segura."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Patear muy fuerte y pasarse.",
+          "fix": "Aprende a salir girando hacia un lado."
+        },
+        {
+          "mistake": "Arquear la espalda.",
+          "fix": "Aprieta abdomen y glúteos como en la plancha."
+        }
+      ],
+      "requires": [
+        "despegue-de-pared"
+      ],
+      "easier": "despegue-de-pared",
+      "harder": "pino-a-una-mano"
+    },
+    {
+      "slug": "pino-a-una-mano",
+      "name": "Pino a una mano",
+      "path": "pino",
+      "step": 4,
+      "difficulty": 5,
+      "summary": "Todo el cuerpo invertido sobre una sola mano: una de las habilidades más difíciles del equilibrio.",
+      "measure": "seconds",
+      "muscles": [
+        "deltoides-anterior",
+        "triceps",
+        "abdomen",
+        "oblicuos",
+        "antebrazo"
+      ],
+      "equipment": [
+        "sin-equipamiento"
+      ],
+      "steps": [
+        "Desde el pino libre, abre las piernas para bajar el centro de gravedad.",
+        "Desplaza poco a poco el peso hacia una mano.",
+        "Despega la otra mano y llévala al costado.",
+        "Sostén corrigiendo con los dedos de la mano de apoyo."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar el brazo de apoyo.",
+          "fix": "Bloquéalo: el equilibrio se hace con los dedos."
+        },
+        {
+          "mistake": "Pasar el peso de golpe.",
+          "fix": "Practica primero con la otra mano apoyada solo en los dedos."
+        }
+      ],
+      "requires": [
+        "pino-libre"
+      ],
+      "easier": "pino-libre",
+      "harder": null
+    },
+    {
+      "slug": "tuck-front-lever",
+      "name": "Tuck front lever",
+      "path": "front-lever",
+      "step": 1,
+      "difficulty": 3,
+      "summary": "Colgado de la barra con el cuerpo horizontal y las rodillas recogidas al pecho, mirando hacia arriba.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "abdomen",
+        "romboides",
+        "biceps"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Cuelga de la barra con los brazos estirados.",
+        "Recoge las rodillas al pecho y lleva la cadera hacia arriba.",
+        "Empuja la barra hacia abajo hasta que la espalda quede horizontal.",
+        "Sostén con los brazos estirados."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquéalos: la fuerza sale de la espalda."
+        },
+        {
+          "mistake": "La cadera queda baja.",
+          "fix": "Empuja más la barra hacia la cadera."
+        }
+      ],
+      "requires": [
+        "dominada-pronada",
+        "elevacion-rodillas-colgado"
+      ],
+      "easier": null,
+      "harder": "advanced-tuck-front-lever"
+    },
+    {
+      "slug": "advanced-tuck-front-lever",
+      "name": "Advanced tuck front lever",
+      "path": "front-lever",
+      "step": 2,
+      "difficulty": 4,
+      "summary": "Como el tuck front lever, pero con la espalda plana y las rodillas más lejos del pecho.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "abdomen",
+        "romboides",
+        "lumbar"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Sube al tuck front lever.",
+        "Estira la espalda hasta dejarla plana.",
+        "Aleja un poco las rodillas del pecho, en ángulo recto con la cadera.",
+        "Sostén con el cuerpo horizontal."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La espalda se redondea.",
+          "fix": "Aprieta los glúteos para aplanarla."
+        },
+        {
+          "mistake": "La cadera cae.",
+          "fix": "Empuja la barra hacia abajo con más fuerza."
+        }
+      ],
+      "requires": [
+        "tuck-front-lever"
+      ],
+      "easier": "tuck-front-lever",
+      "harder": "straddle-front-lever"
+    },
+    {
+      "slug": "straddle-front-lever",
+      "name": "Straddle front lever",
+      "path": "front-lever",
+      "step": 3,
+      "difficulty": 4,
+      "summary": "El front lever con las piernas estiradas y abiertas: el cuerpo casi completo en horizontal.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "abdomen",
+        "romboides",
+        "lumbar",
+        "gluteos"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Desde el advanced tuck, estira las piernas abriéndolas hacia los lados.",
+        "Mantén el cuerpo paralelo al suelo.",
+        "Empuja la barra hacia abajo con los brazos estirados.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae al estirar las piernas.",
+          "fix": "Ábrelas más; mientras más abiertas, más fácil."
+        },
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquéalos y piensa en llevar la barra a la cadera."
+        }
+      ],
+      "requires": [
+        "advanced-tuck-front-lever"
+      ],
+      "easier": "advanced-tuck-front-lever",
+      "harder": "full-front-lever"
+    },
+    {
+      "slug": "full-front-lever",
+      "name": "Full front lever",
+      "path": "front-lever",
+      "step": 4,
+      "difficulty": 5,
+      "summary": "Colgado de la barra con todo el cuerpo recto y horizontal, mirando hacia arriba.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "abdomen",
+        "romboides",
+        "lumbar",
+        "gluteos"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Desde el straddle front lever, junta poco a poco las piernas.",
+        "Mantén el cuerpo recto de los hombros a los pies.",
+        "Brazos bloqueados, empujando la barra hacia abajo.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae al juntar las piernas.",
+          "fix": "Vuelve al straddle hasta sostenerlo 15 segundos o más."
+        },
+        {
+          "mistake": "Arquear la espalda.",
+          "fix": "Aprieta glúteos y abdomen."
+        }
+      ],
+      "requires": [
+        "straddle-front-lever"
+      ],
+      "easier": "straddle-front-lever",
+      "harder": null
+    },
+    {
+      "slug": "skin-the-cat",
+      "name": "Skin the cat",
+      "path": "back-lever",
+      "step": 1,
+      "difficulty": 2,
+      "summary": "Colgado de la barra, giras el cuerpo hacia atrás pasando las piernas entre los brazos.",
+      "measure": "reps",
+      "muscles": [
+        "dorsal",
+        "deltoides-posterior",
+        "abdomen",
+        "biceps"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Cuelga de la barra con los brazos estirados.",
+        "Sube las rodillas al pecho y llévalas entre los brazos.",
+        "Sigue girando hacia atrás hasta donde tus hombros lo permitan, con control.",
+        "Vuelve por el mismo camino hasta el colgado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Bajar de golpe hacia atrás.",
+          "fix": "Baja solo hasta donde puedas volver con control."
+        },
+        {
+          "mistake": "Soltar la tensión de los hombros.",
+          "fix": "Mantén los hombros activos todo el recorrido."
+        }
+      ],
+      "requires": [
+        "colgado-activo",
+        "elevacion-rodillas-colgado"
+      ],
+      "easier": null,
+      "harder": "tuck-back-lever"
+    },
+    {
+      "slug": "tuck-back-lever",
+      "name": "Tuck back lever",
+      "path": "back-lever",
+      "step": 2,
+      "difficulty": 3,
+      "summary": "Colgado de la barra con la espalda horizontal hacia el suelo y las rodillas recogidas.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "pectoral",
+        "biceps",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Desde el skin the cat, gira hasta que la espalda quede mirando al suelo.",
+        "Mantén las rodillas recogidas al pecho.",
+        "Sube hasta que el cuerpo quede horizontal.",
+        "Sostén con los brazos estirados."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquéalos y aprieta los dorsales."
+        },
+        {
+          "mistake": "La cadera cae.",
+          "fix": "Aprieta los glúteos y empuja la barra."
+        }
+      ],
+      "requires": [
+        "skin-the-cat"
+      ],
+      "easier": "skin-the-cat",
+      "harder": "straddle-back-lever"
+    },
+    {
+      "slug": "straddle-back-lever",
+      "name": "Straddle back lever",
+      "path": "back-lever",
+      "step": 3,
+      "difficulty": 4,
+      "summary": "El back lever con las piernas estiradas y abiertas, el cuerpo horizontal mirando hacia el suelo.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "pectoral",
+        "biceps",
+        "gluteos"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Desde el tuck back lever, estira las piernas abriéndolas hacia los lados.",
+        "Mantén el cuerpo paralelo al suelo.",
+        "Aprieta glúteos y abdomen para no arquear la espalda.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Arquear la espalda baja.",
+          "fix": "Aprieta los glúteos y lleva las costillas hacia adentro."
+        },
+        {
+          "mistake": "Las piernas caen.",
+          "fix": "Ábrelas más y apunta con los pies."
+        }
+      ],
+      "requires": [
+        "tuck-back-lever"
+      ],
+      "easier": "tuck-back-lever",
+      "harder": "full-back-lever"
+    },
+    {
+      "slug": "full-back-lever",
+      "name": "Full back lever",
+      "path": "back-lever",
+      "step": 4,
+      "difficulty": 4,
+      "summary": "Colgado de la barra con todo el cuerpo recto y horizontal, mirando hacia el suelo.",
+      "measure": "seconds",
+      "muscles": [
+        "dorsal",
+        "pectoral",
+        "biceps",
+        "gluteos",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-fija"
+      ],
+      "steps": [
+        "Desde el straddle back lever, junta las piernas.",
+        "Mantén el cuerpo como una tabla de los hombros a los pies.",
+        "Brazos bloqueados y hombros firmes.",
+        "Sostén el tiempo indicado y sal con control."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera se dobla.",
+          "fix": "Aprieta glúteos y abdomen."
+        },
+        {
+          "mistake": "Bajar de golpe al salir.",
+          "fix": "Sal girando con control hacia el colgado."
+        }
+      ],
+      "requires": [
+        "straddle-back-lever"
+      ],
+      "easier": "straddle-back-lever",
+      "harder": null
+    },
+    {
+      "slug": "bandera-vertical",
+      "name": "Bandera vertical",
+      "path": "bandera",
+      "step": 1,
+      "difficulty": 3,
+      "summary": "Tomado de un poste, sostienes el cuerpo vertical en el aire: aprendes el agarre de la bandera.",
+      "measure": "seconds",
+      "muscles": [
+        "oblicuos",
+        "dorsal",
+        "deltoides-anterior",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-vertical"
+      ],
+      "steps": [
+        "Toma el poste con una mano arriba (tirando) y otra abajo (empujando), separadas al ancho de los hombros.",
+        "Bloquea los brazos estirados.",
+        "Despega los pies y lleva el cuerpo vertical, piernas hacia arriba.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Doblar el brazo de abajo.",
+          "fix": "Bloquéalo: es el que empuja y sostiene el peso."
+        },
+        {
+          "mistake": "Soltar el poste con la mano de arriba.",
+          "fix": "Tira con fuerza hacia ti."
+        }
+      ],
+      "requires": [
+        "pino-contra-la-pared",
+        "dominada-pronada"
+      ],
+      "easier": null,
+      "harder": "bandera-recogida"
+    },
+    {
+      "slug": "bandera-recogida",
+      "name": "Bandera recogida",
+      "path": "bandera",
+      "step": 2,
+      "difficulty": 4,
+      "summary": "La bandera con las rodillas recogidas al pecho y el cuerpo de lado.",
+      "measure": "seconds",
+      "muscles": [
+        "oblicuos",
+        "dorsal",
+        "deltoides-anterior",
+        "abdomen"
+      ],
+      "equipment": [
+        "barra-vertical"
+      ],
+      "steps": [
+        "Desde la bandera vertical, baja el cuerpo hacia el costado.",
+        "Recoge las rodillas al pecho.",
+        "Mantén la cadera alineada con los hombros.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae.",
+          "fix": "Empuja más con el brazo de abajo y tira con el de arriba."
+        },
+        {
+          "mistake": "El cuerpo gira mirando al suelo.",
+          "fix": "Mantén el pecho mirando hacia adelante."
+        }
+      ],
+      "requires": [
+        "bandera-vertical"
+      ],
+      "easier": "bandera-vertical",
+      "harder": "bandera-abierta"
+    },
+    {
+      "slug": "bandera-abierta",
+      "name": "Bandera abierta",
+      "path": "bandera",
+      "step": 3,
+      "difficulty": 4,
+      "summary": "La bandera con las piernas estiradas y abiertas: casi todo el cuerpo horizontal.",
+      "measure": "seconds",
+      "muscles": [
+        "oblicuos",
+        "dorsal",
+        "deltoides-anterior",
+        "abdomen",
+        "gluteos"
+      ],
+      "equipment": [
+        "barra-vertical"
+      ],
+      "steps": [
+        "Desde la bandera recogida, estira las piernas abriéndolas.",
+        "Mantén el cuerpo paralelo al suelo.",
+        "Brazos bloqueados, empujando abajo y tirando arriba.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "Las piernas caen.",
+          "fix": "Ábrelas más y aprieta los oblicuos."
+        },
+        {
+          "mistake": "Doblar los codos.",
+          "fix": "Bloquéalos: la bandera se sostiene con los brazos rectos."
+        }
+      ],
+      "requires": [
+        "bandera-recogida"
+      ],
+      "easier": "bandera-recogida",
+      "harder": "bandera-humana"
+    },
+    {
+      "slug": "bandera-humana",
+      "name": "Bandera humana",
+      "path": "bandera",
+      "step": 4,
+      "difficulty": 5,
+      "summary": "El cuerpo completamente horizontal, sostenido de un poste como una bandera al viento.",
+      "measure": "seconds",
+      "muscles": [
+        "oblicuos",
+        "dorsal",
+        "deltoides-anterior",
+        "abdomen",
+        "gluteos"
+      ],
+      "equipment": [
+        "barra-vertical"
+      ],
+      "steps": [
+        "Desde la bandera abierta, junta poco a poco las piernas.",
+        "Mantén el cuerpo recto y paralelo al suelo.",
+        "Empuja con el brazo de abajo y tira con el de arriba.",
+        "Sostén el tiempo indicado."
+      ],
+      "mistakes": [
+        {
+          "mistake": "La cadera cae al juntar las piernas.",
+          "fix": "Vuelve a la bandera abierta hasta dominarla."
+        },
+        {
+          "mistake": "Sostener con la fuerza de un solo brazo.",
+          "fix": "Reparte: un brazo empuja y el otro tira."
+        }
+      ],
+      "requires": [
+        "bandera-abierta"
+      ],
+      "easier": "bandera-abierta",
       "harder": null
     }
   ]
