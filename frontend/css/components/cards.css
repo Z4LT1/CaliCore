@@ -63,3 +63,22 @@
 }
 
 .load-error { color: var(--danger); }
+
+/* ---------- Estrella de favorito ----------
+   Va sobre la tarjeta pero fuera de la parte que gira, para seguir visible al darse vuelta. */
+.ex-card { position: relative; }
+.fav-button {
+  position: absolute; top: .7rem; right: .7rem; z-index: 2;
+  width: 2.2rem; height: 2.2rem; display: grid; place-items: center;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: color-mix(in srgb, var(--surface) 85%, transparent); color: var(--text-soft);
+  transition: transform .15s, color .2s;
+}
+.fav-button svg, .fav-detail svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.fav-button:hover { transform: scale(1.12); color: var(--clay); }
+.fav-button[aria-pressed="true"], .fav-detail[aria-pressed="true"] { color: var(--clay); }
+.fav-button[aria-pressed="true"] svg, .fav-detail[aria-pressed="true"] svg { fill: currentColor; }
+/* Con la estrella, la etiqueta de rama deja espacio a la derecha */
+.ex-card:has(.fav-button) .card-top { padding-right: 2.4rem; }
+
+.tag-neutral { background: var(--surface-alt); color: var(--text-soft); }

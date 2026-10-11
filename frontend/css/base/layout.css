@@ -19,3 +19,5 @@
 }
 
 .status { min-height: 1.5em; color: var(--text-soft); }
+
+.muted { color: var(--text-soft); }

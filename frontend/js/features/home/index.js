@@ -14,7 +14,7 @@ import { $, el } from "../../core/dom.js";
 import { EVENTS, on } from "../../core/events.js";
 import { isLoggedIn } from "../../core/session.js";
 import { exerciseCard } from "../../ui/exercise-card.js";
-import { fetchExercises, fetchTree } from "../catalog/catalog.api.js";
+import { fetchExercises, fetchTree } from "../../services/catalog.js";
 import { initBodyMap } from "./body-map.js";
 import { initPathPreview } from "./path-preview.js";
 import { initQuiz } from "./quiz.js";

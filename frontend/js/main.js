@@ -7,8 +7,10 @@
  *
  * Estructura del frontend:
  *   core/       piezas genéricas (config, API, sesión, DOM, eventos)
- *   ui/         estructura visual común (cabecera, diálogo, pie)
- *   features/   una carpeta por funcionalidad, con capas api / view / index
+ *   services/   datos compartidos por varias features (catálogo, favoritos)
+ *   ui/         piezas visuales comunes (cabecera, tema, tarjetas, dificultad)
+ *   features/   una carpeta por funcionalidad de una página; no se importan entre sí
+ *   pages/      el punto de entrada de cada página
  */
 // Tipografías alojadas en el propio sitio (paquetes npm): Vite copia los archivos de fuente
 // al compilar. No dependemos de Google Fonts ni le avisamos a un tercero de cada visita.

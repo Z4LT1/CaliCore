@@ -55,5 +55,7 @@ export function initAuth() {
   ui.btnLogout.addEventListener("click", logout);
 
   on(EVENTS.SESSION_CHANGED, renderSession);
+  // Otra feature pide sesión (por ejemplo, al tocar la estrella sin haber ingresado)
+  on(EVENTS.AUTH_REQUIRED, () => openAuthDialog("login"));
   renderSession(); // estado inicial (puede haber una sesión guardada de antes)
 }
