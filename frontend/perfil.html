@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tu perfil en CaliCore: los ejercicios que guardaste y el camino hacia tus metas.">
   <title>Tu perfil | CaliCore</title>
   <meta name="color-scheme" content="light dark">
   <!-- Aplica el tema elegido ANTES de dibujar, para evitar un destello claro en modo oscuro (ver js/ui/theme.js) -->
@@ -10,16 +11,69 @@
     try { const t = localStorage.getItem("calicore_theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
   </script>
   <link rel="stylesheet" href="css/main.css">
-  <!-- main.js dibuja la cabecera, el diálogo de acceso y el pie (ver js/ui/layout.js) -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/perfil.js"></script>
 </head>
 <!-- data-page indica qué página es: el menú lo usa para marcar el enlace activo -->
 <body data-page="perfil">
-  <main id="contenido">
-    <section class="section">
-      <h1>Tu perfil</h1>
-      <p class="section-lead">Contenido pendiente.</p>
+  <main id="contenido" class="profile">
+
+    <!-- ===================== SIN SESIÓN ===================== -->
+    <section id="profile-guest" class="section profile-guest">
+      <p class="kicker">Tu perfil</p>
+      <h1>Tu espacio para entrenar con un plan</h1>
+      <p class="section-lead">Crea tu cuenta gratis para guardar ejercicios desde la biblioteca, ver el camino hacia cada meta y saber cuánto del árbol has explorado.</p>
+      <div class="guest-actions">
+        <!-- data-open-auth: features/auth abre el diálogo de registro al tocarlo -->
+        <button class="btn btn-primary" type="button" data-open-auth>Crear cuenta gratis</button>
+        <a class="btn" href="biblioteca.html">Explorar la biblioteca</a>
+      </div>
     </section>
+
+    <!-- ===================== CON SESIÓN ===================== -->
+    <div id="profile-user" hidden>
+      <section class="section profile-top">
+        <div id="profile-identity" class="identity"></div>
+        <ul id="profile-stats" class="profile-stats" aria-label="Tu resumen"></ul>
+      </section>
+
+      <section class="band">
+        <div class="section split profile-insights">
+          <div>
+            <h2>Tu mapa del árbol</h2>
+            <p class="muted">Cuánto de cada rama tienes guardado.</p>
+            <ul id="profile-coverage" class="coverage"></ul>
+          </div>
+          <div>
+            <h2>Tus metas</h2>
+            <p class="muted">Tus ejercicios guardados más difíciles y el camino que lleva hasta cada uno. Los marcados con ★ ya los guardaste.</p>
+            <div id="profile-goals" class="goals"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <header class="block-head row">
+          <div>
+            <p class="kicker">Tus favoritos</p>
+            <h2>Lo que quieres dominar</h2>
+          </div>
+          <label class="inline-select">Orden
+            <select id="fav-sort" autocomplete="off">
+              <option value="recent">Guardados recientemente</option>
+              <option value="hard">Más difícil primero</option>
+              <option value="easy">Más fácil primero</option>
+            </select>
+          </label>
+        </header>
+        <div id="fav-branches" class="chips" role="group" aria-label="Filtrar favoritos por rama" hidden></div>
+        <p id="profile-status" class="lib-status" role="status"></p>
+        <div id="fav-grid" class="card-grid"></div>
+        <div id="fav-empty" class="lib-empty" hidden>
+          <p>Todavía no guardas ejercicios. Toca la estrella de cualquier tarjeta en la biblioteca y aparecerá aquí.</p>
+          <a class="btn btn-primary" href="biblioteca.html">Ir a la biblioteca</a>
+        </div>
+      </section>
+    </div>
   </main>
 </body>
 </html>

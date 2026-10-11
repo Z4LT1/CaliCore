@@ -1,0 +1,75 @@
+/* Perfil (perfil.html): invitación sin sesión, identidad y cifras, mapa del árbol, metas y favoritos. */
+
+/* ---------- Sin sesión ---------- */
+.profile-guest { text-align: center; display: grid; justify-items: center; padding-block: clamp(4rem, 10vw, 7rem); }
+.profile-guest h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); max-width: 18ch; }
+.profile-guest .section-lead { margin-inline: auto; }
+.guest-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 1.5rem; }
+
+/* ---------- Identidad y cifras ---------- */
+.profile-top { display: grid; gap: 2rem; padding-bottom: 2.5rem; }
+.identity { display: flex; align-items: center; gap: 1.2rem; }
+.identity h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); margin: 0; }
+/* Los nombres de usuario pueden ser largos y sin espacios (hasta 150 caracteres):
+   se permite cortarlos en cualquier punto para que no ensanchen la página */
+.identity > div { min-width: 0; }
+.identity h1, .identity p { overflow-wrap: anywhere; }
+.identity .kicker { margin-bottom: .2rem; }
+.identity p.muted { margin: .3rem 0 0; }
+.avatar {
+  flex: none; width: clamp(4rem, 10vw, 5.5rem); aspect-ratio: 1; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 600;
+  background: var(--accent); color: var(--on-accent);
+}
+.profile-stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.profile-stats li { padding: 1rem 1.2rem 0 0; border-top: 2px solid var(--text); }
+.profile-stats li + li { padding-left: 1.2rem; border-left: 1px solid var(--line); }
+.profile-stats b { display: block; font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 600; line-height: 1; }
+.profile-stats span { color: var(--text-soft); font-size: .92rem; }
+.profile-stats small { display: block; color: var(--clay); font-weight: 600; margin-top: .2rem; }
+
+/* ---------- Mapa del árbol: una barra por rama ---------- */
+.profile-insights { align-items: start; }
+.profile-insights h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: .2rem; }
+.coverage { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: .8rem; }
+.coverage li { display: grid; grid-template-columns: 7rem 1fr 3rem; align-items: center; gap: .8rem; }
+.cov-name { font-weight: 600; }
+.cov-bar { height: .7rem; border-radius: 999px; background: var(--line); overflow: hidden; }
+/* --p es la fracción guardada (de 0 a 1): la barra crece con scaleX */
+.cov-bar i { display: block; height: 100%; border-radius: inherit; background: var(--accent); transform-origin: left; transform: scaleX(var(--p)); }
+@media (prefers-reduced-motion: no-preference) {
+  .cov-bar i { animation: grow-x .9s cubic-bezier(.2, .8, .2, 1) both; }
+}
+@keyframes grow-x { from { transform: scaleX(0); } }
+.cov-count { text-align: right; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+
+/* ---------- Metas: el camino hacia cada favorito difícil ---------- */
+.goals { display: grid; gap: 1rem; margin-top: 1.2rem; }
+.goal { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1rem 1.2rem; }
+.goal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.goal-path { font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-soft); margin: 0; }
+.goal h3 { font-size: 1.3rem; margin: .2rem 0 0; }
+.goal h3 a { color: var(--text); text-decoration: none; }
+.goal h3 a:hover { color: var(--accent); }
+.goal-lead { font-size: .88rem; margin: .5rem 0; }
+/* Los pasos como una fila de "piedras" conectadas por flechas */
+.goal-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
+.goal-steps li { display: flex; align-items: center; gap: .35rem; }
+.goal-steps li + li::before { content: "→"; color: var(--text-soft); }
+.goal-steps a {
+  font-size: .85rem; font-weight: 500; text-decoration: none; color: var(--text);
+  padding: .25rem .65rem; border-radius: 999px; background: var(--surface-alt); border: 1px solid var(--line);
+}
+.goal-steps a:hover { border-color: var(--accent); }
+.goal-steps .is-saved a::before { content: "★ "; color: var(--clay); }
+.goal-steps .is-goal a { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.goal-steps .is-goal.is-saved a::before { color: var(--on-accent); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+  .profile-stats { grid-template-columns: repeat(2, 1fr); }
+  .profile-stats li:nth-child(3) { padding-left: 0; border-left: 0; }
+  .profile-stats li { padding-bottom: 1rem; }
+  .coverage li { grid-template-columns: 5.5rem 1fr 2.6rem; }
+}
