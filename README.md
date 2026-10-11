@@ -241,7 +241,15 @@ Comprueba que funciona abriendo `http://127.0.0.1:8000/api/health/` (debe mostra
 
 ### Frontend
 
-Abre la carpeta `CaliCore` en VS Code, haz clic derecho sobre `frontend/index.html` y elige **Open with Live Server** (o el botón "Go Live" de la barra inferior). Se abrirá en el puerto 5500.
+El frontend usa **Vite** como servidor de desarrollo. La primera vez instala sus dependencias; después basta con `npm run dev`:
+
+```bat
+cd frontend
+npm install
+npm run dev
+```
+
+Abre `http://127.0.0.1:5500`. Al guardar un archivo, el navegador se actualiza solo. Para generar la versión optimizada de publicación: `npm run build` (crea la carpeta `dist/`).
 
 No abras `index.html` con doble clic: los módulos de JavaScript (`import`/`export`) no funcionan desde `file://`, solo por HTTP.
 
@@ -428,8 +436,8 @@ Sí se suben las carpetas `migrations/`: son parte del código.
 | `ImproperlyConfigured: Falta la variable SECRET_KEY` | No creaste el `.env`. Ejecuta `copy .env.example .env` dentro de `backend/`. |
 | `No module named 'django'` | El entorno virtual no está activo. Ejecuta `.venv\Scripts\activate` y comprueba que veas `(.venv)`. |
 | En la página: "No se pudo conectar con el servidor" | El backend no está corriendo, o `API_URL` en `config.js` no coincide con su dirección. |
-| En la consola del navegador: error de CORS | Live Server corre en un origen que no está en `CORS_ALLOWED_ORIGINS` (`.env`). Añade el origen exacto (puerto incluido) y reinicia Django. |
-| La página queda en blanco o `import` falla | Abriste `index.html` con doble clic. Usa Live Server. |
+| En la consola del navegador: error de CORS | El frontend corre en un origen que no está en `CORS_ALLOWED_ORIGINS` (`.env`). Añade el origen exacto (puerto incluido) y reinicia Django. |
+| La página queda en blanco o `import` falla | Abriste `index.html` con doble clic. Usa `npm run dev`. |
 | `Error: That port is already in use` | Hay otro servidor en el puerto 8000. Usa `python manage.py runserver 8001` y actualiza `API_URL`. |
 | Tras cambiar un modelo, error de tabla o columna inexistente | Faltan migraciones: `python manage.py makemigrations` y luego `python manage.py migrate`. |
 | Las pruebas tardan | Es normal: el hasheo de contraseñas es lento a propósito. |
