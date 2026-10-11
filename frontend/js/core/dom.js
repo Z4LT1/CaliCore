@@ -18,5 +18,20 @@ export function el(tag, { className, text, attrs } = {}, ...children) {
   return node;
 }
 
+/**
+ * Igual que el(), pero para elementos SVG (íconos, ilustraciones).
+ * Los SVG viven en otro "espacio de nombres" y deben crearse con createElementNS;
+ * con createElement aparecerían en el DOM pero el navegador no los dibujaría.
+ */
+export function svg(tag, { className, attrs } = {}, ...children) {
+  const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  if (className) node.setAttribute("class", className); // en SVG, className no es un texto simple
+  if (attrs) {
+    for (const [name, value] of Object.entries(attrs)) node.setAttribute(name, value);
+  }
+  node.append(...children);
+  return node;
+}
+
 /** Atajo de document.querySelector. Uso: $("#contenido") */
 export const $ = (selector) => document.querySelector(selector);

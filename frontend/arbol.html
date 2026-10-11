@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Árbol | CaliCore</title>
+  <meta name="color-scheme" content="light dark">
+  <!-- Aplica el tema elegido ANTES de dibujar, para evitar un destello claro en modo oscuro (ver js/ui/theme.js) -->
+  <script>
+    try { const t = localStorage.getItem("calicore_theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
+  </script>
   <link rel="stylesheet" href="css/main.css">
   <!-- main.js dibuja la cabecera, el diálogo de acceso y el pie (ver js/ui/layout.js) -->
   <script type="module" src="js/main.js"></script>

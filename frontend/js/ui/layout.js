@@ -7,7 +7,7 @@
  * Cada página solo necesita su <main id="contenido"> y un atributo data-page en el <body>
  * que diga cuál es (sirve para marcar el enlace activo del menú).
  */
-import { el } from "../core/dom.js";
+import { el, svg } from "../core/dom.js";
 
 /** Secciones del menú, en el orden del bosquejo. Para agregar una página, se suma aquí. */
 const PAGES = [
@@ -25,14 +25,29 @@ function header(currentPage) {
   });
 
   return el("header", { className: "site-header" },
-    el("a", { className: "brand", text: "CaliCore", attrs: { href: "index.html" } }),
+    el("a", { className: "brand", attrs: { href: "index.html", "aria-label": "CaliCore, inicio" } },
+      "Cali", el("span", { text: "Core" })),
     el("nav", { attrs: { "aria-label": "Navegación principal" } }, el("ul", {}, ...links)),
     // Zona de sesión: features/auth muestra u oculta estos elementos con el atributo "hidden".
     el("div", { className: "session" },
+      themeButton(),
       el("span", { className: "user-label", attrs: { id: "user-label", hidden: "" } }),
       el("button", { className: "btn", text: "Ingresar", attrs: { id: "btn-open-auth", type: "button" } }),
       el("button", { className: "btn btn-ghost", text: "Salir", attrs: { id: "btn-logout", type: "button", hidden: "" } }),
     ),
+  );
+}
+
+/** Botón de tema con dos íconos (luna y sol); el CSS muestra el que corresponde. */
+function themeButton() {
+  const icon = (className, ...shapes) => svg("svg", {
+    className, attrs: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2",
+      "stroke-linecap": "round", "aria-hidden": "true" },
+  }, ...shapes);
+  return el("button", { className: "btn btn-ghost btn-icon theme-toggle", attrs: { id: "theme-toggle", type: "button" } },
+    icon("icon-moon", svg("path", { attrs: { d: "M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" } })),
+    icon("icon-sun", svg("circle", { attrs: { cx: "12", cy: "12", r: "4" } }),
+      svg("path", { attrs: { d: "M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" } })),
   );
 }
 
@@ -74,7 +89,11 @@ function authDialog() {
 
 function footer() {
   return el("footer", { className: "site-footer" },
-    el("p", { text: "CaliCore® · Tu núcleo de la calistenia" }));
+    el("div", { className: "footer-inner" },
+      el("p", { className: "footer-brand", text: "CaliCore® · Tu núcleo de la calistenia" }),
+      el("p", { className: "footer-note",
+        text: "La información de CaliCore es general y no reemplaza la indicación de un profesional de la salud. Si sientes dolor, detente." }),
+    ));
 }
 
 /** Inserta la estructura común alrededor del <main> de la página. */

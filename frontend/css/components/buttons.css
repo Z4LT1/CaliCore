@@ -1,34 +1,39 @@
-/* Botones: .btn (base), .btn-primary (acción principal), .btn-ghost (secundario) y .link-button. */
+/* Botones: .btn (secundario, con borde), .btn-primary (acción principal) y .link-button (parece enlace). */
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
   font: inherit;
   font-weight: 600;
-  padding: 0.55rem 1.1rem;
-  border: 2px solid currentColor;
-  border-radius: 2px;
-  background: transparent;
-  color: inherit;
+  padding: 0.65rem 1.3rem;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  transition: background-color .2s, border-color .2s, transform .15s;
 }
-.btn:hover { background: rgba(127, 127, 127, 0.15); }
+.btn:hover { border-color: var(--text-soft); }
+.btn:active { transform: scale(.98); }
 
-.btn-primary {
-  background: var(--rubber);
-  border-color: var(--rubber);
-  color: #fff;
-}
-.btn-primary:hover { background: #0A5755; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
 
-.btn-ghost { border-color: transparent; text-decoration: underline; }
+.btn-ghost { background: transparent; border-color: transparent; }
+.btn-ghost:hover { background: var(--sprout); border-color: transparent; }
+
+/* Botón redondo solo con ícono (por ejemplo, el cambio de tema) */
+.btn-icon { padding: 0; width: 2.5rem; height: 2.5rem; justify-content: center; }
+.btn-icon svg { width: 1.2rem; height: 1.2rem; }
 
 .link-button {
   font: inherit;
   background: none;
   border: 0;
   padding: 0;
-  color: var(--rubber);
+  color: var(--accent);
   text-decoration: underline;
   cursor: pointer;
 }

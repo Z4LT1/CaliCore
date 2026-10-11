@@ -10,8 +10,15 @@
  *   ui/         estructura visual común (cabecera, diálogo, pie)
  *   features/   una carpeta por funcionalidad, con capas api / view / index
  */
+// Tipografías alojadas en el propio sitio (paquetes npm): Vite copia los archivos de fuente
+// al compilar. No dependemos de Google Fonts ni le avisamos a un tercero de cada visita.
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/inter";
+
 import { initAuth } from "./features/auth/index.js";
 import { renderLayout } from "./ui/layout.js";
+import { initThemeToggle } from "./ui/theme.js";
 
-renderLayout(); // primero la estructura: initAuth necesita que los botones ya existan
+renderLayout(); // primero la estructura: lo que sigue necesita que los botones ya existan
+initThemeToggle(document.getElementById("theme-toggle"));
 initAuth();

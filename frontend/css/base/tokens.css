@@ -1,18 +1,79 @@
-/* Tokens de diseño: colores, tipografías y medidas. Cambiar la paleta = editar solo este archivo.
-   Se usan en todo el CSS con var(--nombre). */
+/* ==========================================================================
+   Tokens de diseño: colores, tipografías y medidas.
+   Cambiar la paleta = editar solo este archivo. Todo el CSS usa var(--nombre).
 
+   Paleta natural: un verde bosque ("voluntad") como color de acción, tonos tierra
+   como acento y fondos con un leve tinte cálido, en vez de blanco y negro puros.
+
+   Tema claro u oscuro:
+   1. Por defecto se sigue el del sistema operativo (prefers-color-scheme).
+   2. Si la persona usa el botón ◐, js/ui/theme.js pone data-theme="light" o "dark"
+      en <html>, y esa elección gana sobre la del sistema.
+   ========================================================================== */
+
+/* Tipografías alojadas en el propio sitio (se importan en js/main.js) */
 :root {
-  --concrete: #E5E8EA;     /* fondo de la página */
-  --chalk: #F7F8F8;        /* superficies elevadas (paneles, diálogo) */
-  --steel: #1E2B34;        /* texto principal, cabecera, bordes fuertes */
-  --steel-soft: #4A5A66;   /* texto secundario */
-  --line: #B7C0C6;         /* líneas y bordes suaves */
-  --rubber: #0E6B68;       /* acción principal, enlaces */
-  --safety: #F2B81C;       /* amarillo de seguridad: acentos y foco */
-  --rust: #B3412B;         /* errores */
-
-  /* Display: tipografía condensada tipo señalética (Bahnschrift viene con Windows 10+). */
-  --font-display: "Bahnschrift", "DIN Alternate", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --content-width: 72rem;
+  --radius: 14px;
+  --radius-lg: 22px;
+}
+
+/* Tema claro (valores por defecto) */
+:root {
+  color-scheme: light;
+  --bg: #F3F0E6;            /* lino: fondo de la página */
+  --surface: #FFFDF7;       /* superficies elevadas: tarjetas, diálogo, cabecera */
+  --surface-alt: #ECE8DB;   /* secciones alternas */
+  --text: #1B2A22;          /* bosque: texto principal */
+  --text-soft: #56655C;     /* texto secundario */
+  --line: #DCD6C6;          /* bordes y divisores */
+  --accent: #2F6B4F;        /* verde voluntad: acción principal */
+  --accent-strong: #245A40; /* al pasar el mouse */
+  --on-accent: #F7F5EE;     /* texto sobre el verde */
+  --sprout: #E3ECDD;        /* brote: fondos suaves de etiquetas */
+  --sprout-text: #2F6B4F;
+  --clay: #B0674A;          /* arcilla: cimas, favoritos */
+  --danger: #A8402C;
+  --shadow: 0 1px 2px rgba(27, 42, 34, .06), 0 10px 30px rgba(27, 42, 34, .08);
+}
+
+/* Tema oscuro: valores para el sistema en modo oscuro... */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0F1612;
+    --surface: #18221C;
+    --surface-alt: #131C17;
+    --text: #E6ECE4;
+    --text-soft: #9BA99E;
+    --line: #2B3A31;
+    --accent: #6DBB8C;
+    --accent-strong: #86CDA1;
+    --on-accent: #0F1612;
+    --sprout: #22362A;
+    --sprout-text: #A7DDB9;
+    --clay: #D48B6B;
+    --danger: #E07A63;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35);
+  }
+}
+/* ...y los mismos valores cuando la persona elige el tema oscuro con el botón */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0F1612;
+  --surface: #18221C;
+  --surface-alt: #131C17;
+  --text: #E6ECE4;
+  --text-soft: #9BA99E;
+  --line: #2B3A31;
+  --accent: #6DBB8C;
+  --accent-strong: #86CDA1;
+  --on-accent: #0F1612;
+  --sprout: #22362A;
+  --sprout-text: #A7DDB9;
+  --clay: #D48B6B;
+  --danger: #E07A63;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35);
 }

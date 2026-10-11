@@ -1,12 +1,21 @@
-/* Estructura compartida por las secciones: ancho máximo, márgenes y textos de estado. */
+/* Estructura compartida por las secciones: ancho máximo, márgenes y textos de apoyo. */
 
 .section {
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 3rem clamp(1rem, 4vw, 2.5rem);
-  border-top: 3px solid var(--steel);
+  padding: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 4vw, 2.5rem);
 }
-.section h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
-.section-lead { color: var(--steel-soft); font-size: 1.05rem; }
+.section h2 { font-size: clamp(2rem, 4.5vw, 3rem); }
+.section-lead { color: var(--text-soft); font-size: 1.1rem; }
 
-.status { min-height: 1.5em; color: var(--steel-soft); }
+/* Etiqueta pequeña sobre un título ("El árbol", "La biblioteca"...) */
+.kicker {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .8rem;
+}
+
+.status { min-height: 1.5em; color: var(--text-soft); }
