@@ -62,7 +62,12 @@
 .quiz-history h2 { margin-bottom: 1.5rem; }
 .hq-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
 .hq-question { margin: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
-.hq-question legend { font-weight: 600; padding: 0 .3rem; }
+/* <legend> es especial: dentro de un <fieldset> el navegador lo dibuja MONTADO sobre el borde
+   superior, y propiedades como margin o position no lo sacan de ahí. Con float + width: 100%
+   deja de ocupar ese lugar especial y se comporta como un título normal dentro de la tarjeta.
+   El primer elemento que le sigue usa clear para quedar debajo de él. */
+.hq-question legend { float: left; width: 100%; padding: 0; margin-bottom: .5rem; font-weight: 600; }
+.hq-question legend + * { clear: both; }
 .hq-question.was-right { border-color: var(--accent); }
 .hq-option { display: flex; align-items: center; gap: .6rem; padding: .5rem .7rem; margin-top: .4rem; border-radius: 10px; border: 1px solid transparent; cursor: pointer; font-weight: 500; }
 .hq-option:hover { background: var(--surface-alt); }

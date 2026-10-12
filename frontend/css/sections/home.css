@@ -49,7 +49,9 @@
 /* ---------- ¿Por dónde empiezo? ---------- */
 .quiz-form { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: start; }
 .quiz-form fieldset { margin: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
-.quiz-form legend { font-weight: 600; padding: 0 .3rem; }
+/* <legend> flotante: ver la explicación en sections/history.css (.hq-question legend) */
+.quiz-form legend { float: left; width: 100%; padding: 0; margin-bottom: .4rem; font-weight: 600; }
+.quiz-form legend + * { clear: both; }
 .choice { display: flex; align-items: center; gap: .6rem; font-weight: 500; padding: .45rem .2rem; cursor: pointer; }
 .choice input { width: auto; margin: 0; accent-color: var(--accent); }
 .quiz-form .btn { grid-column: 1 / -1; justify-self: start; }
