@@ -1,0 +1,139 @@
+/* ==========================================================================
+   Árbol (arbol.html): pantalla completa e inmersiva.
+   La ilustración ocupa todo el espacio entre la cabecera y el pie, y los controles
+   flotan encima como paneles de vidrio (como en un mapa interactivo).
+   ========================================================================== */
+
+/* ---------- Escenario a pantalla completa ---------- */
+.tree-page {
+  position: relative; overflow: hidden; isolation: isolate;
+  /* Todo el alto de la ventana menos la cabecera y el pie (las mide js/ui/layout.js).
+     dvh = alto "dinámico": en celular descuenta la barra del navegador. */
+  height: calc(100dvh - var(--header-h, 4.5rem) - var(--footer-h, 6rem));
+  min-height: 34rem;
+  background: #1B2620;
+}
+/* El SVG ocupa todo el escenario; la imagen dentro se estira a ese tamaño (ver tree.view.js) */
+.tree { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.tree:active { cursor: grabbing; }
+
+/* ---------- Paneles de vidrio ---------- */
+.glass {
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+.glass-btn { background: color-mix(in srgb, var(--surface) 82%, transparent); backdrop-filter: blur(10px); }
+
+/* Título: arriba al centro */
+.tree-title {
+  position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
+  padding: .9rem 1.6rem; text-align: center; max-width: min(34rem, calc(100% - 2rem));
+}
+.tree-title .kicker { margin-bottom: .2rem; }
+.tree-title h1 { font-size: clamp(1.6rem, 3.4vw, 2.6rem); margin: 0; letter-spacing: -0.02em; }
+.tree-hint { margin: .3rem auto 0; font-size: .8rem; color: var(--text-soft); }
+
+/* Ramas: arriba a la izquierda */
+.tree-branches { position: absolute; top: 1rem; left: 1rem; padding: .6rem; max-width: 18rem; }
+.tree-chips { margin: 0; gap: .4rem; }
+.tree-chips .chip { font-size: .85rem; padding: .35rem .8rem; }
+/* Cada chip lleva el color de su rama (--c) como un punto a la izquierda */
+.tree-chips .chip::before { content: ""; display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; margin-right: .45rem; background: var(--c); vertical-align: 1px; }
+
+/* Zoom: abajo a la derecha */
+.tree-controls { position: absolute; right: 1rem; bottom: 1rem; display: flex; gap: .4rem; }
+
+/* ---------- Capas de la escena ---------- */
+/* Velo: invisible hasta que se elige una rama (el foco lo recorta la máscara #dim-mask) */
+.dim { fill: #0B120E; opacity: 0; transition: opacity .6s ease; pointer-events: none; }
+.tree.has-focus .dim { opacity: .62; }
+
+/* Venas: muy tenues; se encienden al iluminar su camino */
+.vein { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .28; transition: opacity .3s, stroke-width .3s; pointer-events: none; }
+.vein.is-lit { opacity: .95; stroke-width: 3.5; }
+.sap { fill: #FFF6D8; opacity: .85; pointer-events: none; }
+
+/* Nodos: un "brote" claro con un anillo del color de su rama */
+.tnode { cursor: pointer; transition: opacity .4s; }
+.tnode-dot { fill: #FFF8EA; stroke: var(--c); stroke-width: 2.5; transition: r .2s; }
+.tnode-halo { fill: var(--c); opacity: 0; transition: opacity .25s; }
+.tnode.is-summit .tnode-dot { fill: var(--c); stroke: #FFF8EA; stroke-width: 2.5; }
+.tnode:hover .tnode-halo, .tnode:focus-visible .tnode-halo, .tnode.in-path .tnode-halo { opacity: .35; }
+.tnode.is-selected .tnode-halo { opacity: .6; }
+.tnode.is-req .tnode-dot { stroke: #FFF8EA; stroke-width: 3; fill: var(--c); }
+.tnode.is-favorite .tnode-dot { fill: #B0674A; }
+.tnode.is-faded { opacity: .18; }
+.tnode:focus { outline: none; }
+.tnode:focus-visible .tnode-dot { stroke-width: 4; }
+
+/* Nombres: ocultos para no saturar; aparecen al pasar el mouse, al enfocar o al acercarse (.show-labels) */
+.tnode-label {
+  font: 600 11px var(--font-body); fill: #FFFDF5; pointer-events: none;
+  paint-order: stroke; stroke: rgba(12, 20, 15, .85); stroke-width: 3.5px; stroke-linejoin: round;
+  opacity: 0; transition: opacity .2s;
+}
+.tnode:hover .tnode-label, .tnode:focus-visible .tnode-label, .tnode.is-selected .tnode-label,
+.tree.show-labels .tnode:not(.is-faded) .tnode-label { opacity: 1; }
+.tree.show-labels .tnode-label { font-size: 7px; stroke-width: 2.5px; } /* con zoom, el texto escala: se achica la fuente */
+
+/* Raíces: enlace a la historia */
+.troots circle { fill: #FFF8EA; stroke: #8B5E3C; stroke-width: 3; }
+.troots text { font: 600 13px var(--font-body); fill: #FFFDF5; paint-order: stroke; stroke: rgba(12, 20, 15, .85); stroke-width: 4px; }
+.troots:hover circle, .troots:focus-visible circle { fill: #8B5E3C; }
+
+/* ---------- Animaciones (solo si no se pidió reducir el movimiento) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* El árbol nace desde las raíces: el recorte crece de abajo hacia arriba */
+  .grow-rect { transform-box: fill-box; transform-origin: bottom; animation: tree-grow 2.2s cubic-bezier(.45, .05, .2, 1) both; }
+  /* Los brotes aparecen con un pequeño rebote, en orden de abajo hacia arriba (--d) */
+  .tnode-dot { transform-box: fill-box; transform-origin: center; animation: bud .55s cubic-bezier(.3, 1.6, .5, 1) var(--d) both; }
+  .vein { animation: vein-in .8s ease var(--d, 1.4s) both; }
+  .troots { animation: vein-in .8s ease .4s both; }
+  /* Las cimas "respiran" despacio */
+  .tnode.is-summit .tnode-halo { animation: breathe 3.2s ease-in-out 3s infinite; }
+}
+@keyframes tree-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes bud { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes vein-in { from { opacity: 0; } }
+@keyframes breathe { 0%, 100% { opacity: 0; } 50% { opacity: .4; } }
+
+/* ---------- Panel: guía y ficha breve, a la izquierda ---------- */
+.tree-panel {
+  position: absolute; left: 1rem; bottom: 1rem; top: auto;
+  width: min(21rem, calc(100% - 2rem)); max-height: calc(100% - 15rem); overflow-y: auto;
+  padding: 1.3rem;
+}
+.tp-close { position: sticky; top: 0; float: right; margin: -.4rem -.4rem 0 0; width: 2rem; height: 2rem; }
+.tree-panel h2 { font-size: 1.6rem; margin-bottom: .4rem; }
+.tree-panel h3 { font-family: var(--font-body); font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-soft); margin: 1.1rem 0 .4rem; }
+.tree-panel .kicker { margin-bottom: .3rem; }
+.tp-difficulty { display: flex; align-items: center; gap: .4rem; color: var(--text-soft); font-size: .9rem; }
+.tp-links ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .3rem; }
+.tp-links li { display: flex; justify-content: space-between; align-items: center; gap: .6rem; }
+.tp-links a { color: var(--text); font-weight: 500; text-decoration: none; }
+.tp-links a:hover { color: var(--accent); }
+.tree-panel .btn-primary { margin-top: 1.2rem; width: 100%; justify-content: center; }
+.tp-legend { padding-left: 1.1rem; color: var(--text-soft); font-size: .92rem; display: grid; gap: .4rem; margin-bottom: 0; }
+.edit-log { font-family: ui-monospace, monospace; font-size: .9rem; max-height: 40vh; overflow: auto; }
+
+/* ---------- Celular y tablet ---------- */
+@media (max-width: 760px) {
+  .tree-page { height: calc(100dvh - var(--header-h, 6rem)); } /* en celular el pie queda debajo, al bajar */
+  .tree-title { top: .6rem; padding: .6rem 1rem; }
+  .tree-hint { display: none; }
+  /* Las ramas pasan a una fila desplazable bajo el título */
+  .tree-branches { top: auto; bottom: 4.2rem; left: .6rem; right: .6rem; max-width: none; padding: .45rem; }
+  .tree-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .tree-chips .chip { white-space: nowrap; }
+  .tree-controls { right: .6rem; bottom: .6rem; }
+  /* El panel se oculta hasta que se toca un ejercicio; entonces sube como una hoja desde abajo */
+  .tree-panel {
+    left: 0; right: 0; bottom: 0; width: auto; max-height: 62%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    transform: translateY(105%); transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+  }
+  .tree-panel.is-open { transform: none; }
+}

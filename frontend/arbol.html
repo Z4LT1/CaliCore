@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="El árbol de la calistenia: de las raíces a la cima, cada camino de progresión en un solo mapa.">
   <title>Árbol | CaliCore</title>
   <meta name="color-scheme" content="light dark">
   <!-- Aplica el tema elegido ANTES de dibujar, para evitar un destello claro en modo oscuro (ver js/ui/theme.js) -->
@@ -10,16 +11,48 @@
     try { const t = localStorage.getItem("calicore_theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
   </script>
   <link rel="stylesheet" href="css/main.css">
-  <!-- main.js dibuja la cabecera, el diálogo de acceso y el pie (ver js/ui/layout.js) -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/arbol.js"></script>
 </head>
 <!-- data-page indica qué página es: el menú lo usa para marcar el enlace activo -->
 <body data-page="arbol">
-  <main id="contenido">
-    <section class="section">
-      <h1>Árbol</h1>
-      <p class="section-lead">Contenido pendiente.</p>
-    </section>
+  <!-- El árbol ocupa toda la pantalla entre la cabecera y el pie; los paneles flotan encima,
+       como en un mapa interactivo. -->
+  <main id="contenido" class="tree-page">
+    <!-- La escena. La ilustración se estira para llenar toda la página; js/features/tree/
+         ajusta el viewBox al tamaño real del escenario y reubica los ejercicios sobre la imagen -->
+    <svg id="tree" class="tree" role="group" aria-label="Árbol de progresiones sobre una ilustración"></svg>
+
+    <!-- ===================== PANELES FLOTANTES ===================== -->
+    <header class="glass tree-title">
+      <p class="kicker">El árbol</p>
+      <h1>hola mami</h1>
+      <p class="tree-hint">Arrastra para moverte · rueda o pellizco para acercarte</p>
+    </header>
+
+    <nav class="glass tree-branches" aria-label="Ramas del árbol">
+      <div id="tree-branches" class="chips tree-chips" role="group" aria-label="Elegir una rama"></div>
+    </nav>
+
+    <!-- Panel: guía al entrar y ficha breve del ejercicio elegido. Lo llena js/features/tree/index.js -->
+    <aside id="tree-panel" class="glass tree-panel" aria-live="polite">
+      <div id="tree-panel-body">
+        <h2>Explora el árbol</h2>
+        <p class="muted">Pasa el cursor sobre un punto para iluminar su camino. Tócalo para abrir su ficha aquí.</p>
+        <ul class="tp-legend">
+          <li>Los puntos <b>grandes</b> son la cima de cada camino.</li>
+          <li>Con sesión iniciada, tus favoritos se marcan en <b>arcilla</b>.</li>
+          <li>Las <b>raíces</b> te llevan a la historia de la calistenia.</li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="tree-controls" role="toolbar" aria-label="Controles del árbol">
+      <button type="button" class="btn btn-icon glass-btn" id="tree-zoom-in" aria-label="Acercar">+</button>
+      <button type="button" class="btn btn-icon glass-btn" id="tree-zoom-out" aria-label="Alejar">−</button>
+      <button type="button" class="btn glass-btn" id="tree-reset">Ver todo</button>
+    </div>
+
+    <p id="tree-status" class="sr-only" role="status"></p>
   </main>
 </body>
 </html>

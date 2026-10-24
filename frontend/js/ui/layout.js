@@ -96,12 +96,30 @@ function footer() {
     ));
 }
 
+/**
+ * Publica la altura real de la cabecera y del pie como variables CSS (--header-h y --footer-h).
+ * Las usan las páginas que ocupan "toda la pantalla menos cabecera y pie", como el árbol.
+ * ResizeObserver las actualiza si cambian (por ejemplo, la cabecera ocupa dos líneas en celular).
+ */
+function publishHeights(headerEl, footerEl) {
+  const root = document.documentElement.style;
+  const observer = new ResizeObserver(() => {
+    root.setProperty("--header-h", `${headerEl.offsetHeight}px`);
+    root.setProperty("--footer-h", `${footerEl.offsetHeight}px`);
+  });
+  observer.observe(headerEl);
+  observer.observe(footerEl);
+}
+
 /** Inserta la estructura común alrededor del <main> de la página. */
 export function renderLayout() {
   const currentPage = document.body.dataset.page;
+  const headerEl = header(currentPage);
+  const footerEl = footer();
   document.body.prepend(
     el("a", { className: "skip-link", text: "Saltar al contenido", attrs: { href: "#contenido" } }),
-    header(currentPage),
+    headerEl,
   );
-  document.body.append(authDialog(), footer());
+  document.body.append(authDialog(), footerEl);
+  publishHeights(headerEl, footerEl);
 }

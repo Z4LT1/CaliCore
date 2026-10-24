@@ -25,3 +25,6 @@ dist/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# ---------- Imágenes provisorias sin licencia (solo pruebas locales) ----------
+frontend/assets/tree/*-prueba.*
