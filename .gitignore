@@ -31,3 +31,6 @@ frontend/assets/tree/*-prueba.*
 
 # ---------- Capturas de Playwright (pesadas; al README van solo algunas, comprimidas) ----------
 docs/capturas/
+
+# ---------- Configuración local de Claude (rutas de este PC y skills instaladas, ~22 MB) ----------
+.claude/
