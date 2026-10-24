@@ -28,3 +28,6 @@ desktop.ini
 
 # ---------- Imágenes provisorias sin licencia (solo pruebas locales) ----------
 frontend/assets/tree/*-prueba.*
+
+# ---------- Capturas de Playwright (pesadas; al README van solo algunas, comprimidas) ----------
+docs/capturas/
