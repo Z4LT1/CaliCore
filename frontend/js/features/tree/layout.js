@@ -2,10 +2,10 @@
  * Mapa de la ilustración: dónde cae cada parte del árbol de CaliCore sobre la imagen.
  *
  * La escena se arma con capas del mismo tamaño (2000 × 1200): el fondo (cielo, sol, montañas)
- * y el árbol solo, con fondo transparente. Separadas, más adelante pueden moverse a distinta
- * velocidad (parallax).
+ * y el árbol solo, con fondo transparente. Ambas se estiran para llenar toda la página (ver
+ * tree.view.js); separadas, más adelante pueden moverse a distinta velocidad (parallax).
  *
- * Las coordenadas están en píxeles de la escena (0,0 = esquina superior izquierda).
+ * Las coordenadas están en píxeles de la imagen original (0,0 = esquina superior izquierda).
  * Cada camino es una línea (polilínea) que sigue una rama dibujada; sus ejercicios se reparten
  * solos a lo largo de ella, del primero (cerca del tronco) a la cima (en la punta).
  *
@@ -24,12 +24,6 @@ export const SCENE = {
     { id: "arbol", url: arbolUrl },
   ],
 };
-
-/**
- * Zoom máximo: 1 píxel de la imagen = 2 píxeles de pantalla. Más allá la ilustración se ve
- * borrosa, porque no hay más detalle que mostrar. Si llega una imagen más grande, se sube.
- */
-export const MAX_SCALE = 2;
 
 /** Color de cada rama: tonos fuertes que contrastan con el follaje verde de la ilustración. */
 export const BRANCH_COLORS = {
@@ -96,8 +90,8 @@ export function pointAt(points, t) {
 
 /**
  * Ubica cada ejercicio del árbol (de la API) sobre su polilínea, repartidos de forma pareja.
- * Devuelve una lista plana de nodos con x, y (en píxeles de la escena), rama, camino
- * y si es la cima.
+ * Devuelve una lista plana de nodos con ix, iy (posición en píxeles de la imagen), rama, camino
+ * y si es la cima. La posición en pantalla (x, y) la calcula fitScene() en tree.view.js.
  */
 export function placeNodes(tree) {
   const nodes = [];
@@ -109,8 +103,8 @@ export function placeNodes(tree) {
       path.exercises.forEach((exercise, i) => {
         // El primero se separa un poco del tronco (t mínimo 0.12) y la cima queda en la punta (t = 1)
         const t = count === 1 ? 1 : 0.12 + (0.88 * i) / (count - 1);
-        const [x, y] = pointAt(line, t);
-        nodes.push({ ...exercise, x, y, branch, path, isSummit: i === count - 1 });
+        const [ix, iy] = pointAt(line, t);
+        nodes.push({ ...exercise, ix, iy, x: ix, y: iy, branch, path, isSummit: i === count - 1 });
       });
     }
   }
