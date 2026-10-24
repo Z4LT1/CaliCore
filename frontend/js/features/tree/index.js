@@ -6,10 +6,11 @@
  *   index.js      este archivo: cámara, interacción, panel y modo de edición
  *
  * La cámara: d3-zoom calcula cuánto mover y escalar según la rueda, el arrastre o el pellizco,
- * y esa transformación se aplica al grupo #tree-camera.
+ * y esa transformación (de píxeles de la escena a píxeles de pantalla) se aplica al grupo
+ * #tree-camera.
  *
- * Al entrar se ve el árbol COMPLETO llenando toda la página (escala 1 = la imagen estirada al
- * tamaño del escenario). Desde ahí se acerca, se arrastra o se elige una rama.
+ * Al entrar se ve el árbol COMPLETO, encuadrado sin deformarse (ver baseScale). Desde ahí se
+ * acerca, se arrastra o se elige una rama, hasta MAX_SCALE, el límite de nitidez de la imagen.
  */
 import { select } from "d3-selection";
 import "d3-transition"; // agrega .transition() a las selecciones de D3 (vuelos de cámara)
@@ -20,12 +21,13 @@ import { EVENTS, on } from "../../core/events.js";
 import { fetchExercise, fetchTree } from "../../services/catalog.js";
 import { initFavorites } from "../../services/favorites.js";
 import { DIFFICULTY_NAMES, difficultyMeter } from "../../ui/difficulty.js";
-import { BRANCH_COLORS, IMAGE, placeNodes } from "./layout.js";
+import { BRANCH_COLORS, MAX_SCALE, placeNodes, SCENE } from "./layout.js";
 import { fitScene, renderScene, setSpotlight } from "./tree.view.js";
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const duration = (ms) => (reduceMotion ? 0 : ms);
-const LABELS_FROM_SCALE = 2.2; // desde este zoom se muestran todos los nombres
+const LABELS_FROM_ZOOM = 2.2; // desde este acercamiento (respecto de la vista completa) se muestran todos los nombres
+const FRAME_PAD = 120;        // margen al encuadrar un grupo de ejercicios, en píxeles de la escena
 
 const ui = {
   svg: $("#tree"),
@@ -41,11 +43,31 @@ let nodes = [];
 let bySlug = {};
 let behavior;
 let view;
-let stage = { width: IMAGE.width, height: IMAGE.height, sx: 1, sy: 1 }; // tamaño actual del escenario
+let stage = { width: 0, height: 0 }; // tamaño actual del escenario, en píxeles de pantalla
+let baseK = 1;                       // escala de la vista completa (cambia con el tamaño de la ventana)
 
 /* --------------------------------------------------------------------------
    Cámara
    -------------------------------------------------------------------------- */
+/**
+ * Escala de la vista completa. "Contener" muestra la escena entera y deja franjas a los lados;
+ * "cubrir" llena la pantalla y recorta un poco. Si cubrir recorta poco (hasta 25 % más de
+ * zoom, lo normal en un computador), se cubre: se pierde un borde de cielo o de pasto y se
+ * gana inmersión. Si recortaría mucho (un celular vertical), se contiene.
+ */
+function baseScale(width, height) {
+  const contain = Math.min(width / SCENE.width, height / SCENE.height);
+  const cover = Math.max(width / SCENE.width, height / SCENE.height);
+  return Math.min(cover / contain <= 1.25 ? cover : contain, MAX_SCALE);
+}
+
+/** Transformación que centra la escena completa en el escenario. */
+function homeTransform() {
+  return zoomIdentity
+    .translate((stage.width - SCENE.width * baseK) / 2, (stage.height - SCENE.height * baseK) / 2)
+    .scale(baseK);
+}
+
 /**
  * Mueve la cámara a una transformación. Con animación, usa una transición de D3; sin animación
  * (o si se pidió reducir el movimiento) la aplica al instante, sin pasar por una transición.
@@ -56,16 +78,16 @@ function moveCamera(transform, ms) {
   else view.call(behavior.transform, transform);
 }
 /** Vuela para encuadrar un grupo de nodos (o el árbol completo si no hay grupo). */
-function frame(group, maxScale = 4) {
+function frame(group, maxScale = MAX_SCALE) {
   if (!group.length) {
-    moveCamera(zoomIdentity, 900);
+    moveCamera(homeTransform(), 900);
     return;
   }
   const xs = group.map((n) => n.x);
   const ys = group.map((n) => n.y);
-  const pad = 70;
+  const pad = FRAME_PAD;
   const [x0, x1, y0, y1] = [Math.min(...xs) - pad, Math.max(...xs) + pad, Math.min(...ys) - pad, Math.max(...ys) + pad];
-  const scale = Math.min(maxScale, stage.width / (x1 - x0), stage.height / (y1 - y0));
+  const scale = Math.max(baseK, Math.min(maxScale, stage.width / (x1 - x0), stage.height / (y1 - y0)));
   const target = zoomIdentity
     .translate(stage.width / 2, stage.height / 2)
     .scale(scale)
@@ -75,13 +97,17 @@ function frame(group, maxScale = 4) {
 
 function initCamera(camera) {
   behavior = zoom()
-    .scaleExtent([1, 7])
-    .translateExtent([[0, 0], [stage.width, stage.height]]) // no salir de la ilustración
+    .scaleExtent([baseK, MAX_SCALE])
+    .translateExtent([[0, 0], [SCENE.width, SCENE.height]]) // no salir de la ilustración
     .on("zoom", (event) => {
+      const { k } = event.transform;
       camera.setAttribute("transform", event.transform);
-      ui.svg.classList.toggle("show-labels", event.transform.k >= LABELS_FROM_SCALE);
+      // Los ejercicios se contraescalan para mantener su tamaño en pantalla (ver tree.view.js)
+      ui.svg.style.setProperty("--inv", (1 / k).toFixed(4));
+      ui.svg.classList.toggle("show-labels", k / baseK >= LABELS_FROM_ZOOM);
     });
   view = select(ui.svg).call(behavior);
+  view.call(behavior.transform, homeTransform());
   const zoomBy = (factor) => {
     if (duration(350)) view.transition().duration(350).call(behavior.scaleBy, factor);
     else view.call(behavior.scaleBy, factor);
@@ -156,7 +182,7 @@ async function openNode(slug, { fly = true } = {}) {
   const node = bySlug[slug];
   if (!node) return;
   highlight(node);
-  if (fly) frame([node], 3.2);
+  if (fly) frame([node], Math.min(MAX_SCALE, baseK * 3));
   showInPanel(el("p", { className: "status", text: `Cargando ${node.name}…` }));
   try {
     const exercise = await fetchExercise(slug);
@@ -224,9 +250,8 @@ function initEditMode() {
     point.x = event.clientX;
     point.y = event.clientY;
     const inSvg = point.matrixTransform(ui.svg.getScreenCTM().inverse()); // pantalla -> coordenadas del SVG
-    const [x, y] = zoomTransform(ui.svg).invert([inSvg.x, inSvg.y]);    // se descuenta el zoom actual
-    // y se pasa de píxeles del escenario a píxeles de la imagen original (la que usa layout.js)
-    log.append(el("li", { text: `[${Math.round(x / stage.sx)}, ${Math.round(y / stage.sy)}]` }));
+    const [x, y] = zoomTransform(ui.svg).invert([inSvg.x, inSvg.y]);    // se descuenta la cámara: píxeles de la escena
+    log.append(el("li", { text: `[${Math.round(x)}, ${Math.round(y)}]` }));
   });
 }
 
@@ -234,20 +259,22 @@ function initEditMode() {
    Arranque
    -------------------------------------------------------------------------- */
 /**
- * Ajusta la escena al tamaño actual del escenario. Si había zoom, se conserva la misma zona
- * a la vista: el desplazamiento se escala en la misma proporción que cambió el escenario.
+ * Ajusta la escena al tamaño actual del escenario. Si había zoom, se conserva el mismo punto
+ * de la escena en el centro de la pantalla, con el mismo acercamiento relativo.
  */
 function resizeStage() {
   const { width, height } = ui.svg.getBoundingClientRect();
   if (!width || !height || (width === stage.width && height === stage.height)) return;
-  const previous = stage;
-  stage = { width, height, ...fitScene(ui.svg, nodes, width, height) };
+  const previous = { ...stage, baseK };
+  stage = { width, height };
+  baseK = baseScale(width, height);
+  fitScene(ui.svg, width, height);
   if (!behavior) return; // primera vez: la cámara aún no existe
-  behavior.translateExtent([[0, 0], [width, height]]); // no salir de la ilustración
+  behavior.scaleExtent([baseK, MAX_SCALE]);
   const t = zoomTransform(ui.svg);
-  const kx = width / previous.width;
-  const ky = height / previous.height;
-  view.call(behavior.transform, zoomIdentity.translate(t.x * kx, t.y * ky).scale(t.k));
+  const [cx, cy] = t.invert([previous.width / 2, previous.height / 2]); // punto de la escena que estaba al centro
+  const k = Math.min(MAX_SCALE, (t.k / previous.baseK) * baseK);
+  view.call(behavior.transform, zoomIdentity.translate(width / 2, height / 2).scale(k).translate(-cx, -cy));
 }
 
 export async function initTree() {
@@ -270,6 +297,6 @@ export async function initTree() {
   initFavorites();
   // Enlace directo (arbol.html#muscle-up): cuando el árbol termina de crecer, vuela a ese ejercicio
   if (location.hash) setTimeout(openFromHash, duration(2400));
-  // Si cambia el tamaño de la ventana, la imagen se vuelve a estirar y los ejercicios se reubican
+  // Si cambia el tamaño de la ventana, se vuelve a encuadrar la escena
   new ResizeObserver(resizeStage).observe(ui.svg);
 }

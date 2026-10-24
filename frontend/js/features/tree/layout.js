@@ -1,16 +1,35 @@
 /**
  * Mapa de la ilustración: dónde cae cada parte del árbol de CaliCore sobre la imagen.
  *
- * Las coordenadas están en píxeles de la imagen original (0,0 = esquina superior izquierda).
+ * La escena se arma con capas del mismo tamaño (2000 × 1200): el fondo (cielo, sol, montañas)
+ * y el árbol solo, con fondo transparente. Separadas, más adelante pueden moverse a distinta
+ * velocidad (parallax).
+ *
+ * Las coordenadas están en píxeles de la escena (0,0 = esquina superior izquierda).
  * Cada camino es una línea (polilínea) que sigue una rama dibujada; sus ejercicios se reparten
  * solos a lo largo de ella, del primero (cerca del tronco) a la cima (en la punta).
  *
  * Al cambiar la imagen, solo se edita este archivo. Para medir coordenadas nuevas,
  * abrir arbol.html?editar y hacer clic sobre la imagen (ver index.js).
  */
-import imageUrl from "../../../assets/tree/arbol-prueba.jpg"; // provisoria: no está en Git (ver .gitignore)
+import fondoUrl from "../../../assets/tree/capa-fondo.jpg";
+import arbolUrl from "../../../assets/tree/capa-arbol.webp";
 
-export const IMAGE = { url: imageUrl, width: 736, height: 1104 };
+export const SCENE = {
+  width: 2000,
+  height: 1200,
+  // De atrás hacia adelante
+  layers: [
+    { id: "fondo", url: fondoUrl },
+    { id: "arbol", url: arbolUrl },
+  ],
+};
+
+/**
+ * Zoom máximo: 1 píxel de la imagen = 2 píxeles de pantalla. Más allá la ilustración se ve
+ * borrosa, porque no hay más detalle que mostrar. Si llega una imagen más grande, se sube.
+ */
+export const MAX_SCALE = 2;
 
 /** Color de cada rama: tonos fuertes que contrastan con el follaje verde de la ilustración. */
 export const BRANCH_COLORS = {
@@ -23,39 +42,42 @@ export const BRANCH_COLORS = {
 };
 
 /** Raíces: no son ejercicios; enlazan a la historia. */
-export const ROOTS = { x: 370, y: 960, label: "Raíces · la historia", href: "historia.html" };
+export const ROOTS = { x: 1000, y: 1110, label: "Raíces · la historia", href: "historia.html" };
 
-/** Polilíneas por camino (slug del camino -> puntos), siguiendo las ramas de la imagen. */
+/**
+ * Polilíneas por camino (slug del camino -> puntos), siguiendo las ramas de la imagen.
+ * PROVISORIAS: trazadas a ojo sobre una grilla. Se afinan en el paso siguiente con ?editar.
+ */
 export const PATH_LINES = {
   // Tronco: de la base hacia la bifurcación
-  fundamentos: [[366, 905], [362, 830], [360, 760], [356, 690]],
+  fundamentos: [[1000, 1000], [1000, 880], [1000, 760], [1000, 640], [1000, 540]],
 
-  // Pierna: rama baja izquierda
-  "sentadilla-unilateral": [[330, 660], [260, 650], [190, 640], [120, 630], [55, 620]],
-  "sentadilla-camaron": [[310, 672], [240, 692], [170, 702]],
-  "cadena-posterior": [[300, 625], [235, 595], [170, 578], [105, 562]],
+  // Pierna: copa baja izquierda
+  "cadena-posterior": [[890, 620], [770, 575], [640, 560], [520, 590], [400, 620]],
+  "sentadilla-unilateral": [[880, 660], [760, 640], [620, 650], [480, 670], [340, 680], [200, 670]],
+  "sentadilla-camaron": [[890, 700], [800, 710], [700, 730], [600, 740]],
 
-  // Core: rama baja derecha
-  "elevaciones-colgado": [[420, 700], [485, 662], [552, 642], [622, 622]],
-  compresion: [[438, 676], [500, 610], [570, 582], [650, 568]],
-  "anti-extension": [[432, 724], [502, 718], [572, 700], [642, 688]],
+  // Core: copa baja derecha
+  compresion: [[1110, 620], [1240, 575], [1380, 580], [1520, 610]],
+  "elevaciones-colgado": [[1110, 660], [1250, 640], [1400, 645], [1550, 660], [1700, 670]],
+  "anti-extension": [[1110, 700], [1220, 710], [1330, 720], [1440, 730]],
 
   // Empuje: copa media izquierda
-  flexiones: [[340, 560], [280, 545], [220, 530], [160, 520], [100, 510], [45, 500]],
-  fondos: [[335, 530], [280, 502], [225, 482], [170, 462]],
-  "empuje-vertical": [[338, 500], [300, 466], [262, 442], [222, 426]],
+  flexiones: [[930, 500], [820, 470], [700, 450], [570, 440], [440, 440], [310, 450], [200, 470]],
+  fondos: [[930, 470], [820, 450], [700, 420], [580, 400]],
+  "empuje-vertical": [[940, 440], [850, 400], [750, 360], [650, 330], [540, 320]],
 
   // Tracción: copa media derecha
-  dominadas: [[376, 560], [436, 550], [496, 540], [556, 530], [616, 520], [676, 510]],
-  transicion: [[376, 530], [441, 505], [506, 480]],
-  "traccion-horizontal": [[372, 500], [430, 470], [490, 446], [550, 426], [610, 410]],
+  dominadas: [[1070, 500], [1180, 470], [1300, 450], [1430, 440], [1560, 440], [1690, 450], [1800, 470]],
+  transicion: [[1070, 470], [1180, 450], [1300, 420], [1420, 400]],
+  "traccion-horizontal": [[1060, 440], [1150, 400], [1250, 360], [1360, 330], [1470, 320]],
 
   // Habilidades: la cima de la copa
-  planche: [[340, 405], [300, 352], [262, 302], [232, 260], [212, 222], [200, 188]],
-  pino: [[355, 400], [360, 330], [366, 260], [372, 190]],
-  "front-lever": [[365, 402], [410, 352], [452, 302], [492, 252]],
-  "back-lever": [[372, 412], [442, 392], [512, 362], [582, 332]],
-  bandera: [[334, 414], [268, 402], [200, 384], [132, 372]],
+  planche: [[980, 400], [950, 300], [920, 200], [890, 100]],
+  pino: [[1000, 400], [1000, 300], [1000, 190], [1000, 60]],
+  "front-lever": [[1020, 400], [1050, 300], [1085, 200], [1120, 100]],
+  "back-lever": [[1040, 410], [1130, 330], [1230, 250], [1340, 190], [1450, 160]],
+  bandera: [[960, 410], [870, 330], [770, 250], [660, 190], [550, 160]],
 };
 
 /** Punto a una fracción t (0 a 1) del largo total de una polilínea. */
@@ -74,8 +96,8 @@ export function pointAt(points, t) {
 
 /**
  * Ubica cada ejercicio del árbol (de la API) sobre su polilínea, repartidos de forma pareja.
- * Devuelve una lista plana de nodos con ix, iy (posición en píxeles de la imagen), rama, camino
- * y si es la cima. La posición en pantalla (x, y) la calcula fitScene() en tree.view.js.
+ * Devuelve una lista plana de nodos con x, y (en píxeles de la escena), rama, camino
+ * y si es la cima.
  */
 export function placeNodes(tree) {
   const nodes = [];
@@ -87,8 +109,8 @@ export function placeNodes(tree) {
       path.exercises.forEach((exercise, i) => {
         // El primero se separa un poco del tronco (t mínimo 0.12) y la cima queda en la punta (t = 1)
         const t = count === 1 ? 1 : 0.12 + (0.88 * i) / (count - 1);
-        const [ix, iy] = pointAt(line, t);
-        nodes.push({ ...exercise, ix, iy, x: ix, y: iy, branch, path, isSummit: i === count - 1 });
+        const [x, y] = pointAt(line, t);
+        nodes.push({ ...exercise, x, y, branch, path, isSummit: i === count - 1 });
       });
     }
   }
