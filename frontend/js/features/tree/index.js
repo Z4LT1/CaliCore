@@ -89,14 +89,14 @@ function compose() {
   const reserve = mobile ? 84 : 0;
   const ground = Math.min(by + sb * GROUND_Y, height - reserve);
 
-  // Árbol: completo y lo más grande posible en el espacio libre (a la derecha de la lámina en
-  // escritorio, debajo de ella en celular), con las raíces apoyadas en el suelo
+  // Árbol: completo, lo más grande posible y CENTRADO en la pantalla, con las raíces apoyadas
+  // en el suelo. La lámina flota encima, como el panel de un mapa (en celular, el árbol va debajo)
   const top = mobile ? 150 : 8;
-  const left = mobile ? 0 : freeLeft();
-  const room = width - left - (mobile ? 0 : 16);
+  const pad = mobile ? 0 : 24;
+  const room = width - 2 * pad;
   const treeWidth = TREE_BOX.x1 - TREE_BOX.x0;
   const s = Math.min(room / treeWidth, (ground - top) / SCENE.height);
-  const x = left + (room - treeWidth * s) / 2 - TREE_BOX.x0 * s;
+  const x = (width - treeWidth * s) / 2 - TREE_BOX.x0 * s;
   base = { s, x, y: ground - SCENE.height * s };
   setWorld(ui.worldArbol, base.x, base.y, s);
 
@@ -329,6 +329,72 @@ function endPreview() {
   preview([], state.path);
 }
 
+/* ==========================================================================
+   Clic en cualquier parte del árbol
+   En la vista completa no hace falta apuntar a una zona: se elige la rama más cercana al cursor.
+   ========================================================================== */
+const PICK_RADIUS = 240; // unidades de escena: hasta dónde "alcanza" el cursor para elegir una rama
+
+/** Pasa un evento del mouse a unidades de escena (descontando la cámara y la composición). */
+function scenePoint(event) {
+  const box = ui.stage.getBoundingClientRect();
+  const [qx, qy] = zoomTransform(ui.stage).invert([event.clientX - box.left, event.clientY - box.top]);
+  return { x: (qx - base.x) / base.s, y: (qy - base.y) / base.s };
+}
+
+/** El ejercicio más cercano a un punto de la escena, y a qué distancia está. */
+function nearest(point) {
+  let best = null;
+  let distance = Infinity;
+  for (const node of nodes) {
+    const d = Math.hypot(node.x - point.x, node.y - point.y);
+    if (d < distance) [best, distance] = [node, d];
+  }
+  return { node: best, distance };
+}
+
+let hotBranch = "";
+/** Marca la rama "caliente" (la que se elegiría con un clic): tinta, nombre y cursor de mano. */
+function setHot(slug) {
+  if (slug === hotBranch) return;
+  hotBranch = slug;
+  ui.stage.classList.toggle("is-pickable", Boolean(slug));
+  ui.svg.querySelectorAll(".zone").forEach((z) => z.classList.toggle("is-hot", z.dataset.branch === slug));
+  if (slug) preview(pathsOf(slug));
+  else endPreview();
+}
+
+const onHUD = (target) => target.closest?.(".zone, .tnode, .troots");
+
+function initPicking() {
+  let frame = 0;
+  ui.stage.addEventListener("pointermove", (event) => {
+    if (event.pointerType === "touch" || frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      if (state.level !== 0 || event.buttons || onHUD(event.target)) return setHot("");
+      const { node, distance } = nearest(scenePoint(event));
+      setHot(node && distance < PICK_RADIUS ? node.branch.slug : "");
+    });
+  });
+  ui.stage.addEventListener("pointerleave", () => setHot(""));
+  // d3-zoom no deja pasar el clic si hubo arrastre: este clic es "intencional"
+  ui.stage.addEventListener("click", (event) => {
+    if (onHUD(event.target) || new URLSearchParams(location.search).has("editar")) return;
+    const { node, distance } = nearest(scenePoint(event));
+    if (!node) return;
+    const k = zoomTransform(ui.stage).k;
+    const pixels = distance * base.s * k; // distancia real en la pantalla
+    if (state.level === 0) {
+      if (distance < PICK_RADIUS) { setHot(""); selectBranch(node.branch.slug); }
+    } else if (pixels < 28) {
+      location.hash = node.slug; // clic casi encima de un medallón: se abre aunque no se haya acertado
+    } else if (node.branch.slug !== state.branch && distance < PICK_RADIUS) {
+      selectBranch(node.branch.slug); // clic sobre otra parte del árbol: se pasa a esa rama
+    }
+  });
+}
+
 function initInteractions() {
   ui.branches.addEventListener("click", (event) => {
     const button = event.target.closest(".branch-btn");
@@ -536,6 +602,7 @@ export async function initTree() {
   renderCrumbs();
   initCamera();
   initInteractions();
+  initPicking();
   initEditMode();
   imagesReady.then(() => {
     ui.stage.classList.add("is-ready");

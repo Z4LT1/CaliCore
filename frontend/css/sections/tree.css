@@ -24,6 +24,7 @@
 }
 .tree-stage { position: absolute; inset: 0; overflow: hidden; cursor: grab; touch-action: none; }
 .tree-stage:active { cursor: grabbing; }
+.tree-stage.is-pickable { cursor: pointer; } /* sobre una rama: un clic la elige */
 /* Mientras cargan las imágenes livianas solo se ve el papel; luego la escena aparece */
 .tree-stage .layer { transition: opacity .6s ease; }
 .tree-stage:not(.is-ready) .layer { opacity: 0; }
@@ -94,7 +95,7 @@
   font: 600 10.5px var(--font-body); fill: #5A4630; letter-spacing: .09em; text-transform: uppercase;
   paint-order: stroke; stroke: color-mix(in srgb, var(--scene-paper) 92%, transparent); stroke-width: 4px; stroke-linejoin: round;
 }
-.zone:hover .zone-name, .zone:focus-visible .zone-name { fill: var(--c); }
+.zone:hover .zone-name, .zone:focus-visible .zone-name, .zone.is-hot .zone-name { fill: var(--c); }
 .zone:focus-visible .zone-name { text-decoration: underline; }
 .tree-svg:not([data-level="0"]) .zone { opacity: 0; pointer-events: none; }
 
@@ -144,8 +145,8 @@
 .paper ::selection { background: color-mix(in srgb, var(--ink) 18%, transparent); }
 
 /* Lámina principal: título, migas y ramas */
-.tree-plaque { position: absolute; top: 1rem; left: 1rem; z-index: 2; width: 19rem; padding: 1.25rem 1.3rem 1rem; }
-.tree-plaque h1 { font-size: 1.85rem; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 .6rem; color: var(--ink); text-wrap: balance; }
+.tree-plaque { position: absolute; top: 1rem; left: 1rem; z-index: 2; width: 17rem; padding: 1.2rem 1.25rem .95rem; }
+.tree-plaque h1 { font-size: 1.7rem; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 .6rem; color: var(--ink); text-wrap: balance; }
 .tree-crumbs { list-style: none; display: flex; flex-wrap: wrap; gap: .1rem .4rem; margin: 0; padding: 0; font-size: .86rem; color: var(--ink-soft); }
 .tree-crumbs li + li::before { content: "/"; margin-right: .4rem; opacity: .6; }
 .tree-crumbs [aria-current] { color: var(--ink); font-weight: 600; }
