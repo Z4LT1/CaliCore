@@ -1,40 +1,59 @@
 /* Página principal (index.html): héroe con árbol, cifras, "¿Por dónde empiezo?", vista previa
    del árbol, tarjetas, mapa del cuerpo, historia y perfil. */
 
-/* Colores de la ilustración del héroe (madera), en claro y oscuro */
-.home { --wood: #8B6C52; --leaf-1: #A9C49A; --leaf-2: #7FA488; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .home { --wood: #A88A6E; --leaf-1: #3E5A45; --leaf-2: #4F7357; } }
-:root[data-theme="dark"] .home { --wood: #A88A6E; --leaf-1: #3E5A45; --leaf-2: #4F7357; }
+/* Madera de la escalera de caminos (en claro y oscuro) */
+.home { --wood: #8B6C52; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .home { --wood: #A88A6E; } }
+:root[data-theme="dark"] .home { --wood: #A88A6E; }
 
 /* ---------- Héroe ---------- */
-.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 2rem; align-items: center; padding-top: clamp(2.5rem, 6vw, 4.5rem); }
-.hero h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; }
-.hero-lead { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-soft); }
+.hero { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; padding-top: clamp(2.5rem, 6vw, 4.5rem); }
+.hero h1 { font-size: clamp(2.4rem, 4.4vw, 3.9rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; text-wrap: balance; }
+.hero-lead { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-soft); max-width: 36ch; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
-.hero-tree { margin: 0; }
-.hero-tree svg { width: 100%; height: auto; overflow: visible; }
 
-.t-ground { fill: var(--sprout); }
-.t-wood path { fill: none; stroke: var(--wood); stroke-linecap: round; }
-.t-leaves circle:nth-child(odd) { fill: var(--leaf-1); }
-.t-leaves circle:nth-child(even) { fill: var(--leaf-2); }
-.t-leaves { opacity: .85; }
-.t-nodes circle { fill: var(--surface); stroke: var(--accent); stroke-width: 3; }
-.t-nodes .t-summit { fill: var(--clay); stroke: var(--surface); }
-.t-labels text { font: 600 13px var(--font-body); fill: var(--text-soft); }
-
-/* El árbol crece: las ramas se dibujan (stroke-dashoffset de 1 a 0, gracias a pathLength="1"),
-   luego brotan las hojas y aparecen los nodos. Solo si no se pidió reducir el movimiento. */
-@media (prefers-reduced-motion: no-preference) {
-  .t-wood .draw { stroke-dasharray: 1; animation: draw 1s cubic-bezier(.4, 0, .2, 1) var(--d) both; }
-  .t-leaves circle { transform-box: fill-box; transform-origin: center; animation: sprout .7s cubic-bezier(.3, 1.4, .5, 1) var(--d) both; }
-  .t-nodes, .t-labels { animation: fade-in .6s 1.9s both; }
-  .t-summit { transform-box: fill-box; transform-origin: center; animation: pulse 2.4s 2.4s ease-in-out infinite; }
+/* Lámina: sol detrás, el roble encima y los rótulos de las ramas.
+   La lámina tiene la proporción de la ilustración (5:3) y todo se ubica en porcentajes de ella. */
+.hero-plate { position: relative; margin: 0; aspect-ratio: 5 / 3; isolation: isolate; }
+/* En pantallas anchas la lámina sobresale un poco hacia la derecha: el árbol gana presencia */
+@media (min-width: 901px) { .hero-plate { width: 114%; margin-right: -14%; } }
+.plate-sun {
+  position: absolute; left: 50%; top: 14%; width: 62%; aspect-ratio: 1; translate: -50% -50%; z-index: -2;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--sun) 100%, transparent) 0 30%, color-mix(in srgb, var(--sun) 45%, transparent) 31%, transparent 62%),
+    repeating-conic-gradient(from 0deg, transparent 0deg 4deg, color-mix(in srgb, var(--sun) 55%, transparent) 4.4deg 5deg, transparent 5.4deg 9deg);
+  -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 30%, transparent 70%);
 }
-@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-@keyframes sprout { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes pulse { 50% { transform: scale(1.18); } }
+/* Sombra del suelo bajo las raíces, para que el árbol no "flote" */
+.plate-ground { position: absolute; left: 18%; right: 18%; bottom: -1%; height: 9%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--text) 16%, transparent), transparent); }
+.plate-tree { display: block; width: 100%; height: auto; user-select: none; }
+.home { --sun: #EDDAA6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .home { --sun: #4C4632; } }
+:root[data-theme="dark"] .home { --sun: #4C4632; }
+
+/* Líneas guía y puntos: tinta fina, como en un grabado */
+.plate-leads { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.plate-leads path { fill: none; stroke: var(--text); stroke-width: 2.6; stroke-dasharray: 1 1; opacity: .7; }
+.plate-leads circle { fill: var(--bg); stroke: var(--text); stroke-width: 3; }
+
+/* Rótulos: enlaces a cada rama del árbol */
+.plate-labels { position: absolute; inset: 0; }
+.plate-label {
+  position: absolute; left: var(--x); top: var(--y);
+  display: inline-flex; align-items: baseline; gap: .4rem; white-space: nowrap;
+  font: italic 600 clamp(1rem, 1.6vw, 1.25rem) var(--font-display); color: var(--text); text-decoration: none;
+  padding: .15rem .45rem; border-radius: 4px;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  transition: color .2s, background-color .2s;
+}
+.plate-label small { font: 600 .72rem var(--font-body); font-style: normal; color: var(--text-soft); font-variant-numeric: tabular-nums; }
+.plate-label.is-left { translate: -100% -50%; }
+.plate-label.is-right { translate: 0 -50%; }
+.plate-label.is-top { translate: -50% -100%; }
+.plate-label:hover, .plate-label:focus-visible { color: var(--accent); background: var(--bg); }
+.plate-label:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- Cifras ---------- */
 .stats {
@@ -89,19 +108,34 @@
 /* ---------- Tarjetas ---------- */
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1.2rem; }
 
-/* ---------- Mapa del cuerpo ---------- */
-.body-map { grid-template-columns: 1.3fr .7fr; }
-.body-figure { width: 100%; max-width: 15rem; justify-self: center; }
-.b-head { fill: var(--line); }
-.b-zone { fill: var(--line); cursor: pointer; transition: fill .25s; }
-.b-zone:hover { fill: var(--leaf-1); }
-.b-zone.is-active { fill: var(--accent); }
-.zone-count { font-weight: 600; margin-bottom: .6rem; }
-.zone-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; }
-.zone-list li { display: grid; grid-template-columns: 1fr auto auto; gap: .8rem; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .5rem .8rem; }
-.zone-list a { color: var(--text); font-weight: 500; text-decoration: none; }
-.zone-list a:hover { color: var(--accent); }
-.zone-list small { color: var(--text-soft); }
+/* ---------- ¿Qué quieres fortalecer? (índice por zona) ---------- */
+.zi { display: grid; grid-template-columns: minmax(16rem, .8fr) 1.2fr; gap: clamp(1.5rem, 5vw, 4rem); align-items: start; }
+.zi-list { display: grid; border-top: 1px solid var(--line); }
+/* Cada zona es una fila de índice: nombre, músculos y cuántos ejercicios la trabajan */
+.zi-row {
+  display: grid; grid-template-columns: 1fr auto; grid-template-areas: "name count" "muscles count";
+  column-gap: 1rem; align-items: center; text-align: left;
+  padding: .85rem .4rem .85rem .2rem; border: 0; border-bottom: 1px solid var(--line); background: none;
+  color: var(--text); cursor: pointer; transition: color .2s, padding-left .3s cubic-bezier(.2, .8, .2, 1);
+}
+.zi-name { grid-area: name; font-family: var(--font-display); font-size: clamp(1.3rem, 2.2vw, 1.6rem); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; }
+.zi-muscles { grid-area: muscles; font-size: .85rem; color: var(--text-soft); }
+.zi-count { grid-area: count; font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text-soft); }
+.zi-row:hover { color: var(--accent); }
+.zi-row[aria-pressed="true"] { color: var(--accent); padding-left: .9rem; }
+.zi-row[aria-pressed="true"] .zi-count { color: var(--accent); }
+.zi-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+.zi-summary { font-size: 1.05rem; margin: 0 0 1.2rem; color: var(--text-soft); }
+.zi-summary b { font-family: var(--font-display); font-size: 1.5rem; color: var(--text); }
+.zi-levels { display: grid; gap: 1.3rem; margin-bottom: 1.4rem; }
+.zi-level-name { display: flex; align-items: center; gap: .6rem; font: 600 .78rem var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--text-soft); margin: 0 0 .5rem; }
+.zi-level ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.zi-level li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: .5rem 0; border-top: 1px solid var(--line); }
+.zi-level a { color: var(--text); font-weight: 500; text-decoration: none; }
+.zi-level a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.zi-level small { color: var(--text-soft); font-size: .85rem; white-space: nowrap; }
+.zi-more { margin: .35rem 0 0; font-size: .85rem; color: var(--text-soft); }
 
 /* ---------- Historia ---------- */
 .timeline { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; counter-reset: hito; }
@@ -125,14 +159,18 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .hero, .body-map { grid-template-columns: 1fr; }
-  .hero-tree { max-width: 26rem; justify-self: center; }
+  .hero, .zi { grid-template-columns: 1fr; }
   .quiz-form, .start-grid { grid-template-columns: 1fr; }
   .timeline { grid-template-columns: repeat(2, 1fr); }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .stats li:nth-child(3) { padding-left: 0; border-left: 0; }
 }
 @media (max-width: 560px) {
+  /* Los rótulos de los costados crecen hacia adentro de la lámina (si no, se saldrían de la pantalla) */
+  .plate-label { font-size: .95rem; padding: .1rem .35rem; }
+  .plate-label.is-left { translate: 0 -50%; }
+  .plate-label.is-right { translate: -100% -50%; }
+  .plate-leads path { display: none; }
   .timeline { grid-template-columns: 1fr; }
   .rung { grid-template-columns: 1fr auto; }
   .rung-step { grid-column: 1 / -1; }
