@@ -1,139 +1,218 @@
 /* ==========================================================================
-   Árbol (arbol.html): pantalla completa e inmersiva.
-   La ilustración ocupa todo el espacio entre la cabecera y el pie, y los controles
-   flotan encima como paneles de vidrio (como en un mapa interactivo).
+   Árbol (arbol.html): escena inmersiva en capas, con estética de grabado antiguo.
+   El escenario ocupa todo el espacio entre la cabecera y el pie. Encima flotan paneles
+   de papel con tinta, como láminas sobre una mesa (no "vidrio" de aplicación).
    ========================================================================== */
 
-/* ---------- Escenario a pantalla completa ---------- */
+/* Papel y tinta. La escena es la misma en ambos temas (es una ilustración); cambian los paneles. */
+.tree-page {
+  --paper: #F4EAD4; --paper-edge: #D6C3A0; --ink: #2B1D12; --ink-soft: #6B5843;
+  --scene-paper: #F4EAD4; --scene-ink: #2B1D12; /* tinta y papel DENTRO de la ilustración */
+}
+:root[data-theme="dark"] .tree-page { --paper: #211B13; --paper-edge: #4A3D2C; --ink: #F0E4CA; --ink-soft: #BBA988; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tree-page { --paper: #211B13; --paper-edge: #4A3D2C; --ink: #F0E4CA; --ink-soft: #BBA988; }
+}
+
+/* ---------- Escenario ---------- */
 .tree-page {
   position: relative; overflow: hidden; isolation: isolate;
-  /* Todo el alto de la ventana menos la cabecera y el pie (las mide js/ui/layout.js).
-     dvh = alto "dinámico": en celular descuenta la barra del navegador. */
+  /* Todo el alto de la ventana menos la cabecera y el pie (los mide js/ui/layout.js) */
   height: calc(100dvh - var(--header-h, 4.5rem) - var(--footer-h, 6rem));
   min-height: 34rem;
-  background: #1B2620;
+  background: #E8DCC0; /* el color del cielo, mientras cargan las imágenes */
 }
-/* El SVG ocupa todo el escenario; la imagen dentro se estira a ese tamaño (ver tree.view.js) */
-.tree { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
-.tree:active { cursor: grabbing; }
+.tree-stage { position: absolute; inset: 0; overflow: hidden; cursor: grab; touch-action: none; }
+.tree-stage:active { cursor: grabbing; }
+/* Mientras cargan las imágenes livianas solo se ve el papel; luego la escena aparece */
+.tree-stage .layer { transition: opacity .6s ease; }
+.tree-stage:not(.is-ready) .layer { opacity: 0; }
 
-/* ---------- Paneles de vidrio ---------- */
-.glass {
-  background: color-mix(in srgb, var(--surface) 78%, transparent);
-  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
-  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+/* Cada capa se mueve con la cámara según su profundidad (index.js le pone transform) */
+.layer { position: absolute; inset: 0; transform-origin: 0 0; pointer-events: none; }
+/* Un "mundo" mide 2000 × 1200 unidades de escena y se escala al tamaño de la pantalla */
+.world { position: absolute; left: 0; top: 0; width: 2000px; height: 1200px; transform-origin: 0 0; }
+.world-img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; user-select: none; -webkit-user-drag: none; }
+
+/* Rayos de sol: un abanico de luz que gira muy despacio sobre los rayos grabados del fondo */
+.sun-rays {
+  position: absolute; border-radius: 50%; opacity: var(--glow, .55);
+  background:
+    radial-gradient(circle, rgba(255, 249, 230, .95) 0 11%, rgba(255, 244, 214, .35) 16%, transparent 30%),
+    repeating-conic-gradient(from 0deg, transparent 0deg 3deg, rgba(255, 246, 222, .5) 3.6deg 4.4deg, transparent 5deg 9deg);
+  -webkit-mask-image: radial-gradient(circle, #000 10%, rgba(0, 0, 0, .55) 32%, transparent 66%);
+  mask-image: radial-gradient(circle, #000 10%, rgba(0, 0, 0, .55) 32%, transparent 66%);
+  mix-blend-mode: screen;
 }
-.glass-btn { background: color-mix(in srgb, var(--surface) 82%, transparent); backdrop-filter: blur(10px); }
 
-/* Título: arriba al centro */
-.tree-title {
-  position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
-  padding: .9rem 1.6rem; text-align: center; max-width: min(34rem, calc(100% - 2rem));
+/* Niebla: textura que se repite a lo ancho y avanza (index.js la desplaza con GSAP) */
+.fog { position: absolute; left: -30%; width: 160%; background-repeat: repeat-x; background-size: auto 100%; }
+.fog-back { opacity: .6; }
+.fog-front { opacity: .42; }
+
+/* Viñeta: oscurece apenas los bordes, como una lámina impresa */
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 46%, transparent 56%, rgba(36, 24, 10, .4) 100%); }
+
+/* ---------- Lo que se dibuja sobre el árbol (SVG en unidades de escena) ---------- */
+.tree-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+/* Tamaño constante en pantalla: --inv = 1 / zoom total (lo actualiza index.js) */
+.tree-svg .inv { transform: scale(var(--inv, 1)); }
+
+/* Velo con foco: oscurece todo menos la rama o el camino elegido */
+.dim { fill: #1A120A; opacity: 0; transition: opacity .6s ease; pointer-events: none; }
+.tree-svg.has-focus .dim { opacity: .48; }
+
+/* Tinta de grabado. Grosores en píxeles de pantalla: se multiplican por --inv */
+.reveal-stroke { fill: none; stroke: #fff; stroke-width: 90; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.ink { opacity: 0; transition: opacity .3s; pointer-events: none; }
+.ink.is-on { opacity: .8; }
+.ink.is-strong { opacity: 1; }
+.ink path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ink-halo { stroke: color-mix(in srgb, var(--scene-paper) 80%, transparent); stroke-width: calc(9px * var(--inv, 1)); }
+.ink-line { stroke: var(--scene-ink); stroke-width: calc(4.2px * var(--inv, 1)); }
+.ink-core { stroke: var(--scene-paper); stroke-width: calc(1.6px * var(--inv, 1)); }
+.ink-ticks { stroke: var(--scene-ink); stroke-width: calc(4.2px * var(--inv, 1)); stroke-linecap: butt !important; stroke-dasharray: calc(1px * var(--inv, 1)) calc(7px * var(--inv, 1)); }
+.ink.is-strong .ink-core { stroke: color-mix(in srgb, var(--c) 45%, var(--scene-paper)); }
+
+/* Savia: franja de luz crema sobre una sombra del color de la rama, con una chispa en la punta */
+.sap { pointer-events: none; }
+.sap-under { opacity: .55; }
+.sap-body { fill: #FBF0CF; opacity: .95; }
+.sap-spark { fill: #FFFBEA; }
+
+/* Zonas (nivel 0): el nombre de la rama, en cursiva de grabado, con una línea guía */
+.zone { cursor: pointer; transition: opacity .45s ease; }
+.zone:focus { outline: none; }
+.zone-lead { fill: none; stroke: var(--scene-ink); stroke-width: calc(1.1px * var(--inv, 1)); stroke-dasharray: 1 1; opacity: .7; }
+.zone-dot { fill: var(--scene-paper); stroke: var(--scene-ink); stroke-width: 1.5; }
+.zone-name {
+  font: italic 600 21px var(--font-display); fill: var(--scene-ink); letter-spacing: .01em;
+  paint-order: stroke; stroke: color-mix(in srgb, var(--scene-paper) 92%, transparent); stroke-width: 6px; stroke-linejoin: round;
+  transition: fill .2s;
 }
-.tree-title .kicker { margin-bottom: .2rem; }
-.tree-title h1 { font-size: clamp(1.6rem, 3.4vw, 2.6rem); margin: 0; letter-spacing: -0.02em; }
-.tree-hint { margin: .3rem auto 0; font-size: .8rem; color: var(--text-soft); }
+.zone-count {
+  font: 600 10.5px var(--font-body); fill: #5A4630; letter-spacing: .09em; text-transform: uppercase;
+  paint-order: stroke; stroke: color-mix(in srgb, var(--scene-paper) 92%, transparent); stroke-width: 4px; stroke-linejoin: round;
+}
+.zone:hover .zone-name, .zone:focus-visible .zone-name { fill: var(--c); }
+.zone:focus-visible .zone-name { text-decoration: underline; }
+.tree-svg:not([data-level="0"]) .zone { opacity: 0; pointer-events: none; }
 
-/* Ramas: arriba a la izquierda */
-.tree-branches { position: absolute; top: 1rem; left: 1rem; padding: .6rem; max-width: 18rem; }
-.tree-chips { margin: 0; gap: .4rem; }
-.tree-chips .chip { font-size: .85rem; padding: .35rem .8rem; }
-/* Cada chip lleva el color de su rama (--c) como un punto a la izquierda */
-.tree-chips .chip::before { content: ""; display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; margin-right: .45rem; background: var(--c); vertical-align: 1px; }
-
-/* Zoom: abajo a la derecha */
-.tree-controls { position: absolute; right: 1rem; bottom: 1rem; display: flex; gap: .4rem; }
-
-/* ---------- Capas de la escena ---------- */
-/* Velo: invisible hasta que se elige una rama (el foco lo recorta la máscara #dim-mask) */
-.dim { fill: #0B120E; opacity: 0; transition: opacity .6s ease; pointer-events: none; }
-.tree.has-focus .dim { opacity: .62; }
-
-/* Venas: muy tenues; se encienden al iluminar su camino */
-.vein { fill: none; stroke: var(--c); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .28; transition: opacity .3s, stroke-width .3s; pointer-events: none; }
-.vein.is-lit { opacity: .95; stroke-width: 3.5; }
-.sap { fill: #FFF6D8; opacity: .85; pointer-events: none; }
-
-/* Nodos: un "brote" claro con un anillo del color de su rama */
-.tnode { cursor: pointer; transition: opacity .4s; }
-.tnode-dot { fill: #FFF8EA; stroke: var(--c); stroke-width: 2.5; transition: r .2s; }
-.tnode-halo { fill: var(--c); opacity: 0; transition: opacity .25s; }
-.tnode.is-summit .tnode-dot { fill: var(--c); stroke: #FFF8EA; stroke-width: 2.5; }
-.tnode:hover .tnode-halo, .tnode:focus-visible .tnode-halo, .tnode.in-path .tnode-halo { opacity: .35; }
-.tnode.is-selected .tnode-halo { opacity: .6; }
-.tnode.is-req .tnode-dot { stroke: #FFF8EA; stroke-width: 3; fill: var(--c); }
-.tnode.is-favorite .tnode-dot { fill: #B0674A; }
-.tnode.is-faded { opacity: .18; }
+/* Medallones: papel con borde de tinta y el color de la rama al centro */
+.tnode { cursor: pointer; transition: opacity .35s ease; }
 .tnode:focus { outline: none; }
-.tnode:focus-visible .tnode-dot { stroke-width: 4; }
+.tree-svg[data-level="0"] .tnode { opacity: 0; pointer-events: none; }
+.tnode.is-faded { opacity: .14; }
+.tnode.is-faded .m-ring { display: none; }
+.m-hit { fill: transparent; }
+.m-out { fill: var(--scene-paper); stroke: var(--scene-ink); stroke-width: 1.4; transition: stroke-width .2s, fill .2s; }
+.m-in { fill: var(--c); }
+.m-ring { fill: none; stroke: var(--scene-ink); stroke-width: 1; stroke-dasharray: 2 2; }
+.tnode:hover .m-out, .tnode:focus-visible .m-out, .tnode.is-selected .m-out { fill: #FFFAF0; stroke-width: 2.2; }
+.tnode:focus-visible .m-out { stroke-width: 3; }
+.tnode.is-selected .inv { transform: scale(calc(var(--inv, 1) * 1.3)); }
+.tnode.is-req .m-out { stroke: var(--c); stroke-width: 2.6; }
+.tnode.is-favorite .m-out { stroke: #B0674A; stroke-width: 2.6; }
 
-/* Nombres: ocultos para no saturar; aparecen al pasar el mouse, al enfocar o al acercarse (.show-labels) */
+/* Nombres: ocultos hasta que hacen falta (cursor, foco, el camino abierto o un zoom alto) */
 .tnode-label {
-  font: 600 11px var(--font-body); fill: #FFFDF5; pointer-events: none;
-  paint-order: stroke; stroke: rgba(12, 20, 15, .85); stroke-width: 3.5px; stroke-linejoin: round;
+  font: 600 12.5px var(--font-body); fill: var(--scene-ink); pointer-events: none;
+  paint-order: stroke; stroke: color-mix(in srgb, var(--scene-paper) 95%, transparent); stroke-width: 5px; stroke-linejoin: round;
   opacity: 0; transition: opacity .2s;
 }
 .tnode:hover .tnode-label, .tnode:focus-visible .tnode-label, .tnode.is-selected .tnode-label,
-.tree.show-labels .tnode:not(.is-faded) .tnode-label { opacity: 1; }
-.tree.show-labels .tnode-label { font-size: 7px; stroke-width: 2.5px; } /* con zoom, el texto escala: se achica la fuente */
+.tree-svg[data-level="2"] .tnode.in-path .tnode-label,
+.tree-svg.show-names .tnode:not(.is-faded) .tnode-label { opacity: 1; }
 
 /* Raíces: enlace a la historia */
-.troots circle { fill: #FFF8EA; stroke: #8B5E3C; stroke-width: 3; }
-.troots text { font: 600 13px var(--font-body); fill: #FFFDF5; paint-order: stroke; stroke: rgba(12, 20, 15, .85); stroke-width: 4px; }
-.troots:hover circle, .troots:focus-visible circle { fill: #8B5E3C; }
-
-/* ---------- Animaciones (solo si no se pidió reducir el movimiento) ---------- */
-@media (prefers-reduced-motion: no-preference) {
-  /* El árbol nace desde las raíces: el recorte crece de abajo hacia arriba */
-  .grow-rect { transform-box: fill-box; transform-origin: bottom; animation: tree-grow 2.2s cubic-bezier(.45, .05, .2, 1) both; }
-  /* Los brotes aparecen con un pequeño rebote, en orden de abajo hacia arriba (--d) */
-  .tnode-dot { transform-box: fill-box; transform-origin: center; animation: bud .55s cubic-bezier(.3, 1.6, .5, 1) var(--d) both; }
-  .vein { animation: vein-in .8s ease var(--d, 1.4s) both; }
-  .troots { animation: vein-in .8s ease .4s both; }
-  /* Las cimas "respiran" despacio */
-  .tnode.is-summit .tnode-halo { animation: breathe 3.2s ease-in-out 3s infinite; }
+.troots { cursor: pointer; }
+.troots circle { fill: var(--scene-paper); stroke: var(--scene-ink); stroke-width: 1.5; }
+.troots text {
+  font: italic 600 15px var(--font-display); fill: var(--scene-ink);
+  paint-order: stroke; stroke: color-mix(in srgb, var(--scene-paper) 92%, transparent); stroke-width: 5px; stroke-linejoin: round;
 }
-@keyframes tree-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-@keyframes bud { from { transform: scale(0); } to { transform: scale(1); } }
-@keyframes vein-in { from { opacity: 0; } }
-@keyframes breathe { 0%, 100% { opacity: 0; } 50% { opacity: .4; } }
+.troots:hover text, .troots:focus-visible text { text-decoration: underline; }
 
-/* ---------- Panel: guía y ficha breve, a la izquierda ---------- */
-.tree-panel {
-  position: absolute; left: 1rem; bottom: 1rem; top: auto;
-  width: min(21rem, calc(100% - 2rem)); max-height: calc(100% - 15rem); overflow-y: auto;
-  padding: 1.3rem;
+/* ---------- Paneles de papel ---------- */
+.paper {
+  background: var(--paper); color: var(--ink);
+  border: 1px solid var(--paper-edge); border-radius: 6px;
+  /* Doble filete, como el marco de una lámina: el borde y una línea interior */
+  outline: 1px solid color-mix(in srgb, var(--paper-edge) 70%, transparent); outline-offset: -6px;
+  box-shadow: 0 2px 6px rgba(30, 20, 8, .16), 0 16px 36px -10px rgba(30, 20, 8, .38);
 }
-.tp-close { position: sticky; top: 0; float: right; margin: -.4rem -.4rem 0 0; width: 2rem; height: 2rem; }
-.tree-panel h2 { font-size: 1.6rem; margin-bottom: .4rem; }
-.tree-panel h3 { font-family: var(--font-body); font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--text-soft); margin: 1.1rem 0 .4rem; }
-.tree-panel .kicker { margin-bottom: .3rem; }
-.tp-difficulty { display: flex; align-items: center; gap: .4rem; color: var(--text-soft); font-size: .9rem; }
-.tp-links ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .3rem; }
-.tp-links li { display: flex; justify-content: space-between; align-items: center; gap: .6rem; }
-.tp-links a { color: var(--text); font-weight: 500; text-decoration: none; }
-.tp-links a:hover { color: var(--accent); }
-.tree-panel .btn-primary { margin-top: 1.2rem; width: 100%; justify-content: center; }
-.tp-legend { padding-left: 1.1rem; color: var(--text-soft); font-size: .92rem; display: grid; gap: .4rem; margin-bottom: 0; }
+.paper ::selection { background: color-mix(in srgb, var(--ink) 18%, transparent); }
+
+/* Lámina principal: título, migas y ramas */
+.tree-plaque { position: absolute; top: 1rem; left: 1rem; z-index: 2; width: 19rem; padding: 1.25rem 1.3rem 1rem; }
+.tree-plaque h1 { font-size: 1.85rem; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 .6rem; color: var(--ink); text-wrap: balance; }
+.tree-crumbs { list-style: none; display: flex; flex-wrap: wrap; gap: .1rem .4rem; margin: 0; padding: 0; font-size: .86rem; color: var(--ink-soft); }
+.tree-crumbs li + li::before { content: "/"; margin-right: .4rem; opacity: .6; }
+.tree-crumbs [aria-current] { color: var(--ink); font-weight: 600; }
+.crumb-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--ink-soft); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--ink-soft) 50%, transparent); }
+.crumb-btn:hover { color: var(--ink); }
+.tree-hint { font-size: .84rem; line-height: 1.45; color: var(--ink-soft); margin: .65rem 0 .8rem; }
+
+.tree-branches { display: grid; gap: 2px; padding-top: .6rem; border-top: 1px solid var(--paper-edge); }
+.branch-btn {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .65rem;
+  padding: .42rem .5rem; border: 0; border-radius: 4px; background: none; color: var(--ink);
+  font: 500 .95rem var(--font-body); text-align: left; cursor: pointer; transition: background-color .2s;
+}
+.branch-btn:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.branch-btn[aria-pressed="true"] { background: color-mix(in srgb, var(--c) 18%, transparent); font-weight: 600; }
+.branch-btn small { font-size: .8rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+/* Sello: el mismo medallón del árbol, en miniatura */
+.branch-seal { width: 1rem; height: 1rem; flex: none; border-radius: 50%; border: 1.5px solid var(--ink); background: var(--c); box-shadow: inset 0 0 0 2.5px var(--paper); }
+.branch-btn:focus-visible, .crumb-btn:focus-visible, .paper-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* Ficha del ejercicio: a la derecha (abajo, en celular) */
+.tree-sheet { position: absolute; top: 1rem; right: 1rem; z-index: 2; width: 22rem; max-height: calc(100% - 5.8rem); overflow-y: auto; padding: 1.3rem 1.35rem 1.25rem; overscroll-behavior: contain; }
+.sheet-close { position: sticky; top: 0; float: right; margin: -.35rem -.35rem .3rem .6rem; }
+.tree-sheet h2 { font-size: 1.75rem; line-height: 1.1; margin: 0 0 .5rem; color: var(--ink); text-wrap: balance; }
+.sheet-path { display: flex; align-items: center; gap: .5rem; margin: 0 0 .7rem; font-size: .86rem; color: var(--ink-soft); }
+.sheet-difficulty { display: flex; align-items: center; gap: .55rem; margin: 0 0 .7rem; font-size: .9rem; color: var(--ink-soft); }
+.sheet-summary { margin: 0; line-height: 1.55; }
+.sheet-links h3 { font: 600 .74rem var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin: 1rem 0 .45rem; padding-top: .85rem; border-top: 1px solid var(--paper-edge); }
+.sheet-links ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+.sheet-links li { display: flex; justify-content: space-between; align-items: center; gap: .6rem; }
+.sheet-links a { color: var(--ink); font-weight: 500; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+.sheet-links a:hover { text-decoration-color: currentColor; }
+.sheet-empty, .sheet-loading { margin: 0; color: var(--ink-soft); }
+.sheet-cta { margin-top: 1.2rem; width: 100%; justify-content: center; }
 .edit-log { font-family: ui-monospace, monospace; font-size: .9rem; max-height: 40vh; overflow: auto; }
 
-/* ---------- Celular y tablet ---------- */
+/* Botones de papel (zoom, cerrar) con íconos dibujados en SVG */
+.tree-controls { position: absolute; right: 1rem; bottom: 1rem; z-index: 2; display: flex; gap: .4rem; }
+.paper-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .45rem;
+  height: 2.5rem; min-width: 2.5rem; padding: 0 .6rem;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--paper-edge); border-radius: 6px;
+  box-shadow: 0 6px 16px -6px rgba(30, 20, 8, .45); font: 500 .9rem var(--font-body); cursor: pointer;
+  transition: background-color .2s, transform .2s;
+}
+.paper-btn:hover { background: color-mix(in srgb, var(--ink) 8%, var(--paper)); }
+.paper-btn:active { transform: translateY(1px); }
+.paper-btn-text { padding: 0 .85rem 0 .7rem; }
+.paper-btn svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Celular ---------- */
 @media (max-width: 760px) {
-  .tree-page { height: calc(100dvh - var(--header-h, 6rem)); } /* en celular el pie queda debajo, al bajar */
-  .tree-title { top: .6rem; padding: .6rem 1rem; }
+  .tree-page { height: calc(100dvh - var(--header-h, 6rem)); min-height: 32rem; } /* el pie queda debajo, al bajar */
+  .tree-plaque { left: .6rem; right: .6rem; top: .6rem; width: auto; padding: .8rem .9rem .65rem; }
+  .tree-plaque h1 { font-size: 1.35rem; margin-bottom: .35rem; }
   .tree-hint { display: none; }
-  /* Las ramas pasan a una fila desplazable bajo el título */
-  .tree-branches { top: auto; bottom: 4.2rem; left: .6rem; right: .6rem; max-width: none; padding: .45rem; }
-  .tree-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-  .tree-chips .chip { white-space: nowrap; }
+  /* Las ramas pasan a una fila que se desliza */
+  .tree-branches { display: flex; gap: .3rem; overflow-x: auto; scrollbar-width: none; margin-top: .55rem; padding-top: .55rem; }
+  .branch-btn { display: inline-flex; white-space: nowrap; padding: .35rem .6rem; font-size: .88rem; }
+  .branch-btn small { display: none; }
   .tree-controls { right: .6rem; bottom: .6rem; }
-  /* El panel se oculta hasta que se toca un ejercicio; entonces sube como una hoja desde abajo */
-  .tree-panel {
-    left: 0; right: 0; bottom: 0; width: auto; max-height: 62%;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    transform: translateY(105%); transition: transform .35s cubic-bezier(.2, .8, .2, 1);
-  }
-  .tree-panel.is-open { transform: none; }
+  /* El árbol se ve más chico: zonas más discretas y sin la cifra */
+  .zone-name { font-size: 15px; stroke-width: 5px; }
+  .zone-count { display: none; }
+  .troots text { font-size: 13px; }
+  /* Con la ficha abierta, los botones de zoom se ocultan (se sigue pudiendo pellizcar) */
+  .tree-sheet:not([hidden]) ~ .tree-controls { display: none; }
+  /* La ficha sube como una hoja desde abajo */
+  .tree-sheet { left: 0; right: 0; bottom: 0; top: auto; width: auto; max-height: 58%; border-radius: 10px 10px 0 0; }
 }

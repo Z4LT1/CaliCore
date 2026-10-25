@@ -1,110 +1,134 @@
 /**
- * Mapa de la ilustración: dónde cae cada parte del árbol de CaliCore sobre la imagen.
+ * Mapa de la escena: las capas de la ilustración y dónde cae cada parte del árbol de CaliCore.
  *
- * La escena se arma con capas del mismo tamaño (2000 × 1200): el fondo (cielo, sol, montañas)
- * y el árbol solo, con fondo transparente. Ambas se estiran para llenar toda la página (ver
- * tree.view.js); separadas, más adelante pueden moverse a distinta velocidad (parallax).
+ * Todas las coordenadas están en "unidades de escena": un lienzo de 2000 × 1200 (la misma
+ * proporción 5:3 de las imágenes de 3840 × 2304). El fondo y el árbol usan ese mismo sistema,
+ * así que un punto (x, y) cae en el mismo lugar del dibujo aunque la imagen sea más grande.
  *
- * Las coordenadas están en píxeles de la imagen original (0,0 = esquina superior izquierda).
- * Cada camino es una línea (polilínea) que sigue una rama dibujada; sus ejercicios se reparten
- * solos a lo largo de ella, del primero (cerca del tronco) a la cima (en la punta).
- *
- * Al cambiar la imagen, solo se edita este archivo. Para medir coordenadas nuevas,
- * abrir arbol.html?editar y hacer clic sobre la imagen (ver index.js).
+ * Al cambiar la imagen solo se edita este archivo. Para medir coordenadas nuevas,
+ * abrir arbol.html?editar y hacer clic sobre el árbol (ver index.js).
  */
-import fondoUrl from "../../../assets/tree/capa-fondo.jpg";
-import arbolUrl from "../../../assets/tree/capa-arbol.webp";
+import fondo1920 from "../../../assets/tree/fondo-1920.webp";
+import fondo3840 from "../../../assets/tree/fondo-3840.webp";
+import arbol1920 from "../../../assets/tree/arbol-1920.webp";
+import arbol3840 from "../../../assets/tree/arbol-3840.webp";
+import niebla from "../../../assets/tree/niebla.webp";
 
-export const SCENE = {
-  width: 2000,
-  height: 1200,
-  // De atrás hacia adelante
-  layers: [
-    { id: "fondo", url: fondoUrl },
-    { id: "arbol", url: arbolUrl },
-  ],
+export const SCENE = { width: 2000, height: 1200 };
+
+/**
+ * Imágenes: primero se carga la versión liviana (1920 px) y, cuando termina de bajar,
+ * se cambia por la de alta resolución (3840 px), que es la que permite acercarse sin perder nitidez.
+ */
+export const IMAGES = {
+  fondo: { low: fondo1920, high: fondo3840 },
+  arbol: { low: arbol1920, high: arbol3840 },
+  niebla,
+};
+/** Píxeles reales de la imagen grande por cada unidad de escena (3840 / 2000). */
+export const SOURCE_DENSITY = 1.92;
+
+/** Puntos del fondo, en unidades de escena: el centro del sol y la línea donde se apoyan las raíces. */
+export const SUN = { x: 1000, y: 380, r: 150 };
+/** Dónde está el dibujo del árbol dentro de su imagen (lo demás es transparente). */
+export const TREE_BOX = { x0: 88, x1: 1867 };
+export const GROUND_Y = 1185;
+
+/** Colores de rama: tintas apagadas que conversan con el grabado sepia (no colores de pantalla). */
+export const BRANCH_COLORS = {
+  tronco: "#7a5a3a",
+  empuje: "#a5563b",
+  traccion: "#4a6a80",
+  pierna: "#6e5470",
+  core: "#5c7a46",
+  habilidades: "#8a3f55",
 };
 
-/** Color de cada rama: tonos fuertes que contrastan con el follaje verde de la ilustración. */
-export const BRANCH_COLORS = {
-  tronco: "#8B5E3C",
-  empuje: "#C8553D",
-  traccion: "#2F6690",
-  pierna: "#6A4C93",
-  core: "#2E7D4F",
-  habilidades: "#A23B72",
+/**
+ * Zonas del nivel "árbol completo": solo se ven estas seis etiquetas, para no saturar la lámina.
+ * label = dónde va el nombre; anchor = el punto de la rama al que apunta su línea guía.
+ */
+export const ZONES = {
+  tronco: { label: [1000, 905], anchor: [995, 790] },
+  pierna: { label: [330, 820], anchor: [540, 612] },
+  core: { label: [1660, 820], anchor: [1460, 600] },
+  empuje: { label: [330, 300], anchor: [620, 452] },
+  traccion: { label: [1660, 300], anchor: [1390, 440] },
+  habilidades: { label: [1000, 52], anchor: [1000, 215] },
 };
 
 /** Raíces: no son ejercicios; enlazan a la historia. */
-export const ROOTS = { x: 1000, y: 1110, label: "Raíces · la historia", href: "historia.html" };
+export const ROOTS = { x: 1000, y: 1120, label: "Raíces · la historia", href: "historia.html" };
 
 /**
- * Polilíneas por camino (slug del camino -> puntos), siguiendo las ramas de la imagen.
- * PROVISORIAS: trazadas a ojo sobre una grilla. Se afinan en el paso siguiente con ?editar.
+ * Puntos de paso de cada camino (slug del camino -> puntos), siguiendo las ramas dibujadas
+ * desde el tronco hacia afuera. Se suavizan como curvas (Catmull-Rom) en tree.view.js, así que
+ * basta con marcar por dónde pasa la rama; no hace falta que los tramos sean rectos.
  */
 export const PATH_LINES = {
-  // Tronco: de la base hacia la bifurcación
-  fundamentos: [[1000, 1000], [1000, 880], [1000, 760], [1000, 640], [1000, 540]],
+  // Tronco: de la base a la cruz donde se abren las ramas
+  fundamentos: [[995, 1010], [990, 900], [986, 790], [990, 680], [1000, 575]],
 
-  // Pierna: copa baja izquierda
-  "cadena-posterior": [[890, 620], [770, 575], [640, 560], [520, 590], [400, 620]],
-  "sentadilla-unilateral": [[880, 660], [760, 640], [620, 650], [480, 670], [340, 680], [200, 670]],
-  "sentadilla-camaron": [[890, 700], [800, 710], [700, 730], [600, 740]],
+  // Pierna: la gran rama baja de la izquierda y sus brotes
+  "sentadilla-unilateral": [[905, 650], [800, 585], [690, 560], [590, 568], [490, 600], [390, 625], [280, 640], [160, 662]],
+  "cadena-posterior": [[880, 645], [790, 650], [715, 672], [645, 705], [575, 728]],
+  "sentadilla-camaron": [[760, 578], [645, 612], [545, 652], [445, 692], [350, 728]],
 
-  // Core: copa baja derecha
-  compresion: [[1110, 620], [1240, 575], [1380, 580], [1520, 610]],
-  "elevaciones-colgado": [[1110, 660], [1250, 640], [1400, 645], [1550, 660], [1700, 670]],
-  "anti-extension": [[1110, 700], [1220, 710], [1330, 720], [1440, 730]],
+  // Core: la gran rama baja de la derecha y sus brotes
+  "elevaciones-colgado": [[1070, 620], [1160, 572], [1260, 560], [1360, 562], [1460, 590], [1560, 612], [1680, 640], [1800, 665]],
+  compresion: [[1110, 645], [1200, 655], [1290, 682], [1380, 712], [1460, 742]],
+  "anti-extension": [[1430, 585], [1505, 640], [1600, 680], [1700, 708], [1790, 722]],
 
-  // Empuje: copa media izquierda
-  flexiones: [[930, 500], [820, 470], [700, 450], [570, 440], [440, 440], [310, 450], [200, 470]],
-  fondos: [[930, 470], [820, 450], [700, 420], [580, 400]],
-  "empuje-vertical": [[940, 440], [850, 400], [750, 360], [650, 330], [540, 320]],
+  // Empuje: la copa media de la izquierda
+  flexiones: [[930, 500], [840, 472], [740, 462], [640, 472], [540, 490], [440, 500], [340, 482], [235, 452], [160, 430]],
+  fondos: [[920, 462], [840, 425], [740, 405], [640, 395], [540, 385], [440, 368], [345, 345]],
+  "empuje-vertical": [[950, 440], [880, 382], [790, 352], [690, 333], [590, 322]],
 
-  // Tracción: copa media derecha
-  dominadas: [[1070, 500], [1180, 470], [1300, 450], [1430, 440], [1560, 440], [1690, 450], [1800, 470]],
-  transicion: [[1070, 470], [1180, 450], [1300, 420], [1420, 400]],
-  "traccion-horizontal": [[1060, 440], [1150, 400], [1250, 360], [1360, 330], [1470, 320]],
+  // Tracción: la copa media de la derecha
+  dominadas: [[1070, 500], [1160, 472], [1260, 462], [1360, 472], [1460, 490], [1560, 500], [1660, 472], [1765, 442]],
+  transicion: [[1080, 462], [1160, 425], [1260, 405], [1360, 395], [1460, 385], [1560, 365]],
+  "traccion-horizontal": [[1050, 440], [1120, 382], [1210, 352], [1310, 333], [1410, 322]],
 
   // Habilidades: la cima de la copa
-  planche: [[980, 400], [950, 300], [920, 200], [890, 100]],
-  pino: [[1000, 400], [1000, 300], [1000, 190], [1000, 60]],
-  "front-lever": [[1020, 400], [1050, 300], [1085, 200], [1120, 100]],
-  "back-lever": [[1040, 410], [1130, 330], [1230, 250], [1340, 190], [1450, 160]],
-  bandera: [[960, 410], [870, 330], [770, 250], [660, 190], [550, 160]],
+  planche: [[975, 420], [940, 330], [900, 250], [860, 172], [820, 112]],
+  pino: [[1000, 420], [996, 320], [992, 222], [987, 132], [978, 45]],
+  "front-lever": [[1030, 420], [1068, 330], [1102, 242], [1140, 162], [1180, 102]],
+  "back-lever": [[1050, 410], [1140, 342], [1240, 282], [1340, 222], [1430, 172]],
+  bandera: [[950, 410], [860, 352], [760, 292], [660, 232], [560, 172]],
 };
 
-/** Punto a una fracción t (0 a 1) del largo total de una polilínea. */
-export function pointAt(points, t) {
-  const lengths = points.slice(1).map(([x, y], i) => Math.hypot(x - points[i][0], y - points[i][1]));
-  let target = t * lengths.reduce((a, b) => a + b, 0);
-  for (let i = 0; i < lengths.length; i++) {
-    if (target <= lengths[i]) {
-      const k = lengths[i] ? target / lengths[i] : 0;
-      return [points[i][0] + (points[i + 1][0] - points[i][0]) * k, points[i][1] + (points[i + 1][1] - points[i][1]) * k];
-    }
-    target -= lengths[i];
+/** Curva suave que pasa por todos los puntos (Catmull-Rom convertida a curvas Bézier de SVG). */
+export function smoothPath(points) {
+  if (points.length < 3) return `M ${points.map((p) => p.join(" ")).join(" L ")}`;
+  const p = [points[0], ...points, points[points.length - 1]]; // se repiten los extremos
+  let d = `M ${p[1][0]} ${p[1][1]}`;
+  for (let i = 1; i < p.length - 2; i++) {
+    const [x0, y0] = p[i - 1];
+    const [x1, y1] = p[i];
+    const [x2, y2] = p[i + 1];
+    const [x3, y3] = p[i + 2];
+    const c1 = [x1 + (x2 - x0) / 6, y1 + (y2 - y0) / 6];
+    const c2 = [x2 - (x3 - x1) / 6, y2 - (y3 - y1) / 6];
+    d += ` C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)}, ${c2[0].toFixed(1)} ${c2[1].toFixed(1)}, ${x2} ${y2}`;
   }
-  return points[points.length - 1];
+  return d;
 }
 
 /**
- * Ubica cada ejercicio del árbol (de la API) sobre su polilínea, repartidos de forma pareja.
- * Devuelve una lista plana de nodos con ix, iy (posición en píxeles de la imagen), rama, camino
- * y si es la cima. La posición en pantalla (x, y) la calcula fitScene() en tree.view.js.
+ * Arma la lista plana de nodos (uno por ejercicio) a partir del árbol de la API.
+ * La posición exacta (x, y) sobre la curva la calcula tree.view.js, que puede medir la curva
+ * ya dibujada; aquí solo se decide en qué fracción del camino (t) va cada ejercicio.
  */
-export function placeNodes(tree) {
+export function buildNodes(tree) {
   const nodes = [];
   for (const branch of tree) {
     for (const path of branch.paths) {
-      const line = PATH_LINES[path.slug];
-      if (!line) continue; // un camino nuevo sin línea en el mapa todavía no se dibuja
+      if (!PATH_LINES[path.slug]) continue; // un camino nuevo sin trazo en el mapa todavía no se dibuja
       const count = path.exercises.length;
       path.exercises.forEach((exercise, i) => {
-        // El primero se separa un poco del tronco (t mínimo 0.12) y la cima queda en la punta (t = 1)
-        const t = count === 1 ? 1 : 0.12 + (0.88 * i) / (count - 1);
-        const [ix, iy] = pointAt(line, t);
-        nodes.push({ ...exercise, ix, iy, x: ix, y: iy, branch, path, isSummit: i === count - 1 });
+        // El primero se separa un poco del tronco (t = 0.14) y la cima queda en la punta (t = 1)
+        const t = count === 1 ? 1 : 0.14 + (0.86 * i) / (count - 1);
+        nodes.push({ ...exercise, t, x: 0, y: 0, branch, path, isSummit: i === count - 1 });
       });
     }
   }

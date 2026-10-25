@@ -15,41 +15,55 @@
 </head>
 <!-- data-page indica qué página es: el menú lo usa para marcar el enlace activo -->
 <body data-page="arbol">
-  <!-- El árbol ocupa toda la pantalla entre la cabecera y el pie; los paneles flotan encima,
-       como en un mapa interactivo. -->
   <main id="contenido" class="tree-page">
-    <!-- La escena. La ilustración se estira para llenar toda la página; js/features/tree/
-         ajusta el viewBox al tamaño real del escenario y reubica los ejercicios sobre la imagen -->
-    <svg id="tree" class="tree" role="group" aria-label="Árbol de progresiones sobre una ilustración"></svg>
 
-    <!-- ===================== PANELES FLOTANTES ===================== -->
-    <header class="glass tree-title">
-      <p class="kicker">El árbol</p>
-      <h1>De las raíces a la cima</h1>
-      <p class="tree-hint">Arrastra para moverte · rueda o pellizco para acercarte</p>
-    </header>
-
-    <nav class="glass tree-branches" aria-label="Ramas del árbol">
-      <div id="tree-branches" class="chips tree-chips" role="group" aria-label="Elegir una rama"></div>
-    </nav>
-
-    <!-- Panel: guía al entrar y ficha breve del ejercicio elegido. Lo llena js/features/tree/index.js -->
-    <aside id="tree-panel" class="glass tree-panel" aria-live="polite">
-      <div id="tree-panel-body">
-        <h2>Explora el árbol</h2>
-        <p class="muted">Pasa el cursor sobre un punto para iluminar su camino. Tócalo para abrir su ficha aquí.</p>
-        <ul class="tp-legend">
-          <li>Los puntos <b>grandes</b> son la cima de cada camino.</li>
-          <li>Con sesión iniciada, tus favoritos se marcan en <b>arcilla</b>.</li>
-          <li>Las <b>raíces</b> te llevan a la historia de la calistenia.</li>
-        </ul>
+    <!-- ===================== ESCENARIO ===================== -->
+    <!-- Capas de atrás hacia adelante. data-depth = cuánto acompañan a la cámara (parallax):
+         1 se mueve igual que el árbol, menos de 1 queda "más lejos", más de 1 queda "más cerca".
+         js/features/tree/index.js calcula la posición de cada una; aquí solo se declaran. -->
+    <div id="tree-stage" class="tree-stage">
+      <div class="layer" data-depth="0.35">
+        <div class="world" id="world-fondo">
+          <img class="world-img" id="img-fondo" src="assets/tree/fondo-1920.webp" alt="" decoding="async" fetchpriority="high">
+          <div class="sun-rays" id="sun-rays" aria-hidden="true"></div>
+        </div>
       </div>
-    </aside>
+      <div class="layer" data-depth="0.6"><div class="fog fog-back" id="fog-back" aria-hidden="true"></div></div>
+      <div class="layer" data-depth="1">
+        <div class="world" id="world-arbol">
+          <img class="world-img tree-img" id="img-arbol" src="assets/tree/arbol-1920.webp" alt="" decoding="async" fetchpriority="high">
+          <svg id="tree" class="tree-svg" viewBox="0 0 2000 1200" role="group" aria-label="Árbol de progresiones: zonas, caminos y ejercicios"></svg>
+        </div>
+      </div>
+      <div class="layer" data-depth="1.2"><div class="fog fog-front" id="fog-front" aria-hidden="true"></div></div>
+      <div class="vignette" aria-hidden="true"></div>
+    </div>
+
+    <!-- ===================== PANELES ===================== -->
+    <!-- Lámina: título, dónde estás (migas) y las ramas -->
+    <section class="paper tree-plaque" aria-labelledby="tree-title">
+      <h1 id="tree-title">De las raíces a la cima</h1>
+      <nav aria-label="Dónde estás en el árbol">
+        <ol id="tree-crumbs" class="tree-crumbs"></ol>
+      </nav>
+      <p class="tree-hint">Elige una rama o acércate con la rueda. Los medallones con anillo son la cima de cada camino.</p>
+      <div id="tree-branches" class="tree-branches" role="group" aria-label="Elegir una rama"></div>
+    </section>
+
+    <!-- Ficha breve del ejercicio elegido. Oculta hasta que se abre uno (js/features/tree/index.js) -->
+    <aside id="tree-sheet" class="paper tree-sheet" aria-live="polite" hidden></aside>
 
     <div class="tree-controls" role="toolbar" aria-label="Controles del árbol">
-      <button type="button" class="btn btn-icon glass-btn" id="tree-zoom-in" aria-label="Acercar">+</button>
-      <button type="button" class="btn btn-icon glass-btn" id="tree-zoom-out" aria-label="Alejar">−</button>
-      <button type="button" class="btn glass-btn" id="tree-reset">Ver todo</button>
+      <button type="button" class="paper-btn" id="tree-zoom-in" aria-label="Acercar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button type="button" class="paper-btn" id="tree-zoom-out" aria-label="Alejar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+      </button>
+      <button type="button" class="paper-btn paper-btn-text" id="tree-reset">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+        Árbol completo
+      </button>
     </div>
 
     <p id="tree-status" class="sr-only" role="status"></p>
