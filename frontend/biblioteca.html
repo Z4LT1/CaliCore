@@ -21,32 +21,42 @@
       <p class="section-lead">Pasa el cursor (o toca) una tarjeta para ver de qué se trata, ábrela para leer su ficha completa y guarda con la estrella los que quieres dominar.</p>
     </section>
 
-    <!-- Controles: los rellena y conecta js/features/library/index.js -->
+    <!-- Controles: los rellena y conecta js/features/library/index.js.
+         Tres niveles: la búsqueda (lo más usado), los filtros principales y los secundarios,
+         y una línea final con el conteo y las acciones. -->
     <section class="library-tools" aria-label="Buscar y filtrar ejercicios">
-      <div class="tools-row">
-        <label class="search">
-          <span class="sr-only">Buscar ejercicio</span>
-          <input id="lib-search" type="search" placeholder="Buscar: dominada, pino, tríceps…" autocomplete="off" aria-controls="lib-grid">
-        </label>
-        <label class="inline-select">Músculo <select id="lib-muscle" autocomplete="off"></select></label>
-        <label class="inline-select">Equipamiento <select id="lib-equipment" autocomplete="off"></select></label>
-        <label class="inline-select">Orden <select id="lib-sort" autocomplete="off"></select></label>
+      <div class="tools-inner">
+        <div class="tools-main">
+          <label class="search">
+            <span class="sr-only">Buscar ejercicio</span>
+            <input id="lib-search" type="search" placeholder="Buscar ejercicio o músculo…" autocomplete="off" aria-controls="lib-grid">
+          </label>
+          <label class="tools-field tools-sort"><span>Ordenar por</span><select id="lib-sort" autocomplete="off"></select></label>
+        </div>
+
+        <div class="tools-filters">
+          <div class="filter-group filter-branch">
+            <span class="filter-label" id="lbl-branch">Rama</span>
+            <div id="lib-branches" class="tabs" role="group" aria-labelledby="lbl-branch"></div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label" id="lbl-difficulty">Dificultad</span>
+            <div id="lib-difficulty" class="segmented" role="group" aria-labelledby="lbl-difficulty"></div>
+          </div>
+          <label class="tools-field"><span>Músculo</span><select id="lib-muscle" autocomplete="off"></select></label>
+          <label class="tools-field"><span>Equipamiento</span><select id="lib-equipment" autocomplete="off"></select></label>
+        </div>
+
+        <div class="tools-footer">
+          <p id="lib-count" class="lib-count" role="status"></p>
+          <div class="tools-actions">
+            <!-- data-user-only: solo se muestra con sesión iniciada -->
+            <label class="switch" data-user-only hidden><input id="lib-favorites" type="checkbox"> Solo mis favoritos</label>
+            <button id="lib-clear" class="btn btn-ghost" type="button" hidden>Limpiar filtros</button>
+          </div>
+        </div>
+        <p id="lib-status" class="lib-status" role="status"></p>
       </div>
-      <div class="tools-row">
-        <span class="tools-label" id="lbl-branch">Rama</span>
-        <div id="lib-branches" class="chips" role="group" aria-labelledby="lbl-branch"></div>
-      </div>
-      <div class="tools-row">
-        <span class="tools-label" id="lbl-difficulty">Dificultad</span>
-        <div id="lib-difficulty" class="chips" role="group" aria-labelledby="lbl-difficulty"></div>
-      </div>
-      <div class="tools-row tools-footer">
-        <p id="lib-count" class="lib-count" role="status"></p>
-        <!-- data-user-only: solo se muestra con sesión iniciada -->
-        <label class="switch" data-user-only hidden><input id="lib-favorites" type="checkbox"> Solo mis favoritos</label>
-        <button id="lib-clear" class="btn btn-ghost" type="button" hidden>Limpiar filtros</button>
-      </div>
-      <p id="lib-status" class="lib-status" role="status"></p>
     </section>
 
     <section class="section library-results">
