@@ -1,54 +1,90 @@
 /* Piezas reutilizables del catálogo: etiquetas, chips, medidor de dificultad, enlaces de texto
    y la tarjeta de ejercicio que se gira. Las usan el inicio y, más adelante, la biblioteca. */
 
+/* Etiqueta de rama: un "sello" con la tinta de la rama (--c) y su nombre, como en el árbol */
 .tag {
-  display: inline-block;
-  font-size: .75rem;
-  font-weight: 600;
-  padding: .2rem .7rem;
-  border-radius: 999px;
-  background: var(--sprout);
-  color: var(--sprout-text);
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-size: .78rem; font-weight: 600; letter-spacing: .02em;
+  color: var(--text-soft);
 }
+.tag::before {
+  content: ""; width: .7rem; height: .7rem; flex: none; border-radius: 50%;
+  background: var(--c, var(--accent)); border: 1px solid var(--text); box-shadow: inset 0 0 0 1.5px var(--surface);
+}
+.tag[data-branch="tronco"] { --c: var(--br-tronco); }
+.tag[data-branch="empuje"] { --c: var(--br-empuje); }
+.tag[data-branch="traccion"] { --c: var(--br-traccion); }
+.tag[data-branch="pierna"] { --c: var(--br-pierna); }
+.tag[data-branch="core"] { --c: var(--br-core); }
+.tag[data-branch="habilidades"] { --c: var(--br-habilidades); }
 
-.text-link { display: inline-block; margin-top: 1rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+/* Enlace de texto con una flecha dibujada (no un carácter): se desliza al pasar el mouse */
+.text-link { display: inline-flex; align-items: center; gap: .45rem; margin-top: 1rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+.text-link::after, .card-link::after {
+  content: ""; width: 1em; height: 1em; flex: none; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform .25s var(--ease-out);
+}
 .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.text-link:hover::after, .card-link:hover::after { transform: translateX(3px); }
 
 /* Chips: botones de filtro con estado presionado (aria-pressed) */
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0; }
 .chip {
   font: inherit; font-size: .9rem; font-weight: 500;
-  padding: .4rem 1rem; border-radius: 999px;
-  border: 1.5px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer;
+  padding: .38rem .85rem; border-radius: var(--radius);
+  border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); cursor: pointer;
+  transition: background-color .2s, border-color .2s, color .2s;
 }
-.chip:hover { border-color: var(--text-soft); }
+.chip:hover { border-color: var(--text); }
 .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 
 /* Dificultad 1-5: cinco "nudillos" redondeados; se rellenan hasta el nivel */
 .difficulty { display: inline-flex; gap: 3px; vertical-align: middle; }
-.difficulty i { width: .55rem; height: .7rem; border-radius: 4px 4px 3px 3px; background: var(--line); }
+.difficulty i { width: .5rem; height: .7rem; border-radius: 2px; background: var(--line); }
 .difficulty i.on { background: var(--accent); }
 .difficulty[data-level="5"] i.on { background: var(--clay); } /* élite: el tono de las cimas */
 
 /* ---------- Tarjeta que se gira ----------
    Dos caras superpuestas (frente y reverso). La cara de atrás nace girada 180°;
    al girar la tarjeta completa, cada cara oculta su espalda (backface-visibility). */
-.ex-card { perspective: 900px; min-height: 13rem; cursor: pointer; border-radius: var(--radius-lg); }
-.card-inner { position: relative; height: 100%; min-height: 13rem; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.ex-card { perspective: 900px; min-height: 12.5rem; cursor: pointer; border-radius: var(--radius-lg); }
+.card-inner { position: relative; height: 100%; min-height: 12.5rem; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
 .card-face {
   position: absolute; inset: 0; display: flex; flex-direction: column;
   padding: 1.2rem 1.3rem; border-radius: var(--radius-lg);
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
 }
-.card-front { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
-.card-back { background: var(--accent); color: var(--on-accent); transform: rotateY(180deg); }
-.card-top { display: flex; justify-content: space-between; align-items: center; }
-.card-front h3 { font-size: 1.5rem; margin: auto 0 .3rem; }
-.card-path { color: var(--text-soft); font-size: .9rem; margin: 0; }
+/* Las dos caras llevan un doble filete (borde + línea interior), como las láminas del árbol */
+.card-front {
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+  outline: 1px solid color-mix(in srgb, var(--line) 80%, transparent); outline-offset: -6px;
+  overflow: hidden;
+}
+.card-back {
+  background: var(--accent); color: var(--on-accent); transform: rotateY(180deg);
+  outline: 1px solid color-mix(in srgb, var(--on-accent) 28%, transparent); outline-offset: -6px;
+}
+.card-top { display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+/* El número del paso, grabado en grande y muy tenue: dice en qué peldaño del camino está */
+.card-step {
+  position: absolute; right: 1.1rem; bottom: .2rem;
+  font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 6.5rem; line-height: 1;
+  color: color-mix(in srgb, var(--text) 9%, transparent); pointer-events: none; user-select: none;
+}
+.card-front h3 { font-size: 1.45rem; margin: auto 0 .35rem; position: relative; max-width: 82%; }
+.card-path { color: var(--text-soft); font-size: .86rem; margin: 0; position: relative; }
 .card-summary { font-size: 1rem; margin: 0 0 .6rem; }
 .card-meta { font-size: .8rem; opacity: .85; margin: 0; }
-.card-link { margin-top: auto; color: inherit; font-weight: 600; text-decoration: none; }
+.card-link { margin-top: auto; display: inline-flex; align-items: center; gap: .4rem; color: inherit; font-weight: 600; text-decoration: none; }
 .card-link:hover { text-decoration: underline; }
+
+/* En celular la tarjeta es más baja: no hace falta tanto aire sin el efecto del cursor */
+@media (max-width: 560px) {
+  .ex-card, .card-inner { min-height: 9.5rem; }
+  .card-step { font-size: 5rem; }
+}
 
 /* Se gira con el mouse (solo en dispositivos con hover), con el teclado (foco) o con un toque */
 @media (hover: hover) { .ex-card:hover .card-inner { transform: rotateY(180deg); } }
@@ -70,7 +106,7 @@
 .fav-button {
   position: absolute; top: .7rem; right: .7rem; z-index: 2;
   width: 2.2rem; height: 2.2rem; display: grid; place-items: center;
-  border: 0; border-radius: 50%; cursor: pointer;
+  border: 0; border-radius: var(--radius); cursor: pointer;
   background: color-mix(in srgb, var(--surface) 85%, transparent); color: var(--text-soft);
   transition: transform .15s, color .2s;
 }
@@ -81,4 +117,6 @@
 /* Con la estrella, la etiqueta de rama deja espacio a la derecha */
 .ex-card:has(.fav-button) .card-top { padding-right: 2.4rem; }
 
-.tag-neutral { background: var(--surface-alt); color: var(--text-soft); }
+/* Etiqueta neutra (músculos, equipamiento): texto con un filete fino, sin sello */
+.tag-neutral { padding: .18rem .55rem; border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--text-soft); font-weight: 500; }
+.tag-neutral::before { display: none; }

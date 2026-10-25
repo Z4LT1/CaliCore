@@ -1,10 +1,13 @@
 /* Perfil (perfil.html): invitación sin sesión, identidad y cifras, mapa del árbol, metas y favoritos. */
 
-/* ---------- Sin sesión ---------- */
-.profile-guest { text-align: center; display: grid; justify-items: center; padding-block: clamp(4rem, 10vw, 7rem); }
-.profile-guest h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); max-width: 18ch; }
-.profile-guest .section-lead { margin-inline: auto; }
-.guest-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 1.5rem; }
+/* ---------- Sin sesión: la invitación y, al lado, cómo se ve un perfil con datos ---------- */
+.profile-guest { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; padding-block: clamp(4rem, 9vw, 6.5rem); }
+.profile-guest h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); letter-spacing: -0.03em; max-width: 14ch; }
+.guest-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+.guest-points { list-style: none; padding: 0; margin: 1.6rem 0 0; display: grid; gap: .55rem; color: var(--text-soft); }
+.guest-points li { display: grid; grid-template-columns: 1.1rem 1fr; gap: .6rem; align-items: start; }
+.guest-points li::before { content: ""; width: 1.1rem; height: 1.1rem; margin-top: .2rem; background: var(--accent); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat; }
+@media (max-width: 860px) { .profile-guest { grid-template-columns: 1fr; } }
 
 /* ---------- Identidad y cifras ---------- */
 .profile-top { display: grid; gap: 2rem; padding-bottom: 2.5rem; }
@@ -14,7 +17,6 @@
    se permite cortarlos en cualquier punto para que no ensanchen la página */
 .identity > div { min-width: 0; }
 .identity h1, .identity p { overflow-wrap: anywhere; }
-.identity .kicker { margin-bottom: .2rem; }
 .identity p.muted { margin: .3rem 0 0; }
 .avatar {
   flex: none; width: clamp(4rem, 10vw, 5.5rem); aspect-ratio: 1; border-radius: 50%;
@@ -35,7 +37,7 @@
 .coverage { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: .8rem; }
 .coverage li { display: grid; grid-template-columns: 7rem 1fr 3rem; align-items: center; gap: .8rem; }
 .cov-name { font-weight: 600; }
-.cov-bar { height: .7rem; border-radius: 999px; background: var(--line); overflow: hidden; }
+.cov-bar { height: .6rem; border-radius: 2px; background: var(--line); overflow: hidden; }
 /* --p es la fracción guardada (de 0 a 1): la barra crece con scaleX */
 .cov-bar i { display: block; height: 100%; border-radius: inherit; background: var(--accent); transform-origin: left; transform: scaleX(var(--p)); }
 @media (prefers-reduced-motion: no-preference) {
@@ -46,7 +48,7 @@
 
 /* ---------- Metas: el camino hacia cada favorito difícil ---------- */
 .goals { display: grid; gap: 1rem; margin-top: 1.2rem; }
-.goal { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1rem 1.2rem; }
+.goal { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.1rem 1.25rem; outline: 1px solid color-mix(in srgb, var(--line) 80%, transparent); outline-offset: -6px; }
 .goal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
 .goal-path { font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-soft); margin: 0; }
 .goal h3 { font-size: 1.3rem; margin: .2rem 0 0; }
@@ -56,15 +58,16 @@
 /* Los pasos como una fila de "piedras" conectadas por flechas */
 .goal-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
 .goal-steps li { display: flex; align-items: center; gap: .35rem; }
-.goal-steps li + li::before { content: "→"; color: var(--text-soft); }
+.goal-steps li + li::before { content: ""; width: .9rem; height: .9rem; background: var(--text-soft); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; }
 .goal-steps a {
   font-size: .85rem; font-weight: 500; text-decoration: none; color: var(--text);
-  padding: .25rem .65rem; border-radius: 999px; background: var(--surface-alt); border: 1px solid var(--line);
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .25rem .6rem; border-radius: var(--radius); background: var(--surface-alt); border: 1px solid var(--line);
 }
 .goal-steps a:hover { border-color: var(--accent); }
-.goal-steps .is-saved a::before { content: "★ "; color: var(--clay); }
+.goal-steps .is-saved a::before { content: ""; width: .8rem; height: .8rem; background: var(--clay); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z'/%3E%3C/svg%3E") center / contain no-repeat; }
 .goal-steps .is-goal a { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-.goal-steps .is-goal.is-saved a::before { color: var(--on-accent); }
+.goal-steps .is-goal.is-saved a::before { background: var(--on-accent); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 760px) {

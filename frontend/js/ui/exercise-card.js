@@ -13,6 +13,9 @@
 import { el, svg } from "../core/dom.js";
 import { difficultyMeter } from "./difficulty.js";
 
+/** "Tracción" -> "traccion": el nombre de la rama como slug, para su color de tinta en CSS. */
+export const branchSlug = (name) => name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
 const touchOnly = window.matchMedia("(hover: none)");
 
 function starButton(exercise, { active, onToggle }) {
@@ -33,16 +36,17 @@ function starButton(exercise, { active, onToggle }) {
 export function exerciseCard(exercise, { onOpen, favorite } = {}) {
   const front = el("div", { className: "card-face card-front" },
     el("div", { className: "card-top" },
-      el("span", { className: "tag", text: exercise.branch }),
+      el("span", { className: "tag", text: exercise.branch, attrs: { "data-branch": branchSlug(exercise.branch) } }),
       difficultyMeter(exercise.difficulty)),
+    el("span", { className: "card-step", text: String(exercise.step), attrs: { "aria-hidden": "true" } }),
     el("h3", { text: exercise.name }),
-    el("p", { className: "card-path", text: `Camino: ${exercise.path}` }),
+    el("p", { className: "card-path", text: `${exercise.path} · paso ${exercise.step} · en ${exercise.measure_display.toLowerCase()}` }),
   );
 
   const back = el("div", { className: "card-face card-back" },
     el("p", { className: "card-summary", text: exercise.summary }),
-    el("p", { className: "card-meta", text: `Se mide en ${exercise.measure_display.toLowerCase()} · ${exercise.muscles.slice(0, 3).join(", ")}` }),
-    el("a", { className: "card-link", text: "Ver la ficha completa →", attrs: { href: `biblioteca.html#${exercise.slug}` } }),
+    el("p", { className: "card-meta", text: exercise.muscles.slice(0, 3).join(" · ") }),
+    el("a", { className: "card-link", text: "Ver la ficha completa", attrs: { href: `biblioteca.html#${exercise.slug}` } }),
   );
 
   const card = el("article", {

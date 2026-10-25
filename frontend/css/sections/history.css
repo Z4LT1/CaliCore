@@ -8,10 +8,11 @@
 .word-game {
   margin-top: 2.5rem; padding: clamp(1.4rem, 4vw, 2.2rem);
   background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  outline: 1px solid color-mix(in srgb, var(--line) 80%, transparent); outline-offset: -7px;
   display: grid; justify-items: center; gap: 1.2rem; text-align: center;
 }
 .word-parts { display: flex; align-items: center; gap: clamp(.8rem, 3vw, 2rem); }
-.word-root { display: grid; gap: .1rem; padding: 1rem 1.4rem; border-radius: var(--radius); background: var(--sprout); color: var(--sprout-text); transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+.word-root { display: grid; gap: .1rem; padding: 1rem 1.4rem; border-radius: var(--radius); background: var(--surface-alt); border: 1px solid var(--line); color: var(--text); transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
 .word-root b { font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 600; }
 .word-root i { font-style: italic; }
 .word-root small { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; }
@@ -42,7 +43,7 @@
 .chapters { display: grid; gap: clamp(3rem, 8vw, 6rem); padding-bottom: 2rem; }
 .chapter { position: relative; max-width: 42rem; scroll-margin-top: 6rem; }
 /* El año, enorme y en contorno: marca el ritmo de la lectura sin competir con el texto */
-.chapter-year {
+.chapter .chapter-year { /* .chapter p tiene más especificidad: por eso el selector doble */
   font-family: var(--font-display); font-size: clamp(3.4rem, 9vw, 6rem); font-weight: 600; line-height: .9;
   margin: 0 0 .4rem; color: transparent; -webkit-text-stroke: 1.5px var(--accent); letter-spacing: -0.03em;
 }
@@ -51,7 +52,7 @@
 .chapter p + p { color: var(--text-soft); }
 
 /* "¿Sabías que?": <details> nativo, accesible y funciona sin JavaScript */
-.fact { margin-top: 1.2rem; border: 1px dashed var(--accent); border-radius: var(--radius); background: var(--surface); }
+.fact { margin-top: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); outline: 1px solid color-mix(in srgb, var(--line) 80%, transparent); outline-offset: -5px; }
 .fact summary { cursor: pointer; padding: .8rem 1.1rem; font-weight: 600; color: var(--accent); list-style: none; display: flex; align-items: center; gap: .6rem; }
 .fact summary::-webkit-details-marker { display: none; }
 .fact summary::before { content: "+"; display: grid; place-items: center; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--sprout); transition: transform .3s; }
@@ -61,15 +62,15 @@
 /* ---------- Quiz ---------- */
 .quiz-history h2 { margin-bottom: 1.5rem; }
 .hq-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-.hq-question { margin: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+.hq-question { margin: 0; padding: 1.3rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); outline: 1px solid color-mix(in srgb, var(--line) 80%, transparent); outline-offset: -6px; }
 /* <legend> es especial: dentro de un <fieldset> el navegador lo dibuja MONTADO sobre el borde
    superior, y propiedades como margin o position no lo sacan de ahí. Con float + width: 100%
    deja de ocupar ese lugar especial y se comporta como un título normal dentro de la tarjeta.
    El primer elemento que le sigue usa clear para quedar debajo de él. */
-.hq-question legend { float: left; width: 100%; padding: 0; margin-bottom: .5rem; font-weight: 600; }
+.hq-question legend { float: left; width: 100%; padding: 0; margin-bottom: .5rem; font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; line-height: 1.25; }
 .hq-question legend + * { clear: both; }
 .hq-question.was-right { border-color: var(--accent); }
-.hq-option { display: flex; align-items: center; gap: .6rem; padding: .5rem .7rem; margin-top: .4rem; border-radius: 10px; border: 1px solid transparent; cursor: pointer; font-weight: 500; }
+.hq-option { display: flex; align-items: center; gap: .6rem; padding: .5rem .7rem; margin-top: .4rem; border-radius: var(--radius); border: 1px solid transparent; cursor: pointer; font-weight: 500; }
 .hq-option:hover { background: var(--surface-alt); }
 .hq-option input { width: auto; margin: 0; accent-color: var(--accent); }
 .hq-option.is-right { border-color: var(--accent); background: var(--sprout); color: var(--sprout-text); }

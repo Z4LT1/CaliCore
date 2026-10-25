@@ -34,3 +34,7 @@ docs/capturas/
 
 # ---------- Configuración local de Claude (rutas de este PC y skills instaladas, ~22 MB) ----------
 .claude/
+
+# ---------- Versiones viejas del árbol que ya no se usan (solo locales) ----------
+frontend/assets/tree/arbol-calistenia-sin-nodos*.webp
+frontend/assets/tree/arbol-completo-1500.jpg

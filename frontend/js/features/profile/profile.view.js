@@ -13,7 +13,6 @@ export function renderIdentity(me) {
   return [
     el("span", { className: "avatar", text: me.username.charAt(0).toUpperCase(), attrs: { "aria-hidden": "true" } }),
     el("div", {},
-      el("p", { className: "kicker", text: "Tu perfil" }),
       el("h1", { text: me.username }),
       el("p", { className: "muted", text: [me.email, `En CaliCore desde ${monthYear(me.date_joined)}`].filter(Boolean).join(" · ") })),
   ];

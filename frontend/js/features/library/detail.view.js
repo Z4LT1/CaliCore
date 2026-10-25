@@ -5,11 +5,15 @@
  * Los enlaces a otros ejercicios (requisitos, variantes) apuntan a "#slug": la biblioteca escucha
  * el cambio de "#" en la dirección y abre esa ficha. Así también funcionan atrás/adelante del navegador.
  */
-import { el } from "../../core/dom.js";
+import { el, svg } from "../../core/dom.js";
+import { branchSlug } from "../../ui/exercise-card.js";
 import { DIFFICULTY_NAMES, difficultyMeter } from "../../ui/difficulty.js";
 
 const exerciseLink = (exercise) => el("a", { className: "ex-link", attrs: { href: `#${exercise.slug}` } },
   el("span", { text: exercise.name }), difficultyMeter(exercise.difficulty));
+
+/** Ícono de trazo (24 × 24): una cruz para el error, un visto para la corrección. */
+const icon = (d) => svg("svg", { className: "mi-icon", attrs: { viewBox: "0 0 24 24", "aria-hidden": "true" } }, svg("path", { attrs: { d } }));
 
 function linkGroup(title, exercises, emptyText) {
   return el("div", { className: "detail-links" },
@@ -20,12 +24,14 @@ function linkGroup(title, exercises, emptyText) {
 
 export function renderDetail(exercise, { favoriteButton }) {
   const head = el("header", { className: "detail-head" },
-    el("p", { className: "kicker", text: `${exercise.branch} › ${exercise.path} · paso ${exercise.step}` }),
     el("h2", { text: exercise.name, attrs: { id: "detail-title" } }),
+    el("p", { className: "detail-path" },
+      el("span", { className: "tag", text: exercise.branch, attrs: { "data-branch": branchSlug(exercise.branch) } }),
+      el("span", { text: `${exercise.path} · paso ${exercise.step}` })),
     el("div", { className: "detail-badges" },
       difficultyMeter(exercise.difficulty),
       el("span", { text: `Dificultad ${exercise.difficulty} · ${DIFFICULTY_NAMES[exercise.difficulty]}` }),
-      el("span", { className: "tag", text: `Se mide en ${exercise.measure_display.toLowerCase()}` }),
+      el("span", { className: "tag tag-neutral", text: `Se mide en ${exercise.measure_display.toLowerCase()}` }),
       favoriteButton),
   );
 
@@ -36,12 +42,12 @@ export function renderDetail(exercise, { favoriteButton }) {
   const mistakes = el("section", {},
     el("h3", { text: "Errores comunes" }),
     el("ul", { className: "detail-mistakes" }, ...exercise.mistakes.map((item) => el("li", {},
-      el("p", { className: "mistake" }, el("b", { text: "✗", attrs: { "aria-hidden": "true" } }), ` ${item.mistake}`),
-      el("p", { className: "fix" }, el("b", { text: "✓", attrs: { "aria-hidden": "true" } }), ` ${item.fix}`)))));
+      el("p", { className: "mistake" }, icon("M6 6l12 12M18 6L6 18"), el("span", {}, el("b", { text: "Error: " }), item.mistake)),
+      el("p", { className: "fix" }, icon("M5 12.5l4.5 4.5L19 7.5"), el("span", {}, el("b", { text: "Corrección: " }), item.fix))))));
 
   const body = el("section", { className: "detail-tags" },
     el("div", {}, el("h4", { text: "Músculos" }),
-      el("div", { className: "tag-row" }, ...exercise.muscles.map((muscle) => el("span", { className: "tag", text: muscle })))),
+      el("div", { className: "tag-row" }, ...exercise.muscles.map((muscle) => el("span", { className: "tag tag-neutral", text: muscle })))),
     el("div", {}, el("h4", { text: "Equipamiento" }),
       el("div", { className: "tag-row" }, ...exercise.equipment.map((item) => el("span", { className: "tag tag-neutral", text: item })))),
   );
@@ -61,6 +67,6 @@ export function renderDetail(exercise, { favoriteButton }) {
     el("div", { className: "detail-columns" }, how, mistakes),
     body,
     progression,
-    el("a", { className: "text-link", text: "Verlo en el árbol →", attrs: { href: `arbol.html#${exercise.slug}` } }),
+    el("a", { className: "text-link", text: "Verlo en el árbol", attrs: { href: `arbol.html#${exercise.slug}` } }),
   ];
 }

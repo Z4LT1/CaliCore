@@ -59,7 +59,7 @@ function renderResult(result, zone, matches) {
     el("p", { className: "zi-summary" },
       el("b", { text: label }), ` · ${matches.length} ejercicios la trabajan`),
     el("div", { className: "zi-levels" }, ...groups),
-    el("a", { className: "text-link", text: "Ver todos en la biblioteca →", attrs: { href: "biblioteca.html" } }),
+    el("a", { className: "text-link", text: "Ver todos en la biblioteca", attrs: { href: "biblioteca.html" } }),
   );
   if (!reduceMotion) gsap.from(result.querySelectorAll(".zi-level"), { opacity: 0, y: 10, duration: 0.45, stagger: 0.05, ease: "expo.out", clearProps: "opacity,transform" });
 }

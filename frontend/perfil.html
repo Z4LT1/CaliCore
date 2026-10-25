@@ -19,13 +19,28 @@
 
     <!-- ===================== SIN SESIÓN ===================== -->
     <section id="profile-guest" class="section profile-guest">
-      <p class="kicker">Tu perfil</p>
-      <h1>Tu espacio para entrenar con un plan</h1>
-      <p class="section-lead">Crea tu cuenta gratis para guardar ejercicios desde la biblioteca, ver el camino hacia cada meta y saber cuánto del árbol has explorado.</p>
-      <div class="guest-actions">
-        <!-- data-open-auth: features/auth abre el diálogo de registro al tocarlo -->
-        <button class="btn btn-primary" type="button" data-open-auth>Crear cuenta gratis</button>
-        <a class="btn" href="biblioteca.html">Explorar la biblioteca</a>
+      <div>
+        <h1>Tu espacio para entrenar con un plan</h1>
+        <p class="section-lead">Crea tu cuenta gratis y lleva contigo lo que quieres dominar.</p>
+        <ul class="guest-points">
+          <li>Guarda ejercicios con la estrella desde la biblioteca.</li>
+          <li>Mira el camino de pasos que lleva hasta cada meta.</li>
+          <li>Descubre cuánto de cada rama del árbol has explorado.</li>
+        </ul>
+        <div class="guest-actions">
+          <!-- data-open-auth: features/auth abre el diálogo de registro al tocarlo -->
+          <button class="btn btn-primary" type="button" data-open-auth>Crear cuenta gratis</button>
+          <a class="btn" href="biblioteca.html">Explorar la biblioteca</a>
+        </div>
+      </div>
+      <!-- Muestra de cómo se ve un perfil con datos (decorativa; los estilos son los del inicio) -->
+      <div class="profile-preview" aria-hidden="true">
+        <div class="pp-head"><span class="pp-avatar">T</span><div><b>Tu nombre</b><small>3 ejercicios guardados</small></div></div>
+        <ul>
+          <li><svg class="pp-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z"/></svg> Muscle-up <small>Tracción</small></li>
+          <li><svg class="pp-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z"/></svg> Pino libre <small>Habilidades</small></li>
+          <li><svg class="pp-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z"/></svg> Pistol squat <small>Pierna</small></li>
+        </ul>
       </div>
     </section>
 
@@ -45,7 +60,7 @@
           </div>
           <div>
             <h2>Tus metas</h2>
-            <p class="muted">Tus ejercicios guardados más difíciles y el camino que lleva hasta cada uno. Los marcados con ★ ya los guardaste.</p>
+            <p class="muted">Tus ejercicios guardados más difíciles y el camino que lleva hasta cada uno. Los marcados con una estrella ya los guardaste.</p>
             <div id="profile-goals" class="goals"></div>
           </div>
         </div>
@@ -54,7 +69,6 @@
       <section class="section">
         <header class="block-head row">
           <div>
-            <p class="kicker">Tus favoritos</p>
             <h2>Lo que quieres dominar</h2>
           </div>
           <label class="inline-select">Orden

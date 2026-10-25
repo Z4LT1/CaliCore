@@ -5,6 +5,7 @@
  */
 import { el } from "../../core/dom.js";
 import { difficultyMeter } from "../../ui/difficulty.js";
+import { branchSlug } from "../../ui/exercise-card.js";
 
 const QUESTIONS = [
   ["push", "Empuje"],
@@ -14,11 +15,11 @@ const QUESTIONS = [
 
 function resultCard(label, exercise) {
   return el("article", { className: "start-card" },
-    el("p", { className: "start-branch", text: label }),
+    el("span", { className: "tag", text: label, attrs: { "data-branch": branchSlug(label) } }),
     el("h3", { text: exercise.name }),
     difficultyMeter(exercise.difficulty),
     el("p", { text: exercise.summary }),
-    el("a", { className: "text-link", text: "Verlo en el árbol →", attrs: { href: `arbol.html#${exercise.slug}` } }),
+    el("a", { className: "text-link", text: "Verlo en el árbol", attrs: { href: `arbol.html#${exercise.slug}` } }),
   );
 }
 

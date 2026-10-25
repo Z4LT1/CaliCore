@@ -58,18 +58,15 @@
       </figure>
     </section>
 
-    <!-- Cifras: se cuentan desde el catálogo real (js/features/home/stats.js) -->
-    <ul class="stats" aria-label="CaliCore en cifras">
-      <li><b data-stat="exercises">—</b><span>ejercicios explicados</span></li>
-      <li><b data-stat="paths">—</b><span>caminos de progresión</span></li>
-      <li><b data-stat="branches">—</b><span>ramas del árbol</span></li>
-      <li><b data-stat="summits">—</b><span>cimas por conquistar</span></li>
-    </ul>
+    <!-- Cifras: una frase entre dos filetes. Los números se cuentan desde el catálogo real
+         (js/features/home/stats.js), así que se actualizan solos si cambia el catálogo. -->
+    <section class="ledger" aria-label="CaliCore en cifras">
+      <p><b data-stat="exercises">—</b> ejercicios explicados, ordenados en <b data-stat="paths">—</b> caminos de progresión dentro de <b data-stat="branches">—</b> ramas. Cada camino termina en una cima: hay <b data-stat="summits">—</b> por conquistar.</p>
+    </section>
 
     <!-- ===================== ¿POR DÓNDE EMPIEZO? ===================== -->
     <section id="empezar" class="section quiz reveal">
       <header class="block-head">
-        <p class="kicker">¿Por dónde empiezo?</p>
         <h2>Tres preguntas y te ubicamos en el árbol</h2>
         <p class="section-lead">Responde con lo que puedes hacer hoy, con buena técnica y sin parar. Te mostramos el ejercicio ideal para empezar en cada rama.</p>
       </header>
@@ -105,13 +102,12 @@
     <section class="band reveal">
       <div class="section split">
         <div>
-          <p class="kicker">El árbol</p>
           <h2>Cada habilidad tiene un camino</h2>
           <p class="section-lead">Desde las raíces hasta la cima: cada camino ordena los ejercicios del más accesible al más exigente. Elige uno y míralo crecer.</p>
           <label class="path-picker">Camino
             <select id="path-select" autocomplete="off"></select>
           </label>
-          <a class="text-link" href="arbol.html">Explorar el árbol completo →</a>
+          <a class="text-link" href="arbol.html">Explorar el árbol completo</a>
         </div>
         <ol id="path-ladder" class="ladder" aria-live="polite"></ol>
       </div>
@@ -121,9 +117,8 @@
     <section class="section reveal">
       <header class="block-head row">
         <div>
-          <p class="kicker">La biblioteca</p>
-          <h2>Pasa el cursor sobre una tarjeta</h2>
-          <p class="section-lead">Cada ejercicio con su ejecución paso a paso, los errores más comunes y su dificultad del 1 al 5.</p>
+          <h2>Cada ejercicio, en una tarjeta</h2>
+          <p class="section-lead">Pasa el cursor o toca una tarjeta para darla vuelta. Cada ejercicio trae su ejecución paso a paso, los errores más comunes y su dificultad del 1 al 5.</p>
         </div>
         <a class="btn" href="biblioteca.html">Ver la biblioteca</a>
       </header>
@@ -150,7 +145,6 @@
     <!-- ===================== HISTORIA ===================== -->
     <section class="section reveal">
       <header class="block-head">
-        <p class="kicker">Historia</p>
         <h2>Del gimnasio griego a la barra del parque</h2>
       </header>
       <ol class="timeline">
@@ -175,14 +169,13 @@
           <p>Desde fines de los 2000, los videos de entrenamiento en parques hicieron del <em>street workout</em> un movimiento global.</p>
         </li>
       </ol>
-      <a class="text-link" href="historia.html">Recorrer la historia completa →</a>
+      <a class="text-link" href="historia.html">Recorrer la historia completa</a>
     </section>
 
     <!-- ===================== PERFIL ===================== -->
     <section class="band reveal">
       <div class="section split">
         <div>
-          <p class="kicker">Tu perfil</p>
           <h2>Guarda lo que quieres dominar</h2>
           <p class="section-lead">Marca ejercicios con la estrella en la biblioteca y encuéntralos siempre en tu perfil, listos para entrenar.</p>
           <!-- data-guest-only: se ve sin sesión. data-user-only: se ve con sesión (js/features/home/index.js) -->
@@ -192,9 +185,9 @@
         <div class="profile-preview" aria-hidden="true">
           <div class="pp-head"><span class="pp-avatar">T</span><div><b>Tu nombre</b><small>3 ejercicios guardados</small></div></div>
           <ul>
-            <li><span class="pp-star">★</span> Muscle-up <small>Tracción</small></li>
-            <li><span class="pp-star">★</span> Pino libre <small>Habilidades</small></li>
-            <li><span class="pp-star">★</span> Pistol squat <small>Pierna</small></li>
+            <li><svg class="pp-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z"/></svg> Muscle-up <small>Tracción</small></li>
+            <li><svg class="pp-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z"/></svg> Pino libre <small>Habilidades</small></li>
+            <li><svg class="pp-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.25 4.1 1 5.85L12 16.9l-5.25 2.75 1-5.85L3.5 9.7l5.9-.9z"/></svg> Pistol squat <small>Pierna</small></li>
           </ul>
         </div>
       </div>

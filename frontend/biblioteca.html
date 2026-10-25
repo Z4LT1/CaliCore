@@ -17,9 +17,8 @@
 <body data-page="biblioteca">
   <main id="contenido" class="library">
     <section class="section library-head">
-      <p class="kicker">La biblioteca</p>
       <h1>Todos los ejercicios, explicados</h1>
-      <p class="section-lead">Pasa el cursor sobre una tarjeta para ver de qué se trata, haz clic para abrir su ficha completa y guarda con la estrella los que quieres dominar.</p>
+      <p class="section-lead">Pasa el cursor (o toca) una tarjeta para ver de qué se trata, ábrela para leer su ficha completa y guarda con la estrella los que quieres dominar.</p>
     </section>
 
     <!-- Controles: los rellena y conecta js/features/library/index.js -->
@@ -61,7 +60,7 @@
 
   <!-- Ficha completa de un ejercicio. Su contenido lo dibuja js/features/library/detail.view.js -->
   <dialog id="exercise-dialog" class="detail-dialog" aria-labelledby="detail-title">
-    <button id="detail-close" class="btn btn-ghost btn-icon detail-close" type="button" aria-label="Cerrar ficha">✕</button>
+    <button id="detail-close" class="btn btn-ghost btn-icon detail-close" type="button" aria-label="Cerrar ficha"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div id="detail-body" class="detail-body"></div>
   </dialog>
 </body>
