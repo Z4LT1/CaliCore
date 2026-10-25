@@ -1,443 +1,354 @@
+<div align="center">
+
 # CaliCore
 
-Plataforma web de calistenia: un catálogo de ejercicios organizado en **progresiones** (cadenas que van del ejercicio más accesible al más exigente, por ejemplo hasta el planche) y un **registro de entrenamientos** por usuario.
+**Tu núcleo de la calistenia.** Un sitio web para aprender calistenia de verdad: un árbol ilustrado e interactivo con todas las progresiones, una biblioteca de ejercicios explicados paso a paso, su historia y un perfil para guardar lo que quieres dominar.
 
-Es un proyecto fullstack de portafolio. Está pensado para leerse y entenderse archivo por archivo, por eso casi todo el código está comentado en español.
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5.2_LTS-092E20?style=for-the-badge&logo=django&logoColor=white)
+![DRF](https://img.shields.io/badge/Django_REST_Framework-A30000?style=for-the-badge&logo=django&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![GSAP](https://img.shields.io/badge/GSAP-0AE448?style=for-the-badge&logo=greensock&logoColor=black)
+![D3](https://img.shields.io/badge/D3_zoom-F9A03C?style=for-the-badge&logo=d3dotjs&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-**Estado actual**
+[Capturas](#-capturas) · [Recorrido por la página](#-recorrido-por-la-página) · [Instalación](#-instalación-local)
 
-| Fase | Contenido | Estado |
+</div>
+
+---
+
+## 📑 Tabla de contenidos
+
+- [¿Qué es?](#-qué-es)
+- [Capturas](#-capturas)
+- [Recorrido por la página](#-recorrido-por-la-página)
+- [Funcionalidades](#-funcionalidades)
+- [¿Cómo funciona?](#️-cómo-funciona)
+- [Stack tecnológico](#️-stack-tecnológico)
+- [Diseño visual](#-diseño-visual)
+- [Arquitectura y modularidad](#-arquitectura-y-modularidad)
+- [Estructura del proyecto](#️-estructura-del-proyecto)
+- [Base de datos](#️-base-de-datos)
+- [API](#-api)
+- [Instalación local](#-instalación-local)
+- [Pruebas](#-pruebas)
+- [Seguridad](#-seguridad)
+- [Aprendizajes](#-aprendizajes)
+- [Mejoras futuras](#-mejoras-futuras)
+- [Autor](#-autor)
+- [Créditos y licencia](#-créditos-y-licencia)
+
+---
+
+## 📌 ¿Qué es?
+
+CaliCore es un sitio informativo de calistenia, el entrenamiento con el propio peso del cuerpo. El nombre une **Cali**, de calistenia, con **Core**, el núcleo: la idea es reunir en un solo lugar todo lo que alguien necesita para entender por dónde empezar y hacia dónde avanzar.
+
+El centro del sitio es un **árbol de progresiones**: 79 ejercicios ordenados en 17 caminos dentro de 5 ramas (Empuje, Tracción, Pierna, Core y Habilidades), más un tronco de fundamentos. Cada camino va del ejercicio más accesible al más exigente, y cada ejercicio tiene su ficha con la ejecución paso a paso, los errores más comunes, los músculos que trabaja y qué necesitas dominar antes.
+
+## 📸 Capturas
+
+| Inicio | El árbol |
+|:---:|:---:|
+| ![Inicio](docs/capturas/inicio.webp) | ![Árbol completo](docs/capturas/arbol.webp) |
+| **Una rama del árbol** | **Un ejercicio en el árbol** |
+| ![Rama Tracción](docs/capturas/arbol-rama.webp) | ![Muscle-up en el árbol](docs/capturas/arbol-ejercicio.webp) |
+| **Biblioteca** | **Ficha de un ejercicio** |
+| ![Biblioteca](docs/capturas/biblioteca.webp) | ![Ficha completa](docs/capturas/ficha.webp) |
+| **Historia** | **¿Qué quieres fortalecer?** |
+| ![Historia](docs/capturas/historia.webp) | ![Índice por zona del cuerpo](docs/capturas/fortalecer.webp) |
+| **Tema oscuro** | **Perfil** |
+| ![Inicio en tema oscuro](docs/capturas/inicio-oscuro.webp) | ![Perfil](docs/capturas/perfil.webp) |
+
+<div align="center">
+
+| Árbol en celular | Inicio en celular |
+|:---:|:---:|
+| <img src="docs/capturas/celular-arbol.webp" alt="Árbol en celular" width="260"> | <img src="docs/capturas/celular-inicio.webp" alt="Inicio en celular" width="260"> |
+
+</div>
+
+## 🧭 Recorrido por la página
+
+El sitio tiene cinco secciones, cada una en su propia página: `Tu perfil · Historia · Árbol · Biblioteca`, además del inicio.
+
+### Inicio
+
+- **Lámina del roble:** la ilustración del árbol con sus cinco ramas señaladas. Al cargar, el sol sube, el árbol crece desde las raíces y aparecen los rótulos, que llevan directo a esa rama del árbol.
+- **Cifras del catálogo** escritas como una frase, calculadas desde la base de datos real.
+- **¿Por dónde empiezo?:** tres preguntas (cuántas flexiones, dominadas y sentadillas logras) y una recomendación del ejercicio ideal para empezar en cada rama.
+- **Cada habilidad tiene un camino:** eliges un camino y se dibuja como una escalera, de la base a la cima.
+- **Tarjetas de ejercicio** que se dan vuelta al pasar el cursor o al tocarlas.
+- **¿Qué quieres fortalecer?:** un índice por zona del cuerpo (pecho, espalda, hombros, brazos, core, cadera y piernas) con los ejercicios que la trabajan, agrupados por dificultad.
+- **Historia breve** e invitación al **perfil**.
+
+### Árbol
+
+La sección principal. El árbol ocupa toda la pantalla y se recorre como un mapa.
+
+- **Escena en capas con profundidad:** el paisaje con el sol, la niebla del valle, el roble y una niebla baja delante de las raíces. Al moverte o acercarte, cada capa se desplaza a distinta velocidad (efecto *parallax*), lo que da sensación de profundidad.
+- **Tres niveles de zoom**, para no mostrar 79 ejercicios a la vez:
+  1. **Árbol completo:** solo las seis zonas. Al pasar el mouse por cualquier parte del árbol se ilumina la rama más cercana, y un clic la abre.
+  2. **Una rama:** sus caminos se dibujan como trazos de grabado (doble línea con marcas) y aparecen los ejercicios como medallones. La cima de cada camino lleva un anillo.
+  3. **Un ejercicio:** una franja de luz ("la savia") sube desde el tronco hasta el ejercicio, se muestran los nombres del camino y se abre su ficha breve con lo que necesitas antes y lo que desbloquea.
+- **Navegación:** migas (`Árbol completo / Tracción / Transición`), lista de ramas, botones de zoom, tecla `Esc` para subir un nivel y enlaces directos (`arbol.html#muscle-up`, `arbol.html?rama=empuje`).
+- **Raíces:** llevan a la historia de la calistenia.
+
+### Biblioteca
+
+- **Búsqueda sin tildes** por nombre, músculo o camino (buscar "flexion" encuentra "Flexión").
+- **Filtros** por rama, dificultad, músculo y equipamiento, más "solo mis favoritos" con sesión iniciada. Se combinan entre sí y la lista se actualiza al instante.
+- **Orden** del árbol, por dificultad o alfabético.
+- **Ficha completa** en una ventana que se abre con la dirección (`biblioteca.html#pistol-squat`), así que se puede compartir y funciona con atrás y adelante: pasos, errores y su corrección, músculos, equipamiento, variante más fácil y más difícil, requisitos y lo que desbloquea.
+- **Estrella de favorito** en cada tarjeta y en la ficha.
+
+### Historia
+
+- **El origen de la palabra:** un pequeño juego que une las raíces griegas *kállos* (belleza) y *sthénos* (fuerza).
+- **Siete capítulos**, desde la Grecia clásica hasta el *street workout*, con datos curiosos desplegables.
+- **Riel lateral** que sigue la lectura y marca la época actual.
+- **Quiz** de cuatro preguntas para repasar lo leído.
+
+### Tu perfil
+
+- **Sin sesión:** una invitación con lo que se gana al crear una cuenta.
+- **Con sesión:** tus cifras, cuánto de cada rama tienes guardado, tus metas (el camino de pasos hasta cada favorito difícil) y tus favoritos con filtro y orden.
+
+## ✨ Funcionalidades
+
+- **Registro, ingreso y cierre de sesión** con token, desde un diálogo accesible en cualquier página.
+- **Catálogo de 79 ejercicios** con ficha completa, cargado desde un archivo JSON validado.
+- **Árbol interactivo** con zoom, parallax, niveles y enlaces directos a cada rama y ejercicio.
+- **Favoritos** sincronizados entre la biblioteca, el árbol y el perfil, con actualización inmediata en pantalla.
+- **Búsqueda y filtros combinables** en el navegador, sin esperar al servidor.
+- **Tema claro y oscuro:** sigue al sistema operativo y se puede cambiar con un botón.
+- **Diseño adaptable** a escritorio, tablet y celular.
+- **Accesible:** navegación con teclado, foco visible, textos alternativos y respeto por la opción "reducir movimiento" del sistema.
+
+## ⚙️ ¿Cómo funciona?
+
+```mermaid
+flowchart LR
+    A[Navegador<br/>HTML, CSS y JS] -- "peticiones HTTP (JSON)" --> B[API REST<br/>Django + DRF]
+    B -- "respuestas JSON" --> A
+    B -- ORM --> C[(Base de datos<br/>SQLite)]
+    D[catalog.json] -- "seed_catalog" --> C
+```
+
+Son **dos aplicaciones separadas** que solo se hablan por HTTP. El frontend pide el árbol y la lista de ejercicios a la API, que los lee de la base de datos y los devuelve en formato JSON. El catálogo vive en un archivo (`catalog.json`) que un comando valida y carga en la base de datos. Cuando alguien inicia sesión, la API entrega un **token** (una llave aleatoria) que el navegador envía en cada petición privada, como guardar un favorito.
+
+## 🛠️ Stack tecnológico
+
+| Capa | Tecnología | Uso en el proyecto |
 |---|---|---|
-| 1 | Frontend estático (HTML, CSS y JavaScript sin librerías) | Hecho |
-| 2 | Backend (Django, Django REST Framework, autenticación por token, SQLite) | Hecho |
-| 3 | Frontend en React + Vite consumiendo la misma API | Pendiente |
-| 4 | PostgreSQL y despliegue público | Pendiente |
-| 5 | Documento de seguridad (OWASP), pruebas automáticas en GitHub Actions | Pendiente |
+| Frontend | HTML, CSS y JavaScript con módulos ES | Las cinco páginas, sin framework, organizadas por funcionalidad |
+| Herramienta de desarrollo | Vite | Servidor local y empaquetado final de las páginas |
+| Animación | GSAP | Entrada de la escena, niebla, rayos de sol, parallax con el mouse |
+| Cámara del árbol | d3-zoom | Zoom, arrastre y pellizco, y los vuelos de cámara entre ramas |
+| Tipografías | Fraunces e Inter (alojadas en el sitio) | Títulos con serifa de estilo editorial y texto de lectura |
+| Backend | Python 3.12, Django 5.2 LTS, Django REST Framework | API, autenticación por token, validación y permisos |
+| Base de datos | SQLite (desarrollo) | Catálogo, usuarios y favoritos; preparado para PostgreSQL |
+| Pruebas | Tests de Django, Playwright | 35 pruebas del backend; capturas y revisión visual del frontend |
 
----
+## 🎨 Diseño visual
 
-## 1. Cómo funciona
+- **Una lámina de grabado antiguo.** El árbol es una ilustración en ese estilo, y todo el sitio la acompaña: fondo de papel cálido, texto color tinta, esquinas casi rectas y un doble filete en tarjetas y paneles.
+- **Paleta:** un verde bosque que representa la voluntad (color de acción), arcilla para las cimas y los favoritos, y una tinta propia para cada rama. El tema oscuro es una "tinta nocturna" cálida que conversa con la ilustración.
+- **Tipografía:** Fraunces para los títulos (con cursiva en los rótulos del árbol) e Inter para la lectura.
+- **Movimiento con propósito:** cada animación explica algo, como el árbol que crece desde las raíces o la savia que sube por un camino. Con "reducir movimiento" activado, todo aparece quieto y en su lugar.
+- **Íconos dibujados en SVG** y elementos del navegador (selección de texto, barras de desplazamiento, foco) con los colores del sitio.
 
-```
-┌──────────────────────┐   peticiones HTTP con JSON    ┌───────────────────────────┐
-│  FRONTEND (navegador)│ ───────────────────────────►  │  BACKEND (Django + DRF)   │
-│  HTML + CSS + JS     │   Authorization: Token ...    │  API REST en /api/...     │
-│  carpeta frontend/   │ ◄───────────────────────────  │  carpeta backend/         │
-│  puerto 5500         │   respuestas en JSON          │  puerto 8000              │
-└──────────────────────┘                               └─────────────┬─────────────┘
-                                                                     │ ORM de Django
-                                                                     ▼
-                                                        ┌───────────────────────────┐
-                                                        │ Base de datos             │
-                                                        │ SQLite (ahora)            │
-                                                        │ PostgreSQL (fase 4)       │
-                                                        └───────────────────────────┘
-```
+## 🧩 Arquitectura y modularidad
 
-Son **dos aplicaciones separadas** que solo se comunican por HTTP. Eso es lo que permite que en la fase 3 se reemplace el frontend por React sin tocar el backend.
+### Frontend por capas
 
-### Qué pasa cuando usas la página
+El JavaScript está dividido por responsabilidad, y cada funcionalidad vive en su propia carpeta:
 
-1. **Cargas la página.** `features/catalog` pide `GET /api/exercises/` (público). Django consulta la base de datos, convierte cada ejercicio a JSON y responde. El frontend agrupa los ejercicios por progresión y dibuja las escaleras.
-2. **Te registras o ingresas.** El frontend envía usuario y contraseña a `/api/auth/register/` o `/api/auth/login/`. Django valida, y responde con un **token** (una cadena larga y aleatoria). El frontend lo guarda en `localStorage`.
-3. **Guardas un entrenamiento.** El frontend hace `POST /api/workouts/` enviando el token en la cabecera `Authorization: Token <token>`. Django busca a qué usuario pertenece ese token, valida los datos y guarda el registro a nombre de ese usuario.
-4. **Ves tu historial.** `GET /api/workouts/` devuelve solo los registros del usuario del token. Nunca los de otros.
-5. **Sales.** `POST /api/auth/logout/` borra el token en el servidor, así que deja de servir aunque alguien lo hubiera copiado.
+| Carpeta | Contenido |
+|---|---|
+| `js/core/` | Lo genérico: configuración, peticiones a la API, sesión, creación segura de elementos y eventos |
+| `js/services/` | Datos compartidos: catálogo (con caché), favoritos y cuenta |
+| `js/ui/` | Piezas reutilizables: cabecera y pie, tema, tarjeta de ejercicio, medidor de dificultad |
+| `js/features/` | Una carpeta por sección: `home`, `tree`, `library`, `history`, `profile`, `auth` |
+| `js/pages/` | Un punto de entrada por página, que carga lo común y su funcionalidad |
 
----
+Las funcionalidades **no se importan entre sí**: se comunican con eventos (`SESSION_CHANGED`, `FAVORITES_CHANGED`, `AUTH_REQUIRED`). Por ejemplo, al marcar una estrella en la biblioteca, el árbol y el perfil se enteran sin conocerse.
 
-## 2. Estructura del proyecto
+### Separación por tecnología
 
-```
+Cada sección tiene su HTML, su hoja de estilos y su carpeta de JavaScript con nombres paralelos:
+
+| Sección | HTML | CSS | JS |
+|---|---|---|---|
+| Inicio | `index.html` | `css/sections/home.css` | `js/features/home/` |
+| Árbol | `arbol.html` | `css/sections/tree.css` | `js/features/tree/` |
+| Biblioteca | `biblioteca.html` | `css/sections/library.css` | `js/features/library/` |
+| Historia | `historia.html` | `css/sections/history.css` | `js/features/history/` |
+| Perfil | `perfil.html` | `css/sections/profile.css` | `js/features/profile/` |
+
+Los estilos comparten una base común: `css/base/` (colores, tipografía y estructura), `css/components/` (botones, formularios, tarjetas, diálogo) y `css/sections/` (una hoja por sección, con su versión para celular).
+
+### El árbol, en tres archivos
+
+- `layout.js`: el mapa de la ilustración. Dónde está el sol, dónde se apoyan las raíces y por dónde pasa cada camino sobre las ramas dibujadas. Si cambia la imagen, solo se edita este archivo.
+- `tree.view.js`: lo que se dibuja encima del árbol (zonas, tinta, medallones, savia y foco).
+- `index.js`: la composición de las capas, la cámara, los niveles de zoom, las animaciones y la interacción.
+
+### Backend por aplicaciones
+
+| App | Responsabilidad |
+|---|---|
+| `accounts` | Registro, ingreso, cierre de sesión y datos de la cuenta |
+| `exercises` | Ramas, caminos, ejercicios, pasos, errores, músculos y equipamiento; el comando `seed_catalog` |
+| `favorites` | Los ejercicios guardados por cada usuario |
+
+## 🗂️ Estructura del proyecto
+
+```text
 CaliCore/
-├── README.md                    ← este archivo
-├── .gitignore                   ← qué archivos Git no debe subir
-│
-├── backend/                     ← servidor y API (Python)
+├── backend/
+│   ├── config/              configuración de Django (settings, urls)
+│   ├── apps/
+│   │   ├── accounts/
+│   │   ├── exercises/
+│   │   │   ├── data/catalog.json
+│   │   │   └── management/commands/seed_catalog.py
+│   │   └── favorites/
 │   ├── manage.py
 │   ├── requirements.txt
-│   ├── .env.example
-│   ├── config/                  ← configuración global del proyecto Django
-│   │   ├── __init__.py
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   ├── wsgi.py
-│   │   └── asgi.py
-│   └── apps/                    ← la lógica, dividida en tres apps
-│       ├── __init__.py
-│       ├── accounts/            ← registro, login, logout, perfil
-│       │   ├── __init__.py
-│       │   ├── apps.py
-│       │   ├── serializers.py
-│       │   ├── views.py
-│       │   ├── urls.py
-│       │   └── tests.py
-│       ├── exercises/           ← catálogo de ejercicios y progresiones
-│       │   ├── __init__.py
-│       │   ├── apps.py
-│       │   ├── models.py
-│       │   ├── admin.py
-│       │   ├── serializers.py
-│       │   ├── views.py
-│       │   ├── urls.py
-│       │   ├── tests.py
-│       │   ├── migrations/
-│       │   │   ├── __init__.py
-│       │   │   └── 0001_initial.py
-│       │   └── management/commands/
-│       │       ├── __init__.py   (y management/__init__.py)
-│       │       └── seed_exercises.py
-│       └── workouts/            ← registro de entrenamientos del usuario
-│           ├── __init__.py
-│           ├── apps.py
-│           ├── models.py
-│           ├── admin.py
-│           ├── serializers.py
-│           ├── views.py
-│           ├── urls.py
-│           ├── tests.py
-│           └── migrations/
-│               ├── __init__.py
-│               └── 0001_initial.py
-│
-└── frontend/                    ← lo que ve el usuario (HTML, CSS, JS)
-    ├── index.html
-    ├── css/
-    │   ├── main.css             ← solo importa las demás hojas, en orden
-    │   ├── base/                tokens.css, base.css, layout.css
-    │   ├── components/          buttons.css, forms.css, panel.css, dialog.css
-    │   └── sections/            header.css, hero.css, catalog.css, progress.css, footer.css
-    ├── js/
-    │   ├── main.js              ← punto de entrada: solo llama a init de cada feature
-    │   ├── core/                config.js, api.js, session.js, dom.js, events.js
-    │   └── features/
-    │       ├── auth/            auth.api.js, auth.view.js, index.js
-    │       ├── catalog/         catalog.api.js, catalog.view.js, index.js
-    │       └── progress/        workouts.api.js, summary.view.js, workout-form.view.js,
-    │                            history.view.js, index.js
-    └── assets/img/.gitkeep
+│   └── .env.example
+├── frontend/
+│   ├── index.html, arbol.html, biblioteca.html, historia.html, perfil.html
+│   ├── css/
+│   │   ├── base/
+│   │   ├── components/
+│   │   └── sections/
+│   ├── js/
+│   │   ├── core/
+│   │   ├── services/
+│   │   ├── ui/
+│   │   ├── features/
+│   │   └── pages/
+│   ├── assets/tree/         capas de la ilustración (paisaje, árbol, niebla)
+│   ├── scripts/capturas.mjs
+│   ├── package.json
+│   └── vite.config.js
+└── docs/capturas/           capturas usadas en este README
 ```
 
----
+## 🗄️ Base de datos
 
-## 3. Qué hace cada archivo
+El catálogo se modela como un árbol: cada **rama** tiene **caminos**, y cada camino tiene **ejercicios** ordenados por paso. Un ejercicio puede **requerir** a otros (son las conexiones del árbol) y tiene una variante más fácil y otra más difícil. Los favoritos relacionan a cada usuario con los ejercicios que guardó, sin repetirse.
 
-### Raíz
+```mermaid
+erDiagram
+    Branch ||--o{ Path : tiene
+    Path ||--o{ Exercise : ordena
+    Exercise ||--o{ ExerciseStep : "se hace en"
+    Exercise ||--o{ CommonMistake : "evita"
+    Exercise }o--o{ Muscle : trabaja
+    Exercise }o--o{ Equipment : usa
+    Exercise }o--o{ Exercise : requiere
+    User ||--o{ Favorite : guarda
+    Exercise ||--o{ Favorite : "es guardado"
+```
 
-| Archivo | Para qué sirve |
-|---|---|
-| `README.md` | Documentación del proyecto. Es lo primero que ve quien abre el repositorio en GitHub. |
-| `.gitignore` | Lista de archivos que Git ignora: el entorno virtual `.venv/`, la base de datos local `db.sqlite3`, el archivo de secretos `.env`, cachés de Python, configuración del editor. |
+Las reglas importantes están en la base de datos misma: la dificultad solo puede ir del 1 al 5 y no puede haber dos ejercicios en el mismo paso de un camino.
 
-### `backend/` (archivos de la raíz del backend)
+## 🔌 API
 
-| Archivo | Para qué sirve |
-|---|---|
-| `manage.py` | Herramienta de línea de comandos de Django. Con ella ejecutas el servidor, las migraciones, las pruebas y los comandos propios (`python manage.py runserver`, `migrate`, `test`, `seed_exercises`…). |
-| `requirements.txt` | Lista de librerías Python necesarias. Se instalan con `pip install -r requirements.txt`. |
-| `.env.example` | Plantilla de las variables de entorno (clave secreta, modo debug, hosts permitidos, orígenes CORS, datos de PostgreSQL). Se copia como `.env`, que sí lleva los valores reales y nunca se sube a Git. |
-| `db.sqlite3` | *(Se crea al ejecutar `migrate`.)* La base de datos local: un solo archivo. No se sube a Git. |
+| Método | Ruta | Acceso | Qué hace |
+|---|---|---|---|
+| `GET` | `/api/tree/` | Público | El árbol completo: ramas, caminos y ejercicios con sus requisitos |
+| `GET` | `/api/exercises/` | Público | Lista de ejercicios, con filtros por rama, camino, dificultad, músculo, equipamiento y búsqueda |
+| `GET` | `/api/exercises/<slug>/` | Público | Ficha completa de un ejercicio |
+| `POST` | `/api/auth/register/` | Público | Crea una cuenta y entrega un token |
+| `POST` | `/api/auth/login/` | Público | Ingresa y entrega un token |
+| `POST` | `/api/auth/logout/` | Con sesión | Invalida el token en el servidor |
+| `GET` | `/api/auth/me/` | Con sesión | Usuario, correo y fecha de registro |
+| `GET` | `/api/favorites/` | Con sesión | Los favoritos del usuario |
+| `PUT` / `DELETE` | `/api/favorites/<slug>/` | Con sesión | Guarda o quita un favorito (repetir la acción no cambia el resultado) |
 
-### `backend/config/` (configuración global)
+## 💻 Instalación local
 
-| Archivo | Para qué sirve |
-|---|---|
-| `settings.py` | El archivo de configuración principal. Define las apps instaladas, el middleware, la base de datos, los validadores de contraseña, el idioma, la configuración de la API (autenticación por token, permisos, límites de peticiones, paginación) y CORS. Lee los secretos desde `.env`. Falla con un mensaje claro si falta `SECRET_KEY`. |
-| `urls.py` | El enrutador principal. Decide qué parte del código atiende cada URL y delega en el `urls.py` de cada app. También define `/api/health/`. |
-| `wsgi.py` | Puerta de entrada para servidores de producción (gunicorn y similares). En desarrollo no la usas. |
-| `asgi.py` | Equivalente asíncrono de WSGI. Django la genera por defecto, aún no se usa. |
-| `__init__.py` | Archivo vacío que le indica a Python que la carpeta es un paquete importable. |
+### Requisitos
 
-### `backend/apps/accounts/` (cuentas de usuario)
+- [Python 3.12](https://www.python.org/) y [Node.js](https://nodejs.org/) 20.19 o superior (lo pide Vite 8).
+- Git, o descargar el proyecto como `.zip` desde GitHub.
 
-No define modelos propios: usa el modelo de usuario que trae Django.
+### Backend (una terminal, desde la carpeta `backend`)
 
-| Archivo | Para qué sirve |
-|---|---|
-| `apps.py` | Registra la app en Django con su nombre completo (`apps.accounts`). |
-| `serializers.py` | `RegisterSerializer`: valida usuario, correo (opcional) y contraseña (aplica los validadores de settings.py) y crea el usuario con la contraseña hasheada. La contraseña es `write_only`: nunca se devuelve. |
-| `views.py` | Cuatro vistas. `RegisterView` crea la cuenta y devuelve un token. `LoginView` valida credenciales y devuelve un token. `LogoutView` borra el token. `MeView` devuelve los datos del usuario autenticado. Login y registro tienen un límite de 20 peticiones por minuto contra fuerza bruta. |
-| `urls.py` | Rutas: `register/`, `login/`, `logout/`, `me/` (montadas bajo `/api/auth/`). |
-| `tests.py` | 7 pruebas: registro, contraseña débil rechazada, contraseña guardada hasheada, login correcto e incorrecto, token viejo ignorado en login, `me` protegido, logout invalida el token. |
-
-### `backend/apps/exercises/` (catálogo)
-
-| Archivo | Para qué sirve |
-|---|---|
-| `models.py` | Modelo `Exercise`: nombre, slug, categoría (push, pull, legs, core, skills), nivel (principiante, intermedio, avanzado), descripción, músculos, y los campos `progression_group` y `progression_step` que forman las cadenas de progresión. |
-| `admin.py` | Registra `Exercise` en el panel `/admin/` para crear y editar ejercicios desde el navegador. |
-| `serializers.py` | Convierte un `Exercise` a JSON. Añade `category_display` y `level_display` con el texto legible en español. |
-| `views.py` | `ExerciseViewSet`: lista y detalle, solo lectura y públicos. La lista acepta los filtros `?category=`, `?level=` y `?search=`. |
-| `urls.py` | Crea las rutas `exercises/` y `exercises/<slug>/` con un router. |
-| `tests.py` | 6 pruebas: lista pública, filtros, búsqueda, intento de inyección SQL inofensivo, detalle por slug, un token inválido no rompe el catálogo público. |
-| `migrations/0001_initial.py` | Instrucciones generadas por Django para crear la tabla `Exercise` en la base de datos. Se aplican con `migrate`. |
-| `management/commands/seed_exercises.py` | Comando propio: `python manage.py seed_catalog` carga los 24 ejercicios iniciales. Se puede ejecutar varias veces sin duplicar nada. Aquí editas el catálogo inicial. |
-
-### `backend/apps/workouts/` (entrenamientos)
-
-| Archivo | Para qué sirve |
-|---|---|
-| `models.py` | Modelo `WorkoutLog`: usuario, ejercicio, fecha, series, repeticiones, segundos y notas. Una relación con `User` y otra con `Exercise`. |
-| `admin.py` | Registra `WorkoutLog` en `/admin/`. |
-| `serializers.py` | Valida lo que envía el cliente: fecha no futura, series de 1 a 50 y que haya repeticiones o segundos. El campo `user` no aparece: el dueño lo fija el servidor, nunca el cliente. |
-| `views.py` | `WorkoutLogViewSet`: CRUD completo más `summary/` (estadísticas). `get_queryset` filtra siempre por el usuario autenticado, y `perform_create` le asigna el dueño. |
-| `urls.py` | Rutas `workouts/`, `workouts/<id>/`, `workouts/summary/`. |
-| `tests.py` | 9 pruebas: requiere autenticación, el dueño no se puede falsificar desde el cuerpo, un usuario no ve ni borra registros ajenos, validaciones, estadísticas. |
-| `migrations/0001_initial.py` | Crea la tabla `WorkoutLog`. |
-
-### `frontend/`
-
-| Archivo | Para qué sirve |
-|---|---|
-| `index.html` | La página completa: cabecera, hero, catálogo con filtros, panel "Mi progreso", diálogo de login y registro (`<dialog>`) y pie. Es HTML semántico: `header`, `nav`, `main`, `section`, `form`, `dialog`, `footer`. |
-| `css/main.css` | Punto de entrada de los estilos. No tiene reglas: importa las demás hojas en orden (lo que viene después puede sobrescribir a lo anterior). |
-| `css/base/tokens.css` | Variables CSS: colores, tipografías y ancho del contenido. Cambiar la paleta es editar solo este archivo. |
-| `css/base/base.css` | Reset, tipografía general, foco visible para teclado y el enlace "Saltar al contenido". |
-| `css/base/layout.css` | Estructura común de las secciones (ancho máximo, márgenes) y los textos de estado. |
-| `css/components/*.css` | Piezas reutilizadas en varias secciones: botones, campos de formulario, paneles y el diálogo. |
-| `css/sections/*.css` | Una hoja por sección de la página (cabecera, héroe, catálogo, progreso, pie), cada una con su propio responsive. |
-| `js/main.js` | El punto de entrada. Solo llama a `initAuth()`, `initProgress()` e `initCatalog()`. |
-| `js/core/config.js` | La URL del backend (`API_URL`) y los nombres de las claves de `localStorage`. Es lo único que cambias al desplegar. |
-| `js/core/session.js` | Guarda, lee y borra el token y el nombre de usuario (`isLoggedIn()`, `setSession()`, `clearSession()`). Emite `EVENTS.SESSION_CHANGED` cuando la sesión cambia. |
-| `js/core/api.js` | La función `request()`, por la que pasan todas las llamadas al backend: pone la URL base, el token y el JSON, y convierte los errores de la API en mensajes legibles (`errorMessage()`). Si recibe un 401 con un token guardado, cierra la sesión local. |
-| `js/core/dom.js` | La función `el()` para crear elementos usando `textContent` (defensa contra XSS: nunca `innerHTML` con datos del servidor) y el atajo `$()`. |
-| `js/core/events.js` | El bus de eventos: los nombres (`EVENTS`) y las funciones `emit()` y `on()`. Es la única forma en que las features se comunican entre sí. |
-| `js/features/*/` | Una carpeta por parte de la página. Cada una tiene la misma forma: `*.api.js` (peticiones, sin DOM), `*.view.js` (datos → nodos del DOM, sin peticiones ni listeners) e `index.js` (une ambas capas, escucha eventos y exporta `init<Feature>()`). |
-| `js/features/auth/` | Cabecera de sesión y diálogo de ingreso y registro. |
-| `js/features/catalog/` | Catálogo, filtros y escaleras de progresión. Al cargar emite `EVENTS.CATALOG_LOADED`. |
-| `js/features/progress/` | "Mi progreso": resumen, formulario de nuevo registro e historial. Escucha `CATALOG_LOADED` para rellenar el selector de ejercicios. |
-| `assets/img/.gitkeep` | Archivo vacío. Git no guarda carpetas vacías; este archivo hace que `assets/img/` exista en el repositorio. |
-
----
-
-## 4. Puesta en marcha (Windows, terminal `cmd` de VS Code)
-
-### Backend
-
-```bat
-cd backend
+```bash
 py -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 copy .env.example .env
 python manage.py migrate
 python manage.py seed_catalog
-python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Qué hace cada paso:
+La API queda en `http://127.0.0.1:8000/api/`. El servidor no arranca sin el archivo `.env`, a propósito: la clave secreta es obligatoria.
 
-1. `py -m venv .venv` crea un **entorno virtual**: una carpeta aislada donde se instalan las librerías de este proyecto sin mezclarlas con otros.
-2. `.venv\Scripts\activate` lo activa. Verás `(.venv)` al inicio de la línea. Hay que activarlo cada vez que abras una terminal nueva.
-3. `pip install -r requirements.txt` instala las dependencias.
-4. `copy .env.example .env` crea tu archivo de configuración. **Sin este paso el servidor no arranca** (`SECRET_KEY` es obligatoria).
-5. `migrate` crea las tablas en `db.sqlite3`.
-6. `seed_exercises` carga el catálogo de 24 ejercicios.
-7. `createsuperuser` crea tu usuario administrador para entrar a `/admin/`. Es opcional.
-8. `runserver` levanta la API en `http://127.0.0.1:8000`.
+### Frontend (otra terminal, desde la carpeta `frontend`)
 
-Comprueba que funciona abriendo `http://127.0.0.1:8000/api/health/` (debe mostrar `{"status": "ok"}`) y `http://127.0.0.1:8000/api/exercises/`.
-
-### Frontend
-
-El frontend usa **Vite** como servidor de desarrollo. La primera vez instala sus dependencias; después basta con `npm run dev`:
-
-```bat
-cd frontend
+```bash
 npm install
 npm run dev
 ```
 
-Abre `http://127.0.0.1:5500`. Al guardar un archivo, el navegador se actualiza solo. Para generar la versión optimizada de publicación: `npm run build` (crea la carpeta `dist/`).
+El sitio queda en `http://127.0.0.1:5500`. Las páginas deben abrirse con este servidor y no con doble clic, porque los módulos de JavaScript no cargan desde un archivo local.
 
-No abras `index.html` con doble clic: los módulos de JavaScript (`import`/`export`) no funcionan desde `file://`, solo por HTTP.
+## 🧪 Pruebas
 
-### Pruebas automáticas
-
-```bat
+```bash
 python manage.py test
 ```
 
-Ejecuta las 22 pruebas del backend sobre una base de datos temporal. Tardan unos 20 segundos porque el hasheo de contraseñas de Django es lento a propósito (es una medida de seguridad).
+Las 35 pruebas del backend cubren el registro y el ingreso, el catálogo y sus filtros, el árbol (incluido el número de consultas a la base de datos) y los favoritos, verificando que nadie pueda ver ni modificar los de otra persona.
 
-### Panel de administración
+Para el frontend, `npm run capturas -- despues` toma capturas de todas las páginas en escritorio y celular, en tema claro y oscuro, con Playwright.
 
-`http://127.0.0.1:8000/admin/`, con el superusuario que creaste. Desde ahí puedes crear, editar y borrar ejercicios y ver los registros de los usuarios.
+## 🔐 Seguridad
 
----
+- **Seguro por defecto:** toda la API exige sesión, salvo lo que se declara público a propósito (el catálogo, el registro y el ingreso).
+- **Aislamiento por usuario:** los favoritos siempre se consultan filtrados por el usuario del token, así que nadie puede leer ni cambiar los de otra persona aunque modifique la dirección.
+- **Contraseñas validadas y cifradas** con los validadores y el algoritmo de Django.
+- **Límites de peticiones:** 300 por hora sin sesión, 3.000 con sesión y 20 por minuto en el ingreso y el registro, para frenar los ataques de fuerza bruta.
+- **Sin inyección de código en la página:** el texto que viene del servidor se inserta siempre como texto plano (`textContent`), nunca como HTML.
+- **Secretos fuera del repositorio:** la configuración sensible va en `.env`, ignorado por Git. `DEBUG` está apagado por defecto y se rechaza la clave de ejemplo en producción.
+- **CORS con lista de orígenes:** la API solo acepta peticiones del frontend autorizado.
 
-## 5. La API
+## 📚 Aprendizajes
 
-Base: `http://127.0.0.1:8000/api`
+- Diseñar una **API REST** con Django REST Framework, separando lo público de lo privado y optimizando las consultas.
+- Modelar un **catálogo como un árbol** relacional, con requisitos entre ejercicios y reglas en la propia base de datos.
+- Construir un **frontend modular sin framework**, con capas claras y funcionalidades que se comunican por eventos.
+- Crear una **experiencia inmersiva** con capas, cámara, parallax y animación, cuidando el rendimiento y la accesibilidad.
+- Mantener un **sistema visual coherente** en todo el sitio, en tema claro y oscuro.
+- Aplicar **buenas prácticas de seguridad** desde el diseño: permisos, aislamiento por usuario, límites de peticiones y manejo de secretos.
 
-| Método | Ruta | ¿Requiere sesión? | Qué hace |
-|---|---|---|---|
-| GET | `/health/` | No | Comprueba que el servidor está vivo. |
-| POST | `/auth/register/` | No | Crea la cuenta. Cuerpo: `{username, password, email?}`. Devuelve `{token, username}`. |
-| POST | `/auth/login/` | No | Cuerpo: `{username, password}`. Devuelve `{token, username}`. |
-| POST | `/auth/logout/` | Sí | Borra el token actual. |
-| GET | `/auth/me/` | Sí | Devuelve `{username, email}`. |
-| GET | `/exercises/` | No | Lista de ejercicios. Filtros: `?category=push`, `?level=advanced`, `?search=dominada`. Devuelve una lista simple, sin paginar. |
-| GET | `/exercises/<slug>/` | No | Detalle de un ejercicio. |
-| GET | `/workouts/` | Sí | Tus registros, paginados: `{count, next, previous, results}`. |
-| POST | `/workouts/` | Sí | Crea un registro: `{exercise, sets, reps?, seconds?, performed_on?, notes?}`. |
-| GET / PUT / PATCH / DELETE | `/workouts/<id>/` | Sí | Ver, editar o borrar un registro **propio**. Si es de otro usuario responde 404. |
-| GET | `/workouts/summary/` | Sí | Totales y actividad de los últimos 7 días. |
+## 🔭 Mejoras futuras
 
-Cabecera de autenticación: `Authorization: Token <tu_token>`.
+- [ ] **Despliegue público** con PostgreSQL y HTTPS.
+- [ ] **Marcar ejercicios logrados** y ver el avance en el árbol.
+- [ ] **Rutinas por nivel** y metas (fuerza, hipertrofia, flexibilidad).
+- [ ] Tokens con vencimiento o cookies `HttpOnly`, y **recuperación de contraseña**.
+- [ ] Documento de seguridad mapeado al **OWASP Top 10** y pruebas automáticas en **GitHub Actions**.
+- [ ] Versión del frontend en **React**, consumiendo la misma API.
 
-Prueba rápida desde la terminal:
+## 👤 Autor
 
-```bat
-curl http://127.0.0.1:8000/api/exercises/?category=skills
-```
+**Roberto Sebastián Sepúlveda Quintana**: Analista Programador
 
-### Códigos de respuesta que verás
+[![GitHub](https://img.shields.io/badge/GitHub-Z4LT1-181717?style=flat&logo=github)](https://github.com/Z4LT1)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-robertosepulvedaq-0A66C2?style=flat&logo=linkedin)](https://www.linkedin.com/in/robertosepulvedaq)
 
-| Código | Significado |
-|---|---|
-| 200 / 201 / 204 | Correcto / creado / correcto sin contenido (tras borrar). |
-| 400 | Datos inválidos. El cuerpo explica qué campo falló. |
-| 401 | Falta el token o no es válido. |
-| 404 | No existe, o no es tuyo. |
-| 429 | Demasiadas peticiones (límite de frecuencia). |
+## 📄 Créditos y licencia
 
----
-
-## 6. Modelo de datos
-
-```
-┌─────────────┐        ┌───────────────────────┐        ┌──────────────────────────┐
-│ User        │ 1    * │ WorkoutLog            │ *    1 │ Exercise                 │
-│ (de Django) │────────│ performed_on          │────────│ name, slug               │
-│ username    │        │ sets                  │        │ category, level          │
-│ password    │        │ reps    ┐ al menos    │        │ description, muscles     │
-│ email       │        │ seconds ┘ uno         │        │ progression_group        │
-└─────────────┘        │ notes                 │        │ progression_step         │
-                       └───────────────────────┘        └──────────────────────────┘
-```
-
-Una **progresión** no es una tabla aparte: es el conjunto de ejercicios que comparten el mismo `progression_group` (por ejemplo "Planche"), ordenados por `progression_step`. Es una solución simple para empezar; en una versión posterior puede pasar a ser su propio modelo.
-
----
-
-## 7. Seguridad
-
-### Qué ya está implementado
-
-| Medida | Dónde |
-|---|---|
-| Contraseñas hasheadas (PBKDF2) y validadas contra claves débiles o comunes | `settings.py`, `accounts/serializers.py` |
-| Autenticación por token y **seguro por defecto**: toda vista exige sesión salvo las públicas, declaradas explícitamente | `settings.py` |
-| **Control de acceso por objeto**: cada usuario solo ve y modifica sus propios registros (previene IDOR) | `workouts/views.py` |
-| **Mass assignment evitado**: el dueño del registro lo fija el servidor, no el cliente | `workouts/serializers.py`, `views.py` |
-| Validación en el servidor de todo dato (rangos, fechas, campos cruzados). La validación del navegador es solo comodidad | `workouts/serializers.py` |
-| Consultas parametrizadas por el ORM: no hay inyección SQL | `exercises/views.py` (con prueba incluida) |
-| Límite de peticiones, con uno estricto para login y registro (fuerza bruta) | `settings.py`, `accounts/views.py` |
-| CORS con lista de orígenes permitidos, no abierto a todos | `settings.py` |
-| Secretos fuera del código (`.env`), `DEBUG` apagado por defecto, y rechazo de la clave de ejemplo en producción | `settings.py` |
-| Defensa contra XSS: todo dato del servidor se pinta con `textContent`, nunca con `innerHTML` | `frontend/js/dom.js` |
-| Logout que invalida el token en el servidor | `accounts/views.py` |
-
-### Limitaciones conocidas (a mejorar)
-
-- El token se guarda en `localStorage`, legible por cualquier script de la página. Si hubiera un XSS, podría robarse. La alternativa más robusta son cookies `HttpOnly`.
-- Los tokens de DRF **no caducan**. Una mejora es JWT con vencimiento y renovación.
-- Registrarse con un usuario existente revela que ese usuario existe (enumeración de usuarios).
-- No hay verificación de correo ni recuperación de contraseña.
-- En desarrollo se usa HTTP, sin cifrar. En producción debe ser HTTPS, con `SECURE_SSL_REDIRECT`, cookies seguras y HSTS. Se revisa con `python manage.py check --deploy`.
-- Falta una Content Security Policy en el frontend.
-- `/admin/` está en la ruta por defecto. En producción conviene cambiarla y protegerla.
-
-Estas limitaciones son el material para el futuro `SECURITY.md`, donde se mapeará el proyecto contra el **OWASP Top 10**.
-
----
-
-## 8. Decisiones de diseño (el "por qué")
-
-- **Django + DRF.** Python y Django ya están en el CV. Django trae autenticación, ORM, panel de administración y defensas contra las vulnerabilidades web más comunes de fábrica. DRF convierte modelos en una API REST con poco código.
-- **Frontend y backend separados.** Obliga a entender cómo se comunican (HTTP, JSON, autenticación, CORS) y permite cambiar el frontend por React sin tocar el backend.
-- **JavaScript sin librerías primero.** Antes de React hay que dominar el DOM, los eventos y `fetch`. En la fase 3, React reemplaza esa capa y la comparación es directa.
-- **Autenticación por token (DRF).** Es lo más simple de entender para una primera versión. Tiene limitaciones (ver sección 7) que se documentan en vez de ocultarse.
-- **SQLite ahora, PostgreSQL después.** SQLite no necesita instalar nada. Cambiar a PostgreSQL es solo definir variables en `.env`, porque el ORM abstrae la base de datos.
-- **Tres apps en vez de una.** Cada app (`accounts`, `exercises`, `workouts`) tiene una responsabilidad y puede probarse por separado.
-- **Pruebas desde el inicio.** Las 22 pruebas verifican sobre todo los permisos y las validaciones, que es donde se cometen los errores de seguridad.
-
----
-
-## 9. Subirlo a Git
-
-Las carpetas `.venv/`, el archivo `.env` y `db.sqlite3` **no deben subirse**: ya están en el `.gitignore`.
-
-Flujo recomendado, el que vimos para un repositorio nuevo:
-
-1. Crea el repositorio vacío `calicore` en GitHub.
-2. `git clone https://github.com/Z4LT1/calicore.git`
-3. Copia dentro el contenido de esta carpeta `CaliCore/`.
-4. `git status`: comprueba que **no** aparezcan `.env`, `.venv` ni `db.sqlite3`.
-5. `git add .`, `git commit -m "Base de CaliCore: frontend estático y backend Django"`, `git push`.
-
-Sí se suben las carpetas `migrations/`: son parte del código.
-
----
-
-## 10. Hoja de ruta
-
-**Fase 3: React + Vite.** Crear `frontend-react/` con componentes (`ExerciseChain`, `WorkoutForm`, `AuthDialog`), estado con hooks y las mismas llamadas a la API. La versión estática puede quedar como referencia.
-
-**Fase 4: PostgreSQL y despliegue.** Definir `DB_NAME` y compañía en `.env`, instalar `psycopg`, desplegar el backend (Render, Railway u otro) y el frontend (Netlify, Vercel o GitHub Pages), actualizar `CORS_ALLOWED_ORIGINS` y `API_URL`, poner `DEBUG=False` y ejecutar `check --deploy`.
-
-**Fase 5: seguridad y calidad.** Escribir `SECURITY.md` mapeado al OWASP Top 10, automatizar `manage.py test` con GitHub Actions, agregar capturas al README.
-
-**Ideas de funcionalidad**
-
-- Metas por ejercicio: fuerza, hipertrofia, cardio, flexibilidad (la idea original del menú).
-- Marcar un peldaño de una progresión como "conseguido" y mostrar cuál es el siguiente.
-- Récords personales y gráficos de progreso.
-- Rutinas armadas con varios ejercicios.
-- Editar registros desde la interfaz (el endpoint `PATCH` ya existe).
-
----
-
-## 11. Cómo contar este proyecto en una entrevista
-
-- **Qué es:** una aplicación fullstack con una API REST en Django, autenticación por token, base de datos relacional y un frontend que la consume.
-- **Una decisión técnica concreta:** el filtrado por usuario en `get_queryset`, que previene que un usuario lea registros ajenos adivinando ids.
-- **Una limitación que conozco:** el token en `localStorage` y su plan de mejora. Reconocer una limitación y saber arreglarla pesa más que fingir que no existe.
-- **Cómo lo probé:** 22 pruebas automáticas, con foco en permisos y validaciones.
-- **Qué haría distinto con más tiempo:** JWT con vencimiento o cookies `HttpOnly`, PostgreSQL y despliegue con HTTPS.
-
----
-
-## 12. Glosario
-
-| Término | Significado |
-|---|---|
-| **API REST** | Un servidor que expone datos por URLs y métodos HTTP (GET para leer, POST para crear, PATCH para editar, DELETE para borrar) y responde en JSON. |
-| **CRUD** | Create, Read, Update, Delete: las cuatro operaciones básicas sobre los datos. |
-| **ORM** | Traduce código Python a consultas SQL. Permite escribir `Exercise.objects.filter(level="beginner")` en vez de SQL a mano. |
-| **Modelo** | Una clase Python que representa una tabla de la base de datos. |
-| **Migración** | Un archivo que describe un cambio en la estructura de la base de datos. |
-| **Serializer** | Convierte objetos a JSON (y viceversa) y valida los datos entrantes. |
-| **ViewSet** | Una clase que agrupa las vistas de un mismo recurso (lista, detalle, crear, editar, borrar). |
-| **Token** | Cadena aleatoria que identifica una sesión. Se envía en cada petición en vez de la contraseña. |
-| **CORS** | Regla del navegador que impide que una página lea respuestas de otro origen (dominio o puerto), salvo que ese servidor lo autorice. |
-| **IDOR** | Vulnerabilidad en la que se accede a datos ajenos cambiando un id en la URL. |
-| **XSS** | Vulnerabilidad en la que un atacante logra que su código JavaScript se ejecute en la página de otra persona. |
-| **Planche** vs **plancha** | *Planche* es la habilidad de calistenia (cuerpo horizontal sostenido solo por las manos). *Plancha abdominal* es el ejercicio isométrico de core, apoyado en antebrazos. |
-
----
-
-## 13. Problemas frecuentes
-
-| Síntoma | Causa y solución |
-|---|---|
-| `ImproperlyConfigured: Falta la variable SECRET_KEY` | No creaste el `.env`. Ejecuta `copy .env.example .env` dentro de `backend/`. |
-| `No module named 'django'` | El entorno virtual no está activo. Ejecuta `.venv\Scripts\activate` y comprueba que veas `(.venv)`. |
-| En la página: "No se pudo conectar con el servidor" | El backend no está corriendo, o `API_URL` en `config.js` no coincide con su dirección. |
-| En la consola del navegador: error de CORS | El frontend corre en un origen que no está en `CORS_ALLOWED_ORIGINS` (`.env`). Añade el origen exacto (puerto incluido) y reinicia Django. |
-| La página queda en blanco o `import` falla | Abriste `index.html` con doble clic. Usa `npm run dev`. |
-| `Error: That port is already in use` | Hay otro servidor en el puerto 8000. Usa `python manage.py runserver 8001` y actualiza `API_URL`. |
-| Tras cambiar un modelo, error de tabla o columna inexistente | Faltan migraciones: `python manage.py makemigrations` y luego `python manage.py migrate`. |
-| Las pruebas tardan | Es normal: el hasheo de contraseñas es lento a propósito. |
+- **Inspiración:** el enfoque de [Yellow Dude](https://yellowdude.co), que organiza la calistenia en pilares con niveles. CaliCore no copia su nombre, sus ilustraciones ni sus textos; si te interesa el tema, apoya su trabajo original.
+- **Contenido:** los textos y las fichas de los ejercicios son originales de CaliCore. La información es general y no reemplaza la indicación de un profesional de la salud.
+- **Ilustraciones del árbol y del paisaje:** [completar origen y licencia].
+- Este repositorio se publica con fines de portafolio y no tiene licencia de uso comercial.

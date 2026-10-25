@@ -29,12 +29,15 @@ desktop.ini
 # ---------- Imágenes provisorias sin licencia (solo pruebas locales) ----------
 frontend/assets/tree/*-prueba.*
 
-# ---------- Capturas de Playwright (pesadas; al README van solo algunas, comprimidas) ----------
-docs/capturas/
+# ---------- Capturas de Playwright (pesadas; al README van solo las comprimidas de docs/capturas/) ----------
+docs/capturas/antes/
+docs/capturas/despues/
 
-# ---------- Configuración local de Claude (rutas de este PC y skills instaladas, ~22 MB) ----------
-.claude/
 
 # ---------- Versiones viejas del árbol que ya no se usan (solo locales) ----------
 frontend/assets/tree/arbol-calistenia-sin-nodos*.webp
 frontend/assets/tree/arbol-completo-1500.jpg
+
+# ---------- Notas y configuración locales de trabajo (no forman parte del proyecto) ----------
+CLAUDE.md
+.claude/
