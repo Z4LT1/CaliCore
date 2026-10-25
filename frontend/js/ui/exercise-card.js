@@ -38,14 +38,14 @@ export function exerciseCard(exercise, { onOpen, favorite } = {}) {
     el("div", { className: "card-top" },
       el("span", { className: "tag", text: exercise.branch, attrs: { "data-branch": branchSlug(exercise.branch) } }),
       difficultyMeter(exercise.difficulty)),
-    el("span", { className: "card-step", text: String(exercise.step), attrs: { "aria-hidden": "true" } }),
     el("h3", { text: exercise.name }),
-    el("p", { className: "card-path", text: `${exercise.path} · paso ${exercise.step} · en ${exercise.measure_display.toLowerCase()}` }),
+    el("p", { className: "card-path", text: `${exercise.path} · paso ${exercise.step}` }),
+    el("p", { className: "card-muscles", text: exercise.muscles.slice(0, 3).join(" · ") }),
   );
 
   const back = el("div", { className: "card-face card-back" },
     el("p", { className: "card-summary", text: exercise.summary }),
-    el("p", { className: "card-meta", text: exercise.muscles.slice(0, 3).join(" · ") }),
+    el("p", { className: "card-meta", text: `Se mide en ${exercise.measure_display.toLowerCase()}` }),
     el("a", { className: "card-link", text: "Ver la ficha completa", attrs: { href: `biblioteca.html#${exercise.slug}` } }),
   );
 
