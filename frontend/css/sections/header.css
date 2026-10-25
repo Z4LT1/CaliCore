@@ -10,9 +10,11 @@
   gap: 0.75rem 2rem;
   padding: 0.8rem clamp(1rem, 4vw, 2.5rem);
   /* Semitransparente con desenfoque: el contenido se intuye al pasar por debajo */
-  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
   backdrop-filter: blur(10px);
+  /* Doble filete inferior, como el borde de una lámina */
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 2px 0 -1px var(--surface), 0 3px 0 -1px var(--line);
 }
 
 .brand {
@@ -29,7 +31,8 @@
 .site-header nav ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
 .site-header nav a { color: var(--text-soft); text-decoration: none; font-weight: 500; padding: 0.25rem 0; }
 .site-header nav a:hover { color: var(--text); }
-.site-header nav a[aria-current="page"] { color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
+.site-header nav a { transition: color .2s; }
+.site-header nav a[aria-current="page"] { color: var(--text); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); }
 
 .session { display: flex; align-items: center; gap: 0.6rem; }
 /* Un nombre muy largo se corta con "…" para no desarmar la cabecera */

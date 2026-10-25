@@ -9,7 +9,8 @@ dialog {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
-dialog::backdrop { background: rgba(15, 22, 18, 0.6); backdrop-filter: blur(3px); }
+dialog { outline: 1px solid color-mix(in srgb, var(--line) 80%, transparent); outline-offset: -7px; }
+dialog::backdrop { background: rgba(20, 15, 9, 0.55); backdrop-filter: blur(3px); }
 .dialog-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .dialog-head h2 { margin: 0; font-size: 1.8rem; }
 dialog form label { margin-bottom: 0.9rem; }

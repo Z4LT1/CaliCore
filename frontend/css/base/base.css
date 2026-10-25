@@ -2,7 +2,13 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-padding-top: 5rem; } /* al saltar a un #ancla, deja espacio para la cabecera fija */
+html {
+  scroll-padding-top: 5rem; /* al saltar a un #ancla, deja espacio para la cabecera fija */
+  /* Barras de desplazamiento con los colores del sitio (Firefox y Chrome modernos) */
+  scrollbar-color: var(--line-strong) var(--bg);
+  accent-color: var(--accent); /* casillas, radios y controles nativos en verde voluntad */
+  -webkit-text-size-adjust: 100%;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
@@ -15,9 +21,31 @@ body {
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
+  caret-color: var(--accent);
+  /* El pie queda siempre al fondo, aunque la página sea corta (por ejemplo, el perfil sin sesión) */
+  display: flex; flex-direction: column; min-height: 100dvh;
+  font-feature-settings: "ss01", "cv11"; /* variantes de Inter más legibles (1 con base, a de un piso) */
+  -webkit-font-smoothing: antialiased;
   /* Transición suave al cambiar de tema */
   transition: background-color .3s, color .3s;
 }
+
+/* Grano de papel: un ruido muy tenue sobre toda la página, para que se sienta impreso.
+   Es un SVG generado (feTurbulence), sin imagen externa; no recibe clics. */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: .05; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .14 0 0 0 0 .08 0 0 0 1.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+:root[data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .035; }
+/* En el árbol no: la ilustración ya tiene textura, y una capa con mezcla encima de una escena
+   animada obligaría al navegador a repintar toda la pantalla en cada cuadro */
+body[data-page="arbol"]::before { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body::before { mix-blend-mode: screen; opacity: .035; } }
+
+/* La parte que el navegador dibuja por su cuenta también lleva la paleta */
+::selection { background: color-mix(in srgb, var(--accent) 24%, transparent); color: var(--text); }
+
+body > main { flex: 1 0 auto; }
 
 /* Titulares con serifa (Fraunces): le dan un aire editorial, de revista de naturaleza */
 h1, h2, h3, h4 {
@@ -27,20 +55,21 @@ h1, h2, h3, h4 {
   line-height: 1.1;
   margin: 0 0 0.5em;
   font-variation-settings: "SOFT" 50; /* eje "suavidad" de Fraunces: curvas más amables */
+  text-wrap: balance; /* reparte las palabras entre líneas para que no quede una sola al final */
 }
 
-p { margin: 0 0 1em; max-width: 64ch; }
+p { margin: 0 0 1em; max-width: 68ch; text-wrap: pretty; }
 
-a { color: var(--accent); }
+a { color: var(--accent); text-underline-offset: .2em; text-decoration-thickness: 1px; }
 
 /* El atributo hidden debe ganar siempre, incluso si una clase define display. */
 [hidden] { display: none !important; }
 
 /* Foco visible para quien navega con teclado */
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .skip-link {

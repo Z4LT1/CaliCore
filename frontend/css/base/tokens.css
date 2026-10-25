@@ -2,8 +2,8 @@
    Tokens de diseño: colores, tipografías y medidas.
    Cambiar la paleta = editar solo este archivo. Todo el CSS usa var(--nombre).
 
-   Paleta natural: un verde bosque ("voluntad") como color de acción, tonos tierra
-   como acento y fondos con un leve tinte cálido, en vez de blanco y negro puros.
+   Paleta de lámina grabada: papel cálido y tinta, con un verde bosque ("voluntad") como
+   color de acción y la arcilla para las cimas. La misma familia de la ilustración del árbol.
 
    Tema claro u oscuro:
    1. Por defecto se sigue el del sistema operativo (prefers-color-scheme).
@@ -16,64 +16,72 @@
   --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
   --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --content-width: 72rem;
-  --radius: 14px;
-  --radius-lg: 22px;
+  /* Esquinas casi rectas: el sitio es una lámina impresa, no una aplicación */
+  --radius: 6px;
+  --radius-lg: 10px;
+  --ease-out: cubic-bezier(.16, 1, .3, 1); /* salida exponencial: rápido al inicio, suave al final */
+  /* Tintas de cada rama: las mismas del árbol (js/features/tree/layout.js) */
+  --br-tronco: #7A5A3A; --br-empuje: #A5563B; --br-traccion: #4A6A80;
+  --br-pierna: #6E5470; --br-core: #5C7A46; --br-habilidades: #8A3F55;
 }
 
-/* Tema claro (valores por defecto) */
+/* Tema claro (valores por defecto): papel cálido y tinta, como la ilustración del árbol */
 :root {
   color-scheme: light;
-  --bg: #F3F0E6;            /* lino: fondo de la página */
-  --surface: #FFFDF7;       /* superficies elevadas: tarjetas, diálogo, cabecera */
-  --surface-alt: #ECE8DB;   /* secciones alternas */
-  --text: #1B2A22;          /* bosque: texto principal */
-  --text-soft: #56655C;     /* texto secundario */
-  --line: #DCD6C6;          /* bordes y divisores */
-  --accent: #2F6B4F;        /* verde voluntad: acción principal */
-  --accent-strong: #245A40; /* al pasar el mouse */
-  --on-accent: #F7F5EE;     /* texto sobre el verde */
-  --sprout: #E3ECDD;        /* brote: fondos suaves de etiquetas */
-  --sprout-text: #2F6B4F;
-  --clay: #B0674A;          /* arcilla: cimas, favoritos */
-  --danger: #A8402C;
-  --shadow: 0 1px 2px rgba(27, 42, 34, .06), 0 10px 30px rgba(27, 42, 34, .08);
+  --bg: #F3EDE1;            /* papel: fondo de la página */
+  --surface: #FBF8F1;       /* papel claro: tarjetas, diálogo, cabecera */
+  --surface-alt: #EBE3D3;   /* papel envejecido: secciones alternas */
+  --text: #1E2620;          /* tinta verde muy oscura: texto principal */
+  --text-soft: #5D5B50;     /* tinta gastada: texto secundario */
+  --line: #DACFBB;          /* filetes y divisores */
+  --line-strong: #B9AB91;   /* filetes que deben verse (bordes de controles) */
+  --accent: #2C6449;        /* verde voluntad: acción principal */
+  --accent-strong: #214F39; /* al pasar el mouse */
+  --on-accent: #F7F3EA;     /* texto sobre el verde */
+  --sprout: #E1E5D2;        /* brote: fondos suaves de etiquetas */
+  --sprout-text: #2C6449;
+  --clay: #A85D3F;          /* arcilla: cimas, favoritos */
+  --danger: #A23E2A;
+  --shadow: 0 1px 2px rgba(43, 29, 18, .06), 0 14px 30px -14px rgba(43, 29, 18, .22);
 }
 
-/* Tema oscuro: valores para el sistema en modo oscuro... */
+/* Tema oscuro: tinta nocturna, cálida (no negro azulado), para conversar con el sepia */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0F1612;
-    --surface: #18221C;
-    --surface-alt: #131C17;
-    --text: #E6ECE4;
-    --text-soft: #9BA99E;
-    --line: #2B3A31;
-    --accent: #6DBB8C;
-    --accent-strong: #86CDA1;
-    --on-accent: #0F1612;
-    --sprout: #22362A;
-    --sprout-text: #A7DDB9;
-    --clay: #D48B6B;
-    --danger: #E07A63;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35);
+    --bg: #14130F;
+    --surface: #1D1B16;
+    --surface-alt: #181712;
+    --text: #ECE5D4;
+    --text-soft: #A8A08D;
+    --line: #322E26;
+    --line-strong: #4C463A;
+    --accent: #7FBE92;
+    --accent-strong: #98D0A8;
+    --on-accent: #12140F;
+    --sprout: #233024;
+    --sprout-text: #A9D9B5;
+    --clay: #D69072;
+    --danger: #E2806A;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 14px 30px -14px rgba(0, 0, 0, .6);
   }
 }
 /* ...y los mismos valores cuando la persona elige el tema oscuro con el botón */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0F1612;
-  --surface: #18221C;
-  --surface-alt: #131C17;
-  --text: #E6ECE4;
-  --text-soft: #9BA99E;
-  --line: #2B3A31;
-  --accent: #6DBB8C;
-  --accent-strong: #86CDA1;
-  --on-accent: #0F1612;
-  --sprout: #22362A;
-  --sprout-text: #A7DDB9;
-  --clay: #D48B6B;
-  --danger: #E07A63;
-  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .35);
+  --bg: #14130F;
+  --surface: #1D1B16;
+  --surface-alt: #181712;
+  --text: #ECE5D4;
+  --text-soft: #A8A08D;
+  --line: #322E26;
+  --line-strong: #4C463A;
+  --accent: #7FBE92;
+  --accent-strong: #98D0A8;
+  --on-accent: #12140F;
+  --sprout: #233024;
+  --sprout-text: #A9D9B5;
+  --clay: #D69072;
+  --danger: #E2806A;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 14px 30px -14px rgba(0, 0, 0, .6);
 }

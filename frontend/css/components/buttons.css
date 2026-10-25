@@ -6,23 +6,25 @@
   gap: .5rem;
   font: inherit;
   font-weight: 600;
-  padding: 0.65rem 1.3rem;
-  border: 1.5px solid var(--line);
-  border-radius: 999px;
+  padding: 0.68rem 1.25rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
   background: var(--surface);
   color: var(--text);
   cursor: pointer;
   text-decoration: none;
-  transition: background-color .2s, border-color .2s, transform .15s;
+  line-height: 1.2;
+  transition: background-color .2s, border-color .2s, color .2s, transform .15s;
 }
-.btn:hover { border-color: var(--text-soft); }
-.btn:active { transform: scale(.98); }
+.btn:hover { border-color: var(--text); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
 
-.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); box-shadow: 0 1px 0 rgba(255, 255, 255, .12) inset, 0 6px 14px -8px color-mix(in srgb, var(--accent) 70%, transparent); }
 .btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
 
 .btn-ghost { background: transparent; border-color: transparent; }
-.btn-ghost:hover { background: var(--sprout); border-color: transparent; }
+.btn-ghost:hover { background: color-mix(in srgb, var(--text) 7%, transparent); border-color: transparent; }
 
 /* Botón redondo solo con ícono (por ejemplo, el cambio de tema) */
 .btn-icon { padding: 0; width: 2.5rem; height: 2.5rem; justify-content: center; }
